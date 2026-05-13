@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data.
+LBC-004C - Implement Availability API Read Endpoint.
 
 Current state:
 - Repository has been initialized.
@@ -15,16 +15,18 @@ Current state:
 - LBC-003B is Remote DONE at commit `c31ed8c`.
 - LBC-003C is Remote DONE at commit `e5285f4`.
 - LBC-004A is Remote DONE at commit `967a321`.
+- LBC-004B is Remote DONE at commit `7025936`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-004B is ready for Trigger review after local/dev migration and seed.
+- LBC-004C is ready for Trigger review after endpoint implementation and validation.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
 - Fastify TypeScript shell exists under `apps/api`.
 - Required validation commands have passed.
-- Prisma tooling, Prisma 7 config, migration, and seed changes are prepared locally for review.
-- No commit has been made for LBC-004B.
-- No push has been made for LBC-004B.
+- Prisma tooling, Prisma 7 config, migration, and seed baseline are versioned.
+- The read-only availability endpoint is implemented locally for review.
+- No commit has been made for LBC-004C.
+- No push has been made for LBC-004C.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -62,12 +64,12 @@ LBC-002A draft decisions:
 - Future PostgreSQL target: 18.x.
 
 Next protocol step:
-- Present final git status and diff evidence for LBC-004B.
+- Present final git status and diff evidence for LBC-004C.
 - Await Trigger decision for Local DONE and commit authorization.
 - Do not push.
 - Do not declare Local DONE without Trigger authorization.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-004B may add Prisma tooling dependencies, Prisma 7 config, minimal schema compatibility changes, `.env.example`, local migration, local seed, and operational documentation.
-- Endpoint implementation, routes, controllers, services, repositories, runtime availability logic, Angular product screens, auth, booking creation, production seed, production database, remote database, Docker, CI, deploy, `packages/shared`, `prisma db push`, commit without authorization, push, and opening LBC-004C as READY are blocked.
+- LBC-004C may include `apps/api/src/server.ts`, a small Prisma helper, an availability route module, API dependency metadata needed for Prisma 7 runtime access, root lockfile updates from those dependencies, and operational documentation.
+- Booking creation, booking cancellation, auth, Angular product UI, admin panel, mutation endpoints, new migration, new seed, `prisma db push`, Docker, deploy, CI, `packages/shared`, large controller/service/repository refactor, commit without authorization, push, and any new READY task are blocked.

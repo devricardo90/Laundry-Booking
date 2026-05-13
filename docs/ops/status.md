@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data
+Current task: LBC-004C - Implement Availability API Read Endpoint
 
 Task status: READY FOR TRIGGER REVIEW
 
@@ -16,16 +16,17 @@ Repository status:
 - LBC-003B is Remote DONE at commit `c31ed8c`.
 - LBC-003C is Remote DONE at commit `e5285f4`.
 - LBC-004A is Remote DONE at commit `967a321`.
-- LBC-004B is ready for Trigger review after local/dev database, migration, generate, and seed.
+- LBC-004B is Remote DONE at commit `7025936`.
+- LBC-004C is ready for Trigger review after implementing and validating the read-only availability endpoint.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-004B.
-- No push has been made for LBC-004B.
+- No commit has been made for LBC-004C.
+- No push has been made for LBC-004C.
 
 Protocol checks:
-- One READY task only: LBC-004B is active and awaiting Trigger review.
-- LBC-004B READY: ready for Trigger review.
+- One READY task only: LBC-004C is active and awaiting Trigger review.
+- LBC-004C READY: ready for Trigger review.
 - Evidence missing: pending final Trigger review.
 - Authorized file scope respected: pending final diff verification.
 - Local DONE declared: no.
@@ -174,7 +175,32 @@ LBC-004B local persistence result:
 - Prisma Client generation completed.
 - Minimal development seed was created and executed.
 - Seed output verified one LaundryRoom, one Resident, one Admin, one ACTIVE Booking, one CANCELED Booking, and one BlockedSlot.
-- Local DONE has not been declared.
+- Remote DONE is confirmed at commit `7025936`.
 
 LBC-004B blocked scope:
 - Endpoint implementation, Fastify route/controller/service/repository, runtime availability logic, Angular UI, auth, booking creation, booking cancellation, production seed, production database, Docker, CI, deploy, `packages/shared`, `prisma db push`, and opening LBC-004C as READY.
+
+LBC-004C authorized scope:
+- Implement only `GET /laundry-rooms/:laundryRoomId/availability?date=YYYY-MM-DD`.
+- Do not use `/api` prefix because the Fastify scaffold registers `/health` directly.
+- Connect the API to the local/dev database through Prisma 7 and the PostgreSQL adapter.
+- Validate `laundryRoomId` as UUID.
+- Validate required strict `date=YYYY-MM-DD`.
+- Interpret `date` in operational timezone `Europe/Stockholm`.
+- Reject dates outside today through today plus 14 days with 400.
+- Return 404 for missing LaundryRoom.
+- Treat ACTIVE bookings as BOOKED, ignore CANCELED bookings, and treat BlockedSlots as BLOCKED.
+- Use overlap rule `existing.startTime < slot.endTime AND existing.endTime > slot.startTime`.
+- Use priority `BLOCKED > BOOKED > AVAILABLE`.
+- Return the documented response contract with ISO UTC slot timestamps.
+- Validate locally with the existing seed for 200, 400, and 404 cases.
+
+LBC-004C validation result:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local endpoint validation proved BOOKED at 08:00-10:00, BLOCKED at 10:00-12:00, AVAILABLE at 12:00-14:00, at least one other AVAILABLE slot, invalid input 400, and missing LaundryRoom 404.
+- Local DONE has not been declared.
+
+LBC-004C blocked scope:
+- Booking creation, booking cancellation, auth, Angular UI, admin panel, mutation of bookings or blocked slots, new migration, new seed, `prisma db push`, Docker, deploy, CI, `packages/shared`, large controller/service/repository refactor, and any new READY task.

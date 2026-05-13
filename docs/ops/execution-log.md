@@ -1,5 +1,56 @@
 # Execution Log
 
+## 2026-05-13 - LBC-004C
+
+Task:
+LBC-004C - Implement Availability API Read Endpoint.
+
+Decision:
+- Trigger authorized LBC-004C as the only READY task.
+- LBC-004B is confirmed Remote DONE at commit `7025936`.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` showed `7025936`, `967a321`, and `e5285f4`.
+
+Authorized scope:
+- Implement only `GET /laundry-rooms/:laundryRoomId/availability?date=YYYY-MM-DD`.
+- Use no `/api` prefix.
+- Connect the API to the local/dev PostgreSQL database through Prisma 7.
+- Add a small Prisma helper and route module if needed.
+- Add the Prisma 7 PostgreSQL adapter and `pg` dependency if needed.
+- Validate UUID, strict required `YYYY-MM-DD`, `Europe/Stockholm` operational date interpretation, and today through today plus 14 days.
+- Return 400 for invalid input and 404 for missing LaundryRoom.
+- Treat ACTIVE bookings as BOOKED, ignore CANCELED bookings, and treat BlockedSlots as BLOCKED.
+- Use priority `BLOCKED > BOOKED > AVAILABLE`.
+- Return the documented response contract with ISO UTC slot timestamps.
+
+Actions completed:
+- Added `@prisma/adapter-pg` and `pg` to the API package.
+- Added `apps/api/src/prisma.ts` for Prisma 7 adapter-backed client initialization.
+- Added `apps/api/src/availability.ts` for the read-only availability route.
+- Updated `apps/api/src/server.ts` to register the availability route and disconnect Prisma on close.
+- Updated operational documentation for LBC-004C.
+
+Validation completed:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local endpoint validation with session-only `DATABASE_URL` proved 200 behavior for the seeded laundry room.
+- Seeded 08:00-10:00 local slot returned BOOKED.
+- Seeded 10:00-12:00 local slot returned BLOCKED.
+- Seeded 12:00-14:00 local slot returned AVAILABLE because the booking is CANCELED.
+- At least one other AVAILABLE slot was returned.
+- Invalid request validation returned 400.
+- Missing LaundryRoom returned 404.
+
+Blocked scope:
+- Booking creation, booking cancellation, auth, Angular UI, admin panel, booking or blocked slot mutation, new migration, new seed, `prisma db push`, Docker, deploy, CI, `packages/shared`, large controller/service/repository refactor, commit, push, Local DONE declaration, and any new READY task.
+
+Evidence status:
+- Pending final git status and diff evidence for Trigger review.
+
 ## 2026-05-13 - LBC-004B
 
 Task:

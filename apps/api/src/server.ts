@@ -1,4 +1,6 @@
 import Fastify from 'fastify';
+import { registerAvailabilityRoutes } from './availability.js';
+import { disconnectPrisma } from './prisma.js';
 
 const app = Fastify({
   logger: true,
@@ -8,6 +10,12 @@ app.get('/health', async () => ({
   status: 'ok',
   service: 'lbc-api',
 }));
+
+registerAvailabilityRoutes(app);
+
+app.addHook('onClose', async () => {
+  await disconnectPrisma();
+});
 
 const parsePort = (value: string | undefined) => {
   const port = Number(value ?? 3000);
