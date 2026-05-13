@@ -1,5 +1,35 @@
 # Execution Log
 
+## 2026-05-13 - LBC-003B
+
+Task:
+LBC-003B - Define persistence model and conflict constraint strategy.
+
+Decision:
+- Trigger authorized LBC-003B as a documentation-only technical persistence task.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` was run and showed `fe1ac8c`, `93f32c7`, and `b577a40`.
+
+Authorized scope:
+- Document future persistence tables for Resident/User, Admin, LaundryRoom, Booking, and BlockedSlot.
+- Document expected technical fields, relationships, and indexes.
+- Document PostgreSQL strategy for preventing time conflicts.
+- Document ACTIVE, CANCELED, and BlockedSlot blocking behavior.
+- Document race condition risk.
+- Document that implementation is deferred to future tasks.
+
+Blocked scope:
+- Prisma schema, migrations, seed, real database, and `DATABASE_URL` changes.
+- Endpoints, controllers, services, and repositories.
+- Angular product screens or components.
+- Runtime changes, dependency changes, `pnpm approve-builds`, deploy, CI, Docker, and `packages/shared`.
+
+Evidence status:
+- Pending final git status, diff evidence, `git add -N` for `docs/architecture/persistence-model.md`, and Trigger authorization before commit.
+
 ## 2026-05-13 - LBC-003A
 
 Task:

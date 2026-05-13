@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-003A - Define booking domain model before implementation.
+LBC-003B - Define persistence model and conflict constraint strategy.
 
 Current state:
 - Repository has been initialized.
@@ -11,15 +11,16 @@ Current state:
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
 - LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
 - LBC-002C is Remote DONE at commit `93f32c7`.
+- LBC-003A is Remote DONE at commit `fe1ac8c`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-003A is the only READY task.
+- LBC-003B is the only READY task.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
 - Fastify TypeScript shell exists under `apps/api`.
 - Required validation commands have passed.
-- No commit has been made for LBC-003A.
-- No push has been made for LBC-003A.
+- No commit has been made for LBC-003B.
+- No push has been made for LBC-003B.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -57,8 +58,8 @@ LBC-002A draft decisions:
 - Future PostgreSQL target: 18.x.
 
 Next protocol step:
-- Present raw git diff evidence for LBC-003A.
-- Run `git add -N docs/product/domain-model.md` before asking for commit authorization.
+- Present raw git diff evidence for LBC-003B.
+- Run `git add -N docs/architecture/persistence-model.md` before asking for commit authorization.
 - Await Trigger approval.
 - Do not commit until explicitly authorized.
 - Do not push.
@@ -66,5 +67,5 @@ Next protocol step:
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-003A may only update authorized documentation and ops files for the conceptual domain model.
-- Prisma schema, migrations, seed, real database, endpoints, controllers, services, repositories, Angular product screens, runtime changes, dependency changes, deploy, CI, Docker, `packages/shared`, and new READY tasks are blocked.
+- LBC-003B may only update authorized architecture, product, and ops documentation for the future persistence model and conflict strategy.
+- Prisma schema, migrations, seed, real database, `DATABASE_URL`, endpoints, controllers, services, repositories, Angular product screens, runtime changes, dependency changes, deploy, CI, Docker, `packages/shared`, and new READY tasks are blocked.

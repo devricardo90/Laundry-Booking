@@ -2,32 +2,32 @@
 
 ## READY
 
-### LBC-003A - Define booking domain model before implementation
+### LBC-003B - Define persistence model and conflict constraint strategy
 
-Type: Documentation / Domain Modeling
+Type: Documentation / Architecture
 
 Goal:
-Define the minimum conceptual booking domain model before any technical persistence or API implementation.
+Define the future persistence model and PostgreSQL conflict-constraint strategy before any Prisma or database implementation.
 
 Acceptance:
-- Domain model documentation is created or updated.
-- Resident/User is documented with conceptual fields.
-- Admin is documented with conceptual fields.
-- LaundryRoom is documented with conceptual fields.
-- Booking is documented with conceptual fields.
-- BlockedSlot is documented with conceptual fields.
-- Booking statuses are documented.
-- Minimum time conflict rules are documented.
-- Minimum cancellation rules are documented.
-- MVP limits are documented.
-- Prisma schema, migrations, seed, real database, endpoints, controllers, services, repositories, Angular product screens, runtime changes, dependency changes, deploy, CI, Docker, and `packages/shared` remain outside scope.
+- Future tables for Resident/User, Admin, LaundryRoom, Booking, and BlockedSlot are documented.
+- Expected technical fields are documented.
+- Relationships are documented.
+- Expected indexes are documented.
+- PostgreSQL strategy for preventing time conflicts is documented.
+- ACTIVE bookings blocking availability is documented.
+- CANCELED bookings remaining historical and non-blocking is documented.
+- BlockedSlot blocking availability is documented.
+- Race condition risk is documented.
+- Real implementation is deferred to future tasks.
+- Prisma schema, migrations, seed, real database, `DATABASE_URL`, endpoints, controllers, services, repositories, Angular screens, runtime changes, dependency changes, deploy, CI, Docker, and `packages/shared` remain outside scope.
 - Required raw evidence is presented before any commit request.
 
 ## BACKLOG
 
-### LBC-003B - Persistence Model and Conflict Constraints
+### LBC-003C - Persistence Implementation
 
 Status: BACKLOG
 
 Notes:
-- Expected future scope: Prisma schema and database-level protection against conflicting bookings or blocked slots.
+- Expected future scope: Prisma schema and database-level protection against conflicting bookings or blocked slots after LBC-003B is approved.

@@ -184,3 +184,9 @@ The domain model intentionally excludes:
 - The database design should enforce or support the same conflict rules.
 - API validation should reject invalid status transitions, ambiguous time handling, and intervals that are not exactly one fixed 2-hour slot.
 - These implementation details require later tasks and are not authorized by LBC-003A.
+
+## Persistence Strategy Reference
+
+The future persistence model is documented in `docs/architecture/persistence-model.md`.
+
+LBC-003B documents the expected tables, fields, relationships, indexes, PostgreSQL conflict strategy, and race-condition risks without creating Prisma schema, migrations, seed data, endpoints, services, repositories, Angular screens, or a real database connection.

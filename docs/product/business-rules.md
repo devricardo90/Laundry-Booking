@@ -106,6 +106,12 @@ The conceptual MVP domain model is documented in `docs/product/domain-model.md`.
 
 LBC-003A defines entity fields and relationships only at the product/domain level. It does not authorize Prisma schema, migrations, seed data, controllers, services, repositories, endpoints, Angular product screens, or real database work.
 
+## Persistence Strategy Reference
+
+The future persistence model and conflict-constraint strategy are documented in `docs/architecture/persistence-model.md`.
+
+LBC-003B defines persistence expectations only at the architecture documentation level. It does not authorize Prisma schema, migrations, seed data, database configuration, endpoints, controllers, services, repositories, or Angular product screens.
+
 ## Validation Criteria
 
 Validation must happen before persistence and must be protected against race conditions in implementation tasks.
