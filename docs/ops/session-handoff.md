@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-004A - Define Availability API Contract and Dev Persistence Strategy.
+LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data.
 
 Current state:
 - Repository has been initialized.
@@ -14,17 +14,17 @@ Current state:
 - LBC-003A is Remote DONE at commit `fe1ac8c`.
 - LBC-003B is Remote DONE at commit `c31ed8c`.
 - LBC-003C is Remote DONE at commit `e5285f4`.
+- LBC-004A is Remote DONE at commit `967a321`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-004A is approved by the Trigger for Local DONE and commit.
-- No task is currently READY.
+- LBC-004B is ready for Trigger review after local/dev migration and seed.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
 - Fastify TypeScript shell exists under `apps/api`.
 - Required validation commands have passed.
-- Availability API contract and dev persistence strategy changes are approved for local commit.
-- No commit has been made for LBC-004A yet.
-- No push has been made for LBC-004A.
+- Prisma tooling, Prisma 7 config, migration, and seed changes are prepared locally for review.
+- No commit has been made for LBC-004B.
+- No push has been made for LBC-004B.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -62,13 +62,12 @@ LBC-002A draft decisions:
 - Future PostgreSQL target: 18.x.
 
 Next protocol step:
-- Stage the authorized LBC-004A files explicitly.
-- Present staged evidence before commit.
-- Commit with message `docs: define availability API contract`.
+- Present final git status and diff evidence for LBC-004B.
+- Await Trigger decision for Local DONE and commit authorization.
 - Do not push.
-- Do not declare Local DONE without evidence.
+- Do not declare Local DONE without Trigger authorization.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-004A may create or update Availability API contract documentation and update authorized operational documentation.
-- Endpoint implementation, routes, controllers, services, repositories, runtime overlap logic, migrations, Prisma generate, seed data, real database access, `.env` or `DATABASE_URL` file changes, Angular product screens, auth, booking creation, runtime changes, dependency changes, deploy, CI, Docker, `packages/shared`, commit, push, and opening LBC-004B as READY are blocked.
+- LBC-004B may add Prisma tooling dependencies, Prisma 7 config, minimal schema compatibility changes, `.env.example`, local migration, local seed, and operational documentation.
+- Endpoint implementation, routes, controllers, services, repositories, runtime availability logic, Angular product screens, auth, booking creation, production seed, production database, remote database, Docker, CI, deploy, `packages/shared`, `prisma db push`, commit without authorization, push, and opening LBC-004C as READY are blocked.

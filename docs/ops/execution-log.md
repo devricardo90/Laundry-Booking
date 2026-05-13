@@ -1,5 +1,60 @@
 # Execution Log
 
+## 2026-05-13 - LBC-004B
+
+Task:
+LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data.
+
+Decision:
+- Trigger authorized LBC-004B as a controlled development persistence task.
+- LBC-004A is confirmed Remote DONE at commit `967a321`.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git rev-parse HEAD` returned `967a32136682038cc4c8e9209f3f7611e3f66856`.
+- `git rev-parse origin/main` returned `967a32136682038cc4c8e9209f3f7611e3f66856`.
+- `git log --oneline -3` showed `967a321`, `e5285f4`, and `c31ed8c`.
+
+Actions completed:
+- Ran `pnpm.cmd add -D prisma --store-dir C:\Users\ricardodev\AppData\Local\pnpm\store\v10`.
+- Ran `pnpm.cmd add @prisma/client --store-dir C:\Users\ricardodev\AppData\Local\pnpm\store\v10`.
+- Did not run `pnpm approve-builds`.
+- Added Prisma 7 config in `prisma.config.ts`.
+- Removed datasource URL from `prisma/schema.prisma` because Prisma 7 rejects `url` in schema files.
+- Updated `.env.example` with a fictitious local `DATABASE_URL`.
+- Ran `pnpm.cmd exec prisma validate --schema prisma/schema.prisma` with session-only `DATABASE_URL`; validation passed.
+
+Blocked action:
+- Ran `pnpm.cmd exec prisma migrate dev --schema prisma/schema.prisma --name init` with session-only `DATABASE_URL=postgresql://user:password@localhost:5432/lbc_dev`.
+- Prisma reached PostgreSQL at `localhost:5432` but failed with `P1000` because the candidate credentials were rejected.
+
+Unblock action:
+- Trigger authorized creating only the local/dev database `lbc_dev`.
+- Created `lbc_dev` with session-only local `DATABASE_URL`.
+- Re-ran `pnpm.cmd exec prisma migrate dev --schema prisma/schema.prisma --name init`; migration `20260513195342_init` was created and applied.
+- Ran `pnpm.cmd exec prisma generate --schema prisma/schema.prisma`; Prisma Client generation completed.
+- Created `prisma/seed.mjs` without adding an extra seed runner dependency.
+- Configured `migrations.seed = "node prisma/seed.mjs"` in `prisma.config.ts`.
+- Ran `pnpm.cmd exec prisma db seed`; seed completed and printed controlled verification for the required six records.
+
+Completed:
+- Dev migration applied.
+- Prisma Client generated.
+- Minimal dev seed created and executed.
+- Data proof produced through seed assertions and controlled seed output.
+
+Pending:
+- Trigger review.
+- Local DONE authorization.
+- Commit authorization.
+
+Blocked scope:
+- Docker, remote database, `prisma db push`, endpoint implementation, Fastify route/controller/service/repository, runtime availability logic, tests, Angular UI, auth, booking creation, production seed, production database, deploy, CI, `packages/shared`, commit, push, and opening LBC-004C as READY.
+
+Evidence status:
+- Pending final git status and diff evidence for Trigger review.
+
 ## 2026-05-13 - LBC-004A
 
 Task:

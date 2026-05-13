@@ -1,10 +1,10 @@
 # LBC Backlog
 
-## LOCAL DONE
+## REMOTE DONE
 
 ### LBC-004A - Define Availability API Contract and Dev Persistence Strategy
 
-Status: Local DONE
+Status: Remote DONE
 
 Type: Documentation / Architecture
 
@@ -24,15 +24,44 @@ Acceptance:
 - No endpoint, controller, service, repository, migration, seed, real database access, auth, Angular screen, dependency change, or booking creation flow is created.
 - Required raw evidence is presented before any commit request.
 - Trigger approved LBC-004A for Local DONE and commit.
+- Remote DONE confirmed at commit `967a321`.
 
-## BACKLOG
+## READY FOR TRIGGER REVIEW
 
 ### LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data
 
-Status: BACKLOG
+Status: READY FOR TRIGGER REVIEW
 
-Notes:
-- Expected future scope: apply the development Prisma migration path and create minimal data for testing availability reads.
+Type: Persistence / Dev Database
+
+Goal:
+Prepare the minimum local development persistence path required before implementing the real Availability API endpoint.
+
+Completed before blocker:
+- Initial repository guard confirmed clean working tree and `HEAD == origin/main`.
+- `prisma` was added as a dev dependency.
+- `@prisma/client` was added as a dependency.
+- Prisma 7 required moving datasource URL configuration from `prisma/schema.prisma` to `prisma.config.ts`.
+- `prisma/schema.prisma` validation passed with session-only `DATABASE_URL`.
+- `.env.example` was updated with a fictitious local PostgreSQL `DATABASE_URL` example.
+
+Completed after unblock authorization:
+- Created local/dev database `lbc_dev`.
+- Applied dev migration `init`.
+- Generated Prisma Client.
+- Created `prisma/seed.mjs`.
+- Ran local seed.
+- Verified one LaundryRoom, one Resident, one Admin, one ACTIVE Booking, one CANCELED Booking, and one BlockedSlot.
+
+Still pending:
+- Trigger review.
+- Local DONE authorization.
+- Commit authorization.
+
+Blocked scope remains:
+- No endpoint, controller, service, repository, runtime availability logic, Angular screen, auth, booking creation, booking cancellation, production seed, production database, Docker, CI, deploy, `packages/shared`, or LBC-004C READY.
+
+## BACKLOG
 
 ### LBC-004C - Implement Availability API Read Endpoint
 

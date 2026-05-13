@@ -1,10 +1,10 @@
 # Ops Backlog
 
-## LOCAL DONE
+## REMOTE DONE
 
 ### LBC-004A - Define Availability API Contract and Dev Persistence Strategy
 
-Status: Local DONE
+Status: Remote DONE
 
 Type: Documentation / Architecture
 
@@ -31,15 +31,33 @@ Operational notes:
 - This task must not be pushed.
 - This task must present raw validation and diff evidence before commit authorization.
 - Trigger approved LBC-004A for Local DONE and commit after evidence review.
+- Remote DONE confirmed at commit `967a321`.
 
-## BACKLOG
+## READY FOR TRIGGER REVIEW
 
 ### LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data
 
-Status: BACKLOG
+Status: READY FOR TRIGGER REVIEW
 
-Expected future purpose:
-- Apply the development Prisma migration path and create minimal data for testing availability reads.
+Type: Persistence / Dev Database
+
+Operational notes:
+- This task may add `prisma` as a dev dependency and `@prisma/client` as a dependency.
+- This task may add Prisma 7 configuration required for migration commands.
+- This task may minimally adjust `prisma/schema.prisma` for Prisma 7 compatibility.
+- This task may update `.env.example` with a fictitious local `DATABASE_URL`.
+- This task may apply local dev migration, generate Prisma Client, create `prisma/seed.mjs`, run seed, and prove data only after valid local PostgreSQL dev credentials are available.
+- This task must not use Docker, remote database, `prisma db push`, production database, production seed, endpoint code, service, repository, Angular UI, auth, booking creation, CI, deploy, `packages/shared`, or open LBC-004C as READY.
+
+Local persistence result:
+- Local/dev database `lbc_dev` was created after Trigger authorization.
+- Dev migration `init` was created and applied.
+- Prisma Client generation completed.
+- Minimal seed file `prisma/seed.mjs` was created.
+- Seed was executed and verified the required six records.
+- Local DONE and commit remain blocked until Trigger authorization.
+
+## BACKLOG
 
 ### LBC-004C - Implement Availability API Read Endpoint
 

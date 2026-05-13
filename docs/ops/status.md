@@ -2,9 +2,9 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004A - Define Availability API Contract and Dev Persistence Strategy
+Current task: LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data
 
-Task status: Local DONE
+Task status: READY FOR TRIGGER REVIEW
 
 Repository status:
 - Repository initialized.
@@ -15,20 +15,20 @@ Repository status:
 - LBC-003A is Remote DONE at commit `fe1ac8c`.
 - LBC-003B is Remote DONE at commit `c31ed8c`.
 - LBC-003C is Remote DONE at commit `e5285f4`.
-- Availability API contract task is approved by the Trigger for Local DONE and commit.
+- LBC-004A is Remote DONE at commit `967a321`.
+- LBC-004B is ready for Trigger review after local/dev database, migration, generate, and seed.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-004A yet.
-- No push has been made for LBC-004A.
+- No commit has been made for LBC-004B.
+- No push has been made for LBC-004B.
 
 Protocol checks:
-- One READY task only: no READY task is open.
-- LBC-004A READY: no.
-- LBC-004A Local DONE approved: yes.
-- Evidence missing: no current blocker identified.
-- Authorized file scope respected: yes.
-- Local DONE declared: yes, approved by the Trigger.
+- One READY task only: LBC-004B is active and awaiting Trigger review.
+- LBC-004B READY: ready for Trigger review.
+- Evidence missing: pending final Trigger review.
+- Authorized file scope respected: pending final diff verification.
+- Local DONE declared: no.
 - Remote DONE declared: no.
 
 Current approved stack:
@@ -154,3 +154,27 @@ LBC-004A blocked scope:
 - Endpoint implementation, Fastify route/controller, service, repository, and runtime overlap logic.
 - Prisma migration, Prisma generate, Prisma db push, seed, and real database access.
 - Dependency installation, `package.json` changes, `pnpm approve-builds`, tests, auth, Angular UI, booking creation, deploy, CI, Docker, commit, push, and opening LBC-004B as READY.
+
+LBC-004B authorized scope:
+- Add `prisma` as a dev dependency and `@prisma/client` as a dependency.
+- Keep `node_modules` out of Git.
+- Validate `prisma/schema.prisma`.
+- Add Prisma 7 configuration required for local migrations.
+- Use `DATABASE_URL` only in the terminal session or a non-versioned local `.env`.
+- Update `.env.example` with a fictitious local `DATABASE_URL` if needed.
+- Apply local dev migration only against local/dev PostgreSQL.
+- Generate Prisma Client if needed.
+- Create and run a minimal development seed only after migration succeeds.
+- Prove minimum data exists with safe local inspection.
+- Update authorized operational documentation.
+
+LBC-004B local persistence result:
+- Local/dev database `lbc_dev` was created after Trigger authorization.
+- Dev migration `init` was created and applied.
+- Prisma Client generation completed.
+- Minimal development seed was created and executed.
+- Seed output verified one LaundryRoom, one Resident, one Admin, one ACTIVE Booking, one CANCELED Booking, and one BlockedSlot.
+- Local DONE has not been declared.
+
+LBC-004B blocked scope:
+- Endpoint implementation, Fastify route/controller/service/repository, runtime availability logic, Angular UI, auth, booking creation, booking cancellation, production seed, production database, Docker, CI, deploy, `packages/shared`, `prisma db push`, and opening LBC-004C as READY.
