@@ -1,31 +1,42 @@
 # LBC Backlog
 
-## READY
+## LOCAL DONE
 
-### LBC-003C - Implement Prisma schema baseline
+### LBC-004A - Define Availability API Contract and Dev Persistence Strategy
 
-Type: Persistence / Schema Baseline
+Status: Local DONE
+
+Type: Documentation / Architecture
 
 Goal:
-Create the first Prisma schema baseline for the MVP domain model without creating migrations, seed data, database state, endpoints, services, repositories, Angular screens, auth, or real booking flows.
+Define the contract for reading laundry room availability and the minimum development persistence strategy needed before implementing the real endpoint.
 
 Acceptance:
-- `prisma/schema.prisma` is created.
-- PostgreSQL datasource is defined.
-- Prisma Client generator is defined.
-- Resident, Admin, LaundryRoom, Booking, and BlockedSlot are modeled.
-- Minimum enums are defined where useful.
-- Relationships, foreign keys, status fields, technical timestamps, `startTime`, `endTime`, and nullable `canceledAt` are defined.
-- Query-support indexes are defined for the documented access patterns.
-- Prisma schema baseline limitations around overlap and race-condition protection are documented.
-- No migration, seed, real database, `DATABASE_URL` file change, endpoint, controller, service, repository, Angular screen, auth, runtime change, dependency change, deploy, CI, Docker, or `packages/shared` work is created.
+- Proposed endpoint `GET /laundry-rooms/:id/availability?date=YYYY-MM-DD` is documented.
+- `date=YYYY-MM-DD` is documented as interpreted in `Europe/Stockholm`.
+- UTC storage/comparison and ISO UTC `startTime`/`endTime` response timestamps are documented.
+- Response shape includes `laundryRoomId`, `date`, `timezone`, `slotDurationMinutes`, and `slots`.
+- Slot shape includes `startTime`, `endTime`, `status`, and limited optional `reason`.
+- Slot statuses `AVAILABLE`, `BOOKED`, and `BLOCKED` are documented.
+- Reason rules avoid exposing resident personal data.
+- 14-day read window and `400` behavior for dates outside the window are documented.
+- Dev persistence strategy recommends migration and minimal seed before the real endpoint.
+- No endpoint, controller, service, repository, migration, seed, real database access, auth, Angular screen, dependency change, or booking creation flow is created.
 - Required raw evidence is presented before any commit request.
+- Trigger approved LBC-004A for Local DONE and commit.
 
 ## BACKLOG
 
-### LBC-004 - Booking Availability API
+### LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data
 
 Status: BACKLOG
 
 Notes:
-- Expected future scope: expose availability for fixed 2-hour slots and enforce documented availability behavior.
+- Expected future scope: apply the development Prisma migration path and create minimal data for testing availability reads.
+
+### LBC-004C - Implement Availability API Read Endpoint
+
+Status: BACKLOG
+
+Notes:
+- Expected future scope: implement the read-only availability endpoint after the development persistence path is ready.

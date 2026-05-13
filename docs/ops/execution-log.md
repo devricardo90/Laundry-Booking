@@ -1,5 +1,39 @@
 # Execution Log
 
+## 2026-05-13 - LBC-004A
+
+Task:
+LBC-004A - Define Availability API Contract and Dev Persistence Strategy.
+
+Decision:
+- Trigger authorized LBC-004A as a documentation and architecture task.
+- LBC-003C is confirmed Remote DONE at commit `e5285f4`.
+- The next step is not a real endpoint, migration, seed, or database access.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git rev-parse HEAD` returned `e5285f4e1b8b7311f102f2b76da5e3a3648d2650`.
+- `git rev-parse origin/main` returned `e5285f4e1b8b7311f102f2b76da5e3a3648d2650`.
+- `git log --oneline -3` showed `e5285f4`, `c31ed8c`, and `fe1ac8c`.
+
+Authorized scope:
+- Promote LBC-004A as the only READY task.
+- Create or update documentation for the Availability API contract.
+- Define endpoint, timezone interpretation, response shape, slot shape, status values, reason privacy rules, and the 14-day read window.
+- Define the minimum dev persistence strategy before implementing the real endpoint.
+- Update authorized operational documentation.
+
+Blocked scope:
+- Endpoint implementation, Fastify route/controller, service, repository, runtime overlap logic, tests, auth, Angular UI, and booking creation.
+- Prisma migration, Prisma generate, Prisma db push, seed data, real database access, dependency installation, deploy, CI, Docker, commit, push, and opening LBC-004B as READY.
+
+Evidence status:
+- Final git status and diff evidence were presented.
+- Trigger approved LBC-004A for Local DONE and commit.
+- Commit is authorized with message `docs: define availability API contract`.
+- Push remains blocked until explicitly authorized.
+
 ## 2026-05-13 - LBC-003C
 
 Task:

@@ -33,6 +33,9 @@ Times must be stored in UTC and displayed according to the condominium operation
 - A slot is available if overlapping records are only CANCELED bookings.
 - Bookings in one laundry room do not block another laundry room.
 - BlockedSlots in one laundry room do not block another laundry room.
+- Availability reads are limited to the next 14 days.
+- Dates outside the availability read window should be rejected with HTTP `400` by the future API.
+- The availability read window is documented as contract-only behavior in LBC-004A and is not implemented by this task.
 
 ## Conflict Rules
 
@@ -117,6 +120,12 @@ LBC-003C creates the first Prisma schema baseline in `prisma/schema.prisma`.
 The schema baseline is a structural persistence starting point. It does not implement runtime validation, reservation flows, database migrations, seed data, real database access, API endpoints, services, repositories, Angular screens, or authentication.
 
 The business rules in this file remain mandatory for later implementation. The Prisma schema baseline does not fully enforce overlap prevention or race-condition protection by itself, especially for Booking-to-BlockedSlot cross-table conflicts and ACTIVE-only booking conflicts.
+
+## Availability API Contract Reference
+
+The planned read-only Availability API contract is documented in `docs/architecture/availability-api-contract.md`.
+
+LBC-004A defines the endpoint contract, timezone interpretation, response shape, slot format, status values, reason privacy rules, 14-day read window, and development persistence strategy. It does not implement an endpoint, route, controller, service, repository, migration, seed, authentication, Angular screen, or booking creation flow.
 
 ## Validation Criteria
 

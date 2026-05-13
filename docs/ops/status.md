@@ -2,9 +2,9 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-003C - Implement Prisma schema baseline
+Current task: LBC-004A - Define Availability API Contract and Dev Persistence Strategy
 
-Task status: READY
+Task status: Local DONE
 
 Repository status:
 - Repository initialized.
@@ -14,19 +14,21 @@ Repository status:
 - LBC-002C is Remote DONE at commit `93f32c7`.
 - LBC-003A is Remote DONE at commit `fe1ac8c`.
 - LBC-003B is Remote DONE at commit `c31ed8c`.
-- Prisma schema baseline task is in progress.
+- LBC-003C is Remote DONE at commit `e5285f4`.
+- Availability API contract task is approved by the Trigger for Local DONE and commit.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-003C.
-- No push has been made for LBC-003C.
+- No commit has been made for LBC-004A yet.
+- No push has been made for LBC-004A.
 
 Protocol checks:
-- One READY task only: yes.
-- LBC-003C READY: yes.
+- One READY task only: no READY task is open.
+- LBC-004A READY: no.
+- LBC-004A Local DONE approved: yes.
 - Evidence missing: no current blocker identified.
-- Authorized file scope respected: pending final diff verification.
-- Local DONE declared: no.
+- Authorized file scope respected: yes.
+- Local DONE declared: yes, approved by the Trigger.
 - Remote DONE declared: no.
 
 Current approved stack:
@@ -137,3 +139,18 @@ LBC-003C blocked scope:
 - Dependency installation and `pnpm approve-builds`.
 - Endpoints, controllers, services, repositories, Angular screens, auth, and real booking flows.
 - Deploy, CI, Docker, `packages/shared`, new READY tasks, commit, and push.
+
+LBC-004A authorized scope:
+- Promote LBC-004A as the only READY task.
+- Create or update the Availability API contract documentation.
+- Define the proposed endpoint `GET /laundry-rooms/:id/availability?date=YYYY-MM-DD`.
+- Define `Europe/Stockholm` date interpretation, UTC storage/comparison, and ISO UTC response timestamps.
+- Define response shape, slot shape, status values, and reason privacy rules.
+- Define the 14-day read window as contract-only behavior.
+- Define the dev persistence strategy before real endpoint implementation.
+- Update authorized operational documentation.
+
+LBC-004A blocked scope:
+- Endpoint implementation, Fastify route/controller, service, repository, and runtime overlap logic.
+- Prisma migration, Prisma generate, Prisma db push, seed, and real database access.
+- Dependency installation, `package.json` changes, `pnpm approve-builds`, tests, auth, Angular UI, booking creation, deploy, CI, Docker, commit, push, and opening LBC-004B as READY.
