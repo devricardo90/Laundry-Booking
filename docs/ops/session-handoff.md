@@ -3,17 +3,21 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-002A - Define Scaffold Plan and Version Matrix.
+LBC-002B - Project Scaffold.
 
 Current state:
 - Repository has been initialized.
 - LBC-001 is Remote DONE at commit `3d90251`.
+- LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-002A is the only READY task.
-- Scaffold plan and version matrix have been drafted for review.
-- LBC-002B remains BACKLOG and is not READY.
-- No commit has been made for LBC-002A.
-- No push has been made for LBC-002A.
+- LBC-002B is the only READY task.
+- Minimum pnpm workspace scaffold has been created.
+- Angular shell exists under `apps/web`.
+- Tailwind CSS is configured only under `apps/web`.
+- Fastify TypeScript shell exists under `apps/api`.
+- Required validation commands have passed.
+- No commit has been made for LBC-002B.
+- No push has been made for LBC-002B.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -51,7 +55,8 @@ LBC-002A draft decisions:
 - Future PostgreSQL target: 18.x.
 
 Next protocol step:
-- Present status and diff evidence.
+- Present raw validation and git diff evidence.
+- Run `git add -N` for new files before asking for commit authorization.
 - Await Trigger approval.
 - Do not commit until explicitly authorized.
 - Do not push.
@@ -59,5 +64,5 @@ Next protocol step:
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-002A may only alter the files explicitly authorized for this task.
-- LBC-002B must remain BACKLOG and must not be opened as READY during LBC-002A.
+- LBC-002B may only create root workspace files, `apps/web/**`, `apps/api/**`, and authorized ops document updates.
+- `packages/shared`, Prisma, schema, migrations, seed, real database, auth, booking rules, conflict prevention, domain endpoints, domain screens, deploy, CI, Docker, E2E tests, and LBC-002C are blocked.

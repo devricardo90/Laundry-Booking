@@ -2,22 +2,25 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-002A - Define Scaffold Plan and Version Matrix
+Current task: LBC-002B - Project Scaffold
 
 Task status: READY
 
 Repository status:
 - Repository initialized.
 - LBC-001 is Remote DONE at commit `3d90251`.
-- Documentation-only scaffold planning is in progress.
-- No application stack has been scaffolded.
-- No dependencies have been installed.
-- No commit has been made for LBC-002A.
-- No push has been made for LBC-002A.
+- LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
+- Minimum scaffold task is in progress.
+- Minimum Angular web and Fastify API scaffold files have been created.
+- Dependencies have been installed with pnpm.
+- `pnpm-lock.yaml` has been created.
+- No commit has been made for LBC-002B.
+- No push has been made for LBC-002B.
 
 Protocol checks:
 - One READY task only: yes.
-- LBC-002B READY: no.
+- LBC-002B READY: yes.
+- LBC-002C READY: no.
 - Evidence missing: no current blocker identified.
 - Authorized file scope respected: pending final diff verification.
 - Local DONE declared: no.
@@ -55,3 +58,23 @@ LBC-002A decision draft:
 - Future ORM target: Prisma 7.8.x.
 - Future database target: PostgreSQL 18.x.
 - Future CSS framework target: Tailwind CSS 4.3.x.
+
+LBC-002B authorized scope:
+- Root workspace files: `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml`, and `.gitignore`.
+- Web scaffold: `apps/web/**`.
+- API scaffold: `apps/api/**`.
+- Ops documents: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+
+LBC-002B blocked scope:
+- `packages/shared`.
+- Prisma, schema, migrations, seed, and real database.
+- Auth, booking rules, conflict prevention, domain endpoints, and domain screens.
+- Deploy, CI, Docker, tests E2E, and LBC-002C.
+
+LBC-002B validation status:
+- `pnpm install`: passed.
+- `pnpm lint`: passed.
+- `pnpm typecheck`: passed.
+- `pnpm build`: passed.
+- `pnpm --filter web build`: passed.
+- `pnpm --filter api build`: passed.

@@ -2,40 +2,29 @@
 
 ## READY
 
-### LBC-002A - Define Scaffold Plan and Version Matrix
+### LBC-002B - Project Scaffold
 
 Status: READY
 
-Type: Documentation / Architecture
+Type: Scaffold / Technical Foundation
 
 Operational notes:
-- This task may create or update only authorized documentation and ops files.
-- This task must not create application code.
-- This task must not install dependencies.
-- This task must not scaffold Angular, Fastify, Prisma, migrations, or seed data.
-- This task must not configure Tailwind.
-- This task must not configure deploy.
-- This task must not open LBC-002B as READY.
+- This task may create a pnpm workspace.
+- This task may create `apps/web` with an Angular shell.
+- This task may configure Tailwind only in `apps/web`.
+- This task may create `apps/api` with a Fastify TypeScript shell.
+- This task may create minimal validation scripts.
+- This task may update authorized operational documentation.
+- This task must not create `packages/shared`.
+- This task must not create Prisma schema, migrations, seed, or database configuration.
+- This task must not create auth, booking rules, conflict prevention, domain endpoints, or domain screens.
+- This task must not configure deploy, CI, Docker, or E2E tests.
+- This task must not open LBC-002C as READY.
 - This task must not be committed without explicit authorization.
 - This task must not be pushed.
-- This task may create `docs/architecture/scaffold-plan.md`.
-- This task may create `docs/architecture/version-matrix.md`.
-- This task must stop after evidence and ask for Trigger authorization.
+- This task must present raw validation and diff evidence before commit authorization.
 
 ## BACKLOG
-
-### LBC-002B - Project Scaffold
-
-Status: BACKLOG
-
-Expected future purpose:
-- Initialize Angular frontend.
-- Initialize Fastify backend.
-- Add TypeScript project structure.
-- Add Tailwind configuration.
-- Add base tooling only after LBC-001 is approved.
-- Must follow the LBC-002A decision after it is approved.
-- Must not start during LBC-002A.
 
 ### LBC-003 - Persistence Model
 

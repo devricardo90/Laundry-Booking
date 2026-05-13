@@ -1,5 +1,48 @@
 # Execution Log
 
+## 2026-05-13 - LBC-002B
+
+Task:
+LBC-002B - Project Scaffold.
+
+Decision:
+- Trigger promoted LBC-002B to READY with reduced and controlled scaffold scope.
+
+Authorized scope:
+- Create pnpm workspace.
+- Create `apps/web` with Angular shell.
+- Configure Tailwind only in `apps/web`.
+- Create `apps/api` with Fastify TypeScript shell.
+- Create minimal validation scripts.
+- Update operational documentation.
+
+Blocked scope:
+- `packages/shared`.
+- Prisma, schema, migrations, seed, and real database.
+- Auth, booking rules, conflict prevention, domain endpoints, and domain screens.
+- Deploy, CI, Docker, E2E tests, and opening LBC-002C.
+
+Evidence status:
+- `pnpm install` passed.
+- `pnpm lint` passed after formatting the Angular shell files with Prettier.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- `pnpm --filter web build` passed.
+- `pnpm --filter api build` passed.
+- Pending final git status, diff evidence, `git add -N` for new files, and Trigger authorization before commit.
+
+Actions:
+- Created root pnpm workspace files.
+- Created Angular shell under `apps/web`.
+- Configured Tailwind CSS only under `apps/web`.
+- Created Fastify TypeScript shell under `apps/api`.
+- Created minimal validation scripts.
+- Did not create `packages/shared`.
+- Did not create Prisma schema, migrations, seed, or database configuration.
+- Did not create auth, booking rules, conflict prevention, domain endpoints, or domain screens.
+- Did not configure deploy, CI, Docker, or E2E tests.
+- Did not open LBC-002C.
+
 ## 2026-05-13 - LBC-002A
 
 Task:
