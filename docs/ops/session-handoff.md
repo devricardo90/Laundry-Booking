@@ -3,16 +3,17 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-001 - Define MVP Scope and Business Rules.
+LBC-002A - Define Scaffold Plan and Version Matrix.
 
 Current state:
 - Repository has been initialized.
-- MVP scope and business rules are documented.
+- LBC-001 is Remote DONE at commit `3d90251`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- Operational status and backlog files are documented.
-- LBC-002 remains BACKLOG and is not READY.
-- No commit has been made.
-- No push has been made.
+- LBC-002A is the only READY task.
+- Scaffold plan and version matrix have been drafted for review.
+- LBC-002B remains BACKLOG and is not READY.
+- No commit has been made for LBC-002A.
+- No push has been made for LBC-002A.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -36,6 +37,19 @@ Approved stack:
 - Prisma for ORM.
 - PostgreSQL for database.
 
+LBC-002A draft decisions:
+- Future scaffold type: simple monorepo.
+- Future project layout: `apps/web`, `apps/api`, optional `packages/shared`, and docs under `docs`.
+- Future package manager: pnpm 10.x via Corepack.
+- Future Node.js target: 24.x LTS.
+- Future Angular target: 21.x.
+- Future TypeScript target: 5.9.x because Angular 21 requires `<6.0.0`.
+- Future Tailwind target: 4.3.x.
+- Future Fastify target: 5.8.x.
+- Future Zod target: 4.4.x.
+- Future Prisma target: 7.8.x.
+- Future PostgreSQL target: 18.x.
+
 Next protocol step:
 - Present status and diff evidence.
 - Await Trigger approval.
@@ -45,4 +59,5 @@ Next protocol step:
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- `docs/architecture/stack-decision.md` is now inside the authorized LBC-001 scope.
+- LBC-002A may only alter the files explicitly authorized for this task.
+- LBC-002B must remain BACKLOG and must not be opened as READY during LBC-002A.

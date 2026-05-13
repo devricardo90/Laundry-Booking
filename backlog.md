@@ -2,40 +2,42 @@
 
 ## READY
 
-### LBC-001 - Define MVP Scope and Business Rules
+### LBC-002A - Define Scaffold Plan and Version Matrix
 
-Type: Documentation / Product
+Type: Documentation / Architecture
 
 Goal:
-Document the MVP scope and core business rules for Laundry Booking Condo.
+Create a technical documentation decision before any real scaffold work.
 
 Acceptance:
-- Product objective is defined.
-- Main user is defined.
-- Problem solved is defined.
-- Resident flow is defined.
-- Administrator flow is defined.
-- MVP scope is defined.
-- Out-of-scope items are defined.
-- Main entities are defined.
-- Reservation rules are defined.
-- Availability rules are defined.
-- Formal time conflict rule is defined.
-- Official stack decision is defined.
-- Validation criteria are defined.
-- DONE criteria are defined.
-- Timezone policy is defined.
+- Proposed project structure is documented.
+- Simple monorepo versus separate structure decision is documented.
+- Recommended Node.js version is documented.
+- Recommended Angular version is documented.
+- Recommended TypeScript version is documented.
+- Recommended Tailwind version is documented.
+- Recommended Fastify version is documented.
+- Recommended Zod version is documented.
+- Recommended Prisma version is documented.
+- Target PostgreSQL version is documented.
+- Package manager is documented.
+- Expected future scaffold validation commands are documented.
+- Scaffold limits are documented.
+- Items outside scope are documented.
+- DONE criteria for LBC-002A are documented.
+- LBC-002B remains BACKLOG and is not READY.
 
 ## BACKLOG
 
-### LBC-002 - Project Scaffold
+### LBC-002B - Project Scaffold
 
 Status: BACKLOG
 
 Notes:
-- Must not be opened as READY during LBC-001.
-- Expected future scope: Angular, Fastify, TypeScript, Tailwind, Zod, Prisma, and PostgreSQL setup.
-- Must pass a Discussion Gate after LBC-001 is completed and synchronized.
+- Must not be opened as READY during LBC-002A.
+- Expected future scope: create the approved scaffold only after Trigger authorization.
+- Must follow the LBC-002A scaffold plan and version matrix unless a later decision changes them.
+- Must not start during LBC-002A.
 
 ### LBC-003 - Data Model and Conflict Constraints
 

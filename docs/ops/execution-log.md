@@ -1,5 +1,36 @@
 # Execution Log
 
+## 2026-05-13 - LBC-002A
+
+Task:
+LBC-002A - Define Scaffold Plan and Version Matrix.
+
+Pre-change repository guard:
+- `pwd` was run.
+- `git status --short --untracked-files=all` was run.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` was run and showed `3d90251 docs: define LBC MVP scope and business rules`.
+- `git rev-parse HEAD` returned `3d90251f844641e2df5d8e4f00942cd5d88e299c`.
+- `git rev-parse origin/main` returned `3d90251f844641e2df5d8e4f00942cd5d88e299c`.
+
+Actions:
+- Created `docs/architecture/scaffold-plan.md`.
+- Created `docs/architecture/version-matrix.md`.
+- Updated status, backlog, ops status, ops backlog, execution log, and session handoff for LBC-002A.
+- Documented the future scaffold as a simple monorepo.
+- Documented pnpm as the future package manager.
+- Documented future validation commands for the scaffold task.
+- Documented scaffold limits and out-of-scope items.
+- Kept LBC-002B in BACKLOG and not READY.
+- Did not install dependencies.
+- Did not create Angular, Fastify, Prisma schema, migration, seed, tests, endpoints, screens, or application code.
+- Did not change README.
+- Did not commit or push.
+- Did not declare Local DONE or Remote DONE.
+
+Evidence status:
+- Pending final diff evidence and Trigger authorization.
+
 ## 2026-05-12 - LBC-001
 
 Task:

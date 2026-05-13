@@ -2,13 +2,14 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-001 - Define MVP Scope and Business Rules
+Current task: LBC-002A - Define Scaffold Plan and Version Matrix
 
 Status: READY
 
 Protocol state:
 - Only one task is READY.
-- LBC-002 is not READY.
+- LBC-001 is Remote DONE at commit `3d90251`.
+- LBC-002B is BACKLOG and not READY.
 - No application code, dependencies, schema, migration, or seed has been created.
 - No Tailwind configuration or deploy configuration has been created.
 - No commit or push has been made.
@@ -16,19 +17,20 @@ Protocol state:
 - MongoDB is outside the current decision.
 
 Scope guard:
-- Files authorized for LBC-001 are documentation and ops files only.
-- `docs/architecture/stack-decision.md` is now authorized for LBC-001 because the stack decision is official.
-- Repository guard must be checked before changes: `pwd`, `.git`, `git status --short --untracked-files=all`, and `git branch --show-current`.
+- Files authorized for LBC-002A are documentation and ops files only.
+- Authorized architecture files: `docs/architecture/scaffold-plan.md` and `docs/architecture/version-matrix.md`.
+- Authorized ops files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- Repository guard must be checked before changes: `pwd`, `git status --short --untracked-files=all`, `git status -sb`, `git log --oneline -3`, `git rev-parse HEAD`, and `git rev-parse origin/main`.
 
 Completion evidence checklist:
-- MVP scope documented.
-- Business rules documented.
-- Reservation conflict rule documented.
-- Formal overlap rule documented.
-- Official stack decision documented.
-- Time storage rule documented: store in UTC and display in the condominium operational timezone.
-- Resident and administrator flows documented.
-- Validation criteria documented.
-- Operational handoff files created.
+- Proposed project structure documented.
+- Monorepo decision documented.
+- Node, Angular, TypeScript, Tailwind, Fastify, Zod, Prisma, and PostgreSQL versions documented.
+- Package manager documented.
+- Future validation commands documented.
+- Scaffold limits documented.
+- Out-of-scope items documented.
+- LBC-002A DONE criteria documented.
+- LBC-002B remains BACKLOG and not READY.
 - Local DONE must not be declared without evidence.
 - Remote DONE must not be declared without push and origin synchronization verification.

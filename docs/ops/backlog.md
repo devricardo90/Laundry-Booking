@@ -2,11 +2,11 @@
 
 ## READY
 
-### LBC-001 - Define MVP Scope and Business Rules
+### LBC-002A - Define Scaffold Plan and Version Matrix
 
 Status: READY
 
-Type: Documentation / Product
+Type: Documentation / Architecture
 
 Operational notes:
 - This task may create or update only authorized documentation and ops files.
@@ -15,14 +15,16 @@ Operational notes:
 - This task must not scaffold Angular, Fastify, Prisma, migrations, or seed data.
 - This task must not configure Tailwind.
 - This task must not configure deploy.
-- This task must not open LBC-002 as READY.
+- This task must not open LBC-002B as READY.
 - This task must not be committed without explicit authorization.
 - This task must not be pushed.
-- This task may document the official stack decision in `docs/architecture/stack-decision.md`.
+- This task may create `docs/architecture/scaffold-plan.md`.
+- This task may create `docs/architecture/version-matrix.md`.
+- This task must stop after evidence and ask for Trigger authorization.
 
 ## BACKLOG
 
-### LBC-002 - Project Scaffold
+### LBC-002B - Project Scaffold
 
 Status: BACKLOG
 
@@ -32,7 +34,8 @@ Expected future purpose:
 - Add TypeScript project structure.
 - Add Tailwind configuration.
 - Add base tooling only after LBC-001 is approved.
-- Must not start until after the Discussion Gate for LBC-002.
+- Must follow the LBC-002A decision after it is approved.
+- Must not start during LBC-002A.
 
 ### LBC-003 - Persistence Model
 
