@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum LaundryRoomStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum BookingStatus {
+  ACTIVE
+  CANCELED
+}
+
+model Resident {
+  id        String        @id @default(uuid()) @db.Uuid
+  name      String
+  email     String        @unique
+  status    AccountStatus @default(ACTIVE)
+  bookings  Booking[]
+  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([status])
+  @@map("residents")
+}
+
+model Admin {
+  id           String        @id @default(uuid()) @db.Uuid
+  name         String
+  email        String        @unique
+  status       AccountStatus @default(ACTIVE)
+  blockedSlots BlockedSlot[]
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([status])
+  @@map("admins")
+}
+
+model LaundryRoom {
+  id           String            @id @default(uuid()) @db.Uuid
+  name         String            @unique
+  status       LaundryRoomStatus @default(ACTIVE)
+  bookings     Booking[]
+  blockedSlots BlockedSlot[]
+  createdAt    DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([status])
+  @@map("laundry_rooms")
+}
+
+model Booking {
+  id            String        @id @default(uuid()) @db.Uuid
+  residentId    String        @map("resident_id") @db.Uuid
+  laundryRoomId String        @map("laundry_room_id") @db.Uuid
+  startTime     DateTime      @map("start_time") @db.Timestamptz(6)
+  endTime       DateTime      @map("end_time") @db.Timestamptz(6)
+  status        BookingStatus @default(ACTIVE)
+  canceledAt    DateTime?     @map("canceled_at") @db.Timestamptz(6)
+  resident      Resident      @relation(fields: [residentId], references: [id], onDelete: Restrict)
+  laundryRoom   LaundryRoom   @relation(fields: [laundryRoomId], references: [id], onDelete: Restrict)
+  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([residentId])
+  @@index([laundryRoomId])
+  @@index([status])
+  @@index([laundryRoomId, startTime, endTime])
+  @@map("bookings")
+}
+
+model BlockedSlot {
+  id               String      @id @default(uuid()) @db.Uuid
+  laundryRoomId    String      @map("laundry_room_id") @db.Uuid
+  startTime        DateTime    @map("start_time") @db.Timestamptz(6)
+  endTime          DateTime    @map("end_time") @db.Timestamptz(6)
+  reason           String
+  createdByAdminId String      @map("created_by_admin_id") @db.Uuid
+  laundryRoom      LaundryRoom @relation(fields: [laundryRoomId], references: [id], onDelete: Restrict)
+  createdByAdmin   Admin       @relation(fields: [createdByAdminId], references: [id], onDelete: Restrict)
+  createdAt        DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime    @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([laundryRoomId])
+  @@index([createdByAdminId])
+  @@index([laundryRoomId, startTime, endTime])
+  @@map("blocked_slots")
+}

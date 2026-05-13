@@ -2,32 +2,30 @@
 
 ## READY
 
-### LBC-003B - Define persistence model and conflict constraint strategy
+### LBC-003C - Implement Prisma schema baseline
 
-Type: Documentation / Architecture
+Type: Persistence / Schema Baseline
 
 Goal:
-Define the future persistence model and PostgreSQL conflict-constraint strategy before any Prisma or database implementation.
+Create the first Prisma schema baseline for the MVP domain model without creating migrations, seed data, database state, endpoints, services, repositories, Angular screens, auth, or real booking flows.
 
 Acceptance:
-- Future tables for Resident/User, Admin, LaundryRoom, Booking, and BlockedSlot are documented.
-- Expected technical fields are documented.
-- Relationships are documented.
-- Expected indexes are documented.
-- PostgreSQL strategy for preventing time conflicts is documented.
-- ACTIVE bookings blocking availability is documented.
-- CANCELED bookings remaining historical and non-blocking is documented.
-- BlockedSlot blocking availability is documented.
-- Race condition risk is documented.
-- Real implementation is deferred to future tasks.
-- Prisma schema, migrations, seed, real database, `DATABASE_URL`, endpoints, controllers, services, repositories, Angular screens, runtime changes, dependency changes, deploy, CI, Docker, and `packages/shared` remain outside scope.
+- `prisma/schema.prisma` is created.
+- PostgreSQL datasource is defined.
+- Prisma Client generator is defined.
+- Resident, Admin, LaundryRoom, Booking, and BlockedSlot are modeled.
+- Minimum enums are defined where useful.
+- Relationships, foreign keys, status fields, technical timestamps, `startTime`, `endTime`, and nullable `canceledAt` are defined.
+- Query-support indexes are defined for the documented access patterns.
+- Prisma schema baseline limitations around overlap and race-condition protection are documented.
+- No migration, seed, real database, `DATABASE_URL` file change, endpoint, controller, service, repository, Angular screen, auth, runtime change, dependency change, deploy, CI, Docker, or `packages/shared` work is created.
 - Required raw evidence is presented before any commit request.
 
 ## BACKLOG
 
-### LBC-003C - Persistence Implementation
+### LBC-004 - Booking Availability API
 
 Status: BACKLOG
 
 Notes:
-- Expected future scope: Prisma schema and database-level protection against conflicting bookings or blocked slots after LBC-003B is approved.
+- Expected future scope: expose availability for fixed 2-hour slots and enforce documented availability behavior.

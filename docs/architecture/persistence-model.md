@@ -8,6 +8,29 @@ This document defines the future persistence model and PostgreSQL conflict-preve
 
 This is documentation only. It does not create a Prisma schema, migration, seed data, database connection, endpoint, controller, service, repository, Angular screen, deployment, CI, Docker setup, or shared package.
 
+## LBC-003C Prisma Baseline
+
+LBC-003C creates the first Prisma schema baseline in `prisma/schema.prisma`.
+
+The baseline maps the documented domain entities to Prisma models:
+- `Resident`
+- `Admin`
+- `LaundryRoom`
+- `Booking`
+- `BlockedSlot`
+
+The baseline includes PostgreSQL as the datasource, Prisma Client as the generator, minimum status enums, model relationships, foreign keys, technical timestamps, and query-support indexes.
+
+The baseline does not create a migration, seed file, real database, endpoint, service, repository, Angular screen, auth flow, or reservation workflow.
+
+The Prisma schema baseline cannot fully express every persistence rule documented here. In particular:
+- Cross-table overlap protection between `Booking` and `BlockedSlot` is not enforced by this baseline schema alone.
+- Race-condition protection is not solved by this baseline schema alone.
+- Partial exclusion constraints for ACTIVE-only booking overlap prevention are deferred to a later migration or database-specific implementation task.
+- Fixed 2-hour slot validation, 14-day booking window validation, and one future ACTIVE booking per resident require later application and database-backed implementation.
+
+Later implementation must keep using transaction boundaries and database-backed conflict protection before creating real booking or blocked-slot write flows.
+
 ## Persistence Principles
 
 - PostgreSQL is the target database.

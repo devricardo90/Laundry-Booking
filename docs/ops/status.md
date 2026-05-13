@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-003B - Define persistence model and conflict constraint strategy
+Current task: LBC-003C - Implement Prisma schema baseline
 
 Task status: READY
 
@@ -13,17 +13,17 @@ Repository status:
 - LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
 - LBC-002C is Remote DONE at commit `93f32c7`.
 - LBC-003A is Remote DONE at commit `fe1ac8c`.
-- Persistence model documentation task is in progress.
+- LBC-003B is Remote DONE at commit `c31ed8c`.
+- Prisma schema baseline task is in progress.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-003B.
-- No push has been made for LBC-003B.
+- No commit has been made for LBC-003C.
+- No push has been made for LBC-003C.
 
 Protocol checks:
 - One READY task only: yes.
-- LBC-003B READY: yes.
-- LBC-003C READY: no.
+- LBC-003C READY: yes.
 - Evidence missing: no current blocker identified.
 - Authorized file scope respected: pending final diff verification.
 - Local DONE declared: no.
@@ -121,3 +121,19 @@ LBC-003B blocked scope:
 - Endpoints, controllers, services, and repositories.
 - Angular product screens or components.
 - Runtime changes, dependency changes, `pnpm approve-builds`, deploy, CI, Docker, and `packages/shared`.
+
+LBC-003C authorized scope:
+- Create the `prisma` folder if needed.
+- Create `prisma/schema.prisma`.
+- Define PostgreSQL datasource and Prisma Client generator.
+- Model Resident, Admin, LaundryRoom, Booking, and BlockedSlot.
+- Define minimum enums, relationships, foreign keys, statuses, timestamps, `startTime`, `endTime`, and `canceledAt` where applicable.
+- Document schema baseline limitations around overlap and race-condition protection.
+- Update authorized operational documentation.
+- Run Prisma schema validation only if the Prisma CLI is already available locally.
+
+LBC-003C blocked scope:
+- Migrations, `prisma migrate`, `prisma db push`, seed data, real database access, and `.env` or `DATABASE_URL` file changes.
+- Dependency installation and `pnpm approve-builds`.
+- Endpoints, controllers, services, repositories, Angular screens, auth, and real booking flows.
+- Deploy, CI, Docker, `packages/shared`, new READY tasks, commit, and push.

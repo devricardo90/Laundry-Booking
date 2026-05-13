@@ -190,3 +190,9 @@ The domain model intentionally excludes:
 The future persistence model is documented in `docs/architecture/persistence-model.md`.
 
 LBC-003B documents the expected tables, fields, relationships, indexes, PostgreSQL conflict strategy, and race-condition risks without creating Prisma schema, migrations, seed data, endpoints, services, repositories, Angular screens, or a real database connection.
+
+LBC-003C creates the first Prisma schema baseline for these entities in `prisma/schema.prisma`.
+
+The schema baseline represents the documented entities and relationships, but it does not implement booking creation, cancellation, availability calculation, authentication, endpoint behavior, database migrations, seed data, or real database access.
+
+The schema baseline also does not by itself enforce overlap prevention, fixed 2-hour duration, 14-day booking window, one future ACTIVE booking per resident, or race-condition protection. Those rules remain required for later implementation tasks.

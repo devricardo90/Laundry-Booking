@@ -2,23 +2,26 @@
 
 ## READY
 
-### LBC-003B - Define persistence model and conflict constraint strategy
+### LBC-003C - Implement Prisma schema baseline
 
 Status: READY
 
-Type: Documentation / Architecture
+Type: Persistence / Schema Baseline
 
 Operational notes:
-- This task may create persistence model documentation.
-- This task may document future tables for Resident/User, Admin, LaundryRoom, Booking, and BlockedSlot.
-- This task may document expected technical fields, relationships, and indexes.
-- This task may document PostgreSQL conflict-prevention strategy.
-- This task may document race condition risk and future implementation boundaries.
+- This task may create the `prisma` folder if needed.
+- This task may create `prisma/schema.prisma`.
+- This task may define PostgreSQL datasource and Prisma Client generator.
+- This task may model Resident, Admin, LaundryRoom, Booking, and BlockedSlot.
+- This task may define minimum enums, relationships, foreign keys, statuses, timestamps, `startTime`, `endTime`, and `canceledAt` where applicable.
+- This task may document Prisma schema baseline limitations around overlap and race-condition protection.
 - This task may update authorized operational documentation.
 - This task must not install new dependencies.
 - This task must not run `pnpm approve-builds`.
 - This task must not create `packages/shared`.
-- This task must not create Prisma schema, migrations, seed, database configuration, or `DATABASE_URL` changes.
+- This task must not create migrations, seed data, database configuration files, or `DATABASE_URL` changes.
+- This task must not run `prisma migrate` or `prisma db push`.
+- This task must not access a real database.
 - This task must not create endpoints, controllers, services, repositories, or Angular product screens.
 - This task must not change runtime scripts or healthcheck implementation.
 - This task must not configure deploy, CI, Docker, or E2E tests.
@@ -28,15 +31,6 @@ Operational notes:
 - This task must present raw validation and diff evidence before commit authorization.
 
 ## BACKLOG
-
-### LBC-003C - Persistence Implementation
-
-Status: BACKLOG
-
-Expected future purpose:
-- Define Prisma schema after LBC-003B is approved.
-- Model Resident, Administrator, LaundryRoom, Booking, and BlockedSlot.
-- Add PostgreSQL constraints or transaction strategy for conflict prevention.
 
 ### LBC-004 - Booking Availability API
 

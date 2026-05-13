@@ -1,5 +1,37 @@
 # Execution Log
 
+## 2026-05-13 - LBC-003C
+
+Task:
+LBC-003C - Implement Prisma schema baseline.
+
+Decision:
+- Trigger authorized LBC-003C as a controlled Prisma schema baseline task.
+- LBC-003B is confirmed Remote DONE at commit `c31ed8c`.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` was run and showed `c31ed8c`, `fe1ac8c`, and `93f32c7`.
+
+Authorized scope:
+- Create the `prisma` folder if needed.
+- Create `prisma/schema.prisma`.
+- Define PostgreSQL datasource and Prisma Client generator.
+- Model Resident, Admin, LaundryRoom, Booking, and BlockedSlot.
+- Define minimum enums, relationships, foreign keys, statuses, timestamps, `startTime`, `endTime`, and `canceledAt` where applicable.
+- Document schema baseline limitations around overlap and race-condition protection.
+- Update authorized operational documentation.
+- Run Prisma validation only if the Prisma CLI is already available.
+
+Blocked scope:
+- Migrations, `prisma migrate`, `prisma db push`, seed data, real database access, and `.env` or `DATABASE_URL` file changes.
+- Dependency installation and `pnpm approve-builds`.
+- Endpoints, controllers, services, repositories, Angular screens, auth, real reservation flows, deploy, CI, Docker, `packages/shared`, commit, and push.
+
+Evidence status:
+- Pending final git status, diff evidence, `git add -N` for `prisma/schema.prisma`, and Trigger authorization before commit.
+
 ## 2026-05-13 - LBC-003B
 
 Task:

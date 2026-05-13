@@ -112,6 +112,12 @@ The future persistence model and conflict-constraint strategy are documented in 
 
 LBC-003B defines persistence expectations only at the architecture documentation level. It does not authorize Prisma schema, migrations, seed data, database configuration, endpoints, controllers, services, repositories, or Angular product screens.
 
+LBC-003C creates the first Prisma schema baseline in `prisma/schema.prisma`.
+
+The schema baseline is a structural persistence starting point. It does not implement runtime validation, reservation flows, database migrations, seed data, real database access, API endpoints, services, repositories, Angular screens, or authentication.
+
+The business rules in this file remain mandatory for later implementation. The Prisma schema baseline does not fully enforce overlap prevention or race-condition protection by itself, especially for Booking-to-BlockedSlot cross-table conflicts and ACTIVE-only booking conflicts.
+
 ## Validation Criteria
 
 Validation must happen before persistence and must be protected against race conditions in implementation tasks.
