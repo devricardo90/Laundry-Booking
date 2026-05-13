@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-002C - Define API/Web local runtime and environment baseline
+Current task: LBC-003A - Define booking domain model before implementation
 
 Task status: READY
 
@@ -11,17 +11,18 @@ Repository status:
 - LBC-001 is Remote DONE at commit `3d90251`.
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
 - LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
-- Local runtime baseline task is in progress.
+- LBC-002C is Remote DONE at commit `93f32c7`.
+- Domain model documentation task is in progress.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-002C.
-- No push has been made for LBC-002C.
+- No commit has been made for LBC-003A.
+- No push has been made for LBC-003A.
 
 Protocol checks:
 - One READY task only: yes.
-- LBC-002C READY: yes.
-- LBC-003 READY: no.
+- LBC-003A READY: yes.
+- LBC-003B READY: no.
 - Evidence missing: no current blocker identified.
 - Authorized file scope respected: pending final diff verification.
 - Local DONE declared: no.
@@ -95,3 +96,15 @@ LBC-002C blocked scope:
 - Prisma, schema, migrations, seed, and real database.
 - Auth, booking rules, conflict prevention, domain endpoints, and domain screens.
 - Deploy, CI, Docker, and new READY tasks.
+
+LBC-003A authorized scope:
+- Create or update `docs/product/domain-model.md`.
+- Update `docs/product/business-rules.md`.
+- Update `docs/product/mvp-scope.md`.
+- Update operational docs for the task.
+
+LBC-003A blocked scope:
+- Prisma schema, migrations, seed, and real database.
+- Endpoints, controllers, services, and repositories.
+- Angular product screens or components.
+- Runtime changes, dependency changes, `pnpm approve-builds`, deploy, CI, Docker, and `packages/shared`.

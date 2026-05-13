@@ -2,29 +2,30 @@
 
 ## READY
 
-### LBC-002C - Define API/Web local runtime and environment baseline
+### LBC-003A - Define booking domain model before implementation
 
-Type: Runtime / Developer Experience
+Type: Documentation / Domain Modeling
 
 Goal:
-Define official local runtime scripts, ports, environment defaults, and documentation for the scaffolded web and API apps.
+Define the minimum conceptual booking domain model before any technical persistence or API implementation.
 
 Acceptance:
-- Root scripts exist for running web, API, and both together locally.
-- Web local runtime uses port `4200`.
-- API local runtime uses default port `3000`.
-- API reads `HOST` and `PORT` from environment variables with safe defaults.
-- `.env.example` exists and contains no secrets.
-- `docs/ops/local-runtime.md` documents the official local runtime.
-- `/health` remains a technical healthcheck only.
-- No new dependencies are installed.
-- No `packages/shared` package is created.
-- Prisma, schema, migrations, seed, real database, auth, booking rules, conflict prevention, domain endpoints, domain screens, deploy, CI, Docker, and new READY tasks remain outside scope.
+- Domain model documentation is created or updated.
+- Resident/User is documented with conceptual fields.
+- Admin is documented with conceptual fields.
+- LaundryRoom is documented with conceptual fields.
+- Booking is documented with conceptual fields.
+- BlockedSlot is documented with conceptual fields.
+- Booking statuses are documented.
+- Minimum time conflict rules are documented.
+- Minimum cancellation rules are documented.
+- MVP limits are documented.
+- Prisma schema, migrations, seed, real database, endpoints, controllers, services, repositories, Angular product screens, runtime changes, dependency changes, deploy, CI, Docker, and `packages/shared` remain outside scope.
 - Required raw evidence is presented before any commit request.
 
 ## BACKLOG
 
-### LBC-003 - Data Model and Conflict Constraints
+### LBC-003B - Persistence Model and Conflict Constraints
 
 Status: BACKLOG
 

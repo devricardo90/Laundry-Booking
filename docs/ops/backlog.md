@@ -2,26 +2,26 @@
 
 ## READY
 
-### LBC-002C - Define API/Web local runtime and environment baseline
+### LBC-003A - Define booking domain model before implementation
 
 Status: READY
 
-Type: Runtime / Developer Experience
+Type: Documentation / Domain Modeling
 
 Operational notes:
-- This task may define root scripts for local web and API runtime.
-- This task may set web local runtime to `127.0.0.1:4200`.
-- This task may keep API local runtime on `127.0.0.1:3000` by default.
-- This task may allow API `HOST` and `PORT` environment variables with safe defaults.
-- This task may create `.env.example` without secrets.
-- This task may create `docs/ops/local-runtime.md`.
-- This task may keep `/health` as a technical healthcheck.
+- This task may create or update domain model documentation.
+- This task may document Resident/User, Admin, LaundryRoom, Booking, and BlockedSlot.
+- This task may document conceptual fields for each entity.
+- This task may document booking statuses.
+- This task may document conflict and cancellation rules.
+- This task may document MVP limits.
 - This task may update authorized operational documentation.
 - This task must not install new dependencies.
 - This task must not run `pnpm approve-builds`.
 - This task must not create `packages/shared`.
 - This task must not create Prisma schema, migrations, seed, or database configuration.
-- This task must not create auth, booking rules, conflict prevention, domain endpoints, or domain screens.
+- This task must not create endpoints, controllers, services, repositories, or Angular product screens.
+- This task must not change runtime scripts or healthcheck implementation.
 - This task must not configure deploy, CI, Docker, or E2E tests.
 - This task must not open a new READY task.
 - This task must not be committed without explicit authorization.
@@ -30,7 +30,7 @@ Operational notes:
 
 ## BACKLOG
 
-### LBC-003 - Persistence Model
+### LBC-003B - Persistence Model
 
 Status: BACKLOG
 

@@ -107,6 +107,8 @@ Represents an administrator-created unavailable slot for a laundry room, usually
 Slot:
 Represents a fixed 2-hour time interval. Slots are not dynamic in the MVP.
 
+The detailed conceptual domain model for these entities is documented in `docs/product/domain-model.md`.
+
 ## 9. Reservation Rules
 
 - A booking is created only for one laundry room and one fixed 2-hour slot.
@@ -181,7 +183,24 @@ The MVP may allow:
 - A new booking for a slot previously held by a CANCELED booking.
 - Bookings for different laundry rooms at the same time, if each room is independently available.
 
-## 14. DONE Criteria
+## 14. Domain Model Baseline
+
+LBC-003A adds a documentation-only domain model baseline before technical persistence work.
+
+Minimum domain entities:
+- Resident/User.
+- Admin.
+- LaundryRoom.
+- Booking.
+- BlockedSlot.
+
+Minimum booking statuses:
+- ACTIVE.
+- CANCELED.
+
+Implementation remains outside LBC-003A. The domain model does not create a Prisma schema, database migration, seed data, API endpoint, backend service, repository, Angular product component, or real database connection.
+
+## 15. DONE Criteria
 
 LBC-001 is DONE when:
 - MVP scope is documented.

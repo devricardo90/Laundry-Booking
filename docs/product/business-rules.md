@@ -71,27 +71,40 @@ The system must reject creation of a BlockedSlot when:
 ## Entity Rules
 
 Resident:
+- Represents the condominium user who books laundry time.
 - Can create one future ACTIVE booking.
 - Can cancel their own ACTIVE booking.
+- Owns their own Booking records.
 
 Administrator:
+- Represents the operational user who manages availability.
 - Can view bookings and blocked slots.
 - Can create BlockedSlots.
 
 LaundryRoom:
 - Owns independent availability.
 - Can have many bookings and blocked slots.
+- Does not share availability with other laundry rooms.
 
 Booking:
 - Belongs to one Resident.
 - Belongs to one LaundryRoom.
 - Has a fixed start and end time.
 - Has status ACTIVE or CANCELED.
+- Starts as ACTIVE after successful creation.
+- May transition from ACTIVE to CANCELED.
 
 BlockedSlot:
 - Belongs to one LaundryRoom.
 - Has a fixed start and end time.
 - Blocks availability.
+- Is created by an Administrator.
+
+## Domain Model Reference
+
+The conceptual MVP domain model is documented in `docs/product/domain-model.md`.
+
+LBC-003A defines entity fields and relationships only at the product/domain level. It does not authorize Prisma schema, migrations, seed data, controllers, services, repositories, endpoints, Angular product screens, or real database work.
 
 ## Validation Criteria
 

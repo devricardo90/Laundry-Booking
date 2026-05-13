@@ -1,5 +1,36 @@
 # Execution Log
 
+## 2026-05-13 - LBC-003A
+
+Task:
+LBC-003A - Define booking domain model before implementation.
+
+Decision:
+- Trigger promoted LBC-003A to READY with documentation-only domain modeling scope.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` was run and showed `93f32c7`, `b577a40`, and `d6b7673`.
+
+Authorized scope:
+- Create or update documentation for the minimum booking domain model.
+- Define Resident/User, Admin, LaundryRoom, Booking, and BlockedSlot.
+- Define conceptual fields for each entity.
+- Define booking statuses.
+- Define minimum conflict and cancellation rules.
+- Define MVP limits.
+- Update operational task files.
+
+Blocked scope:
+- Prisma schema, migrations, seed, and real database.
+- Endpoints, controllers, services, and repositories.
+- Angular product screens or components.
+- Runtime changes, dependency changes, `pnpm approve-builds`, deploy, CI, Docker, and `packages/shared`.
+
+Evidence status:
+- Pending final git status, diff evidence, `git add -N` for `docs/product/domain-model.md`, and Trigger authorization before commit.
+
 ## 2026-05-13 - LBC-002C
 
 Task:
