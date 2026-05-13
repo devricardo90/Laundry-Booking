@@ -1,5 +1,33 @@
 # Execution Log
 
+## 2026-05-13 - LBC-002C
+
+Task:
+LBC-002C - Define API/Web local runtime and environment baseline.
+
+Decision:
+- Trigger promoted LBC-002C to READY with local runtime baseline scope.
+
+Authorized scope:
+- Define official local scripts for web and API.
+- Use web port `4200` and API port `3000`.
+- Read API `HOST` and `PORT` from environment variables with safe defaults.
+- Create `.env.example` without secrets.
+- Create `docs/ops/local-runtime.md`.
+- Keep `/health` technical only.
+- Run `pnpm lint`, `pnpm typecheck`, and `pnpm build`.
+
+Blocked scope:
+- New dependencies.
+- `pnpm approve-builds`.
+- `packages/shared`.
+- Prisma, schema, migrations, seed, and real database.
+- Auth, booking rules, conflict prevention, product endpoints, and product screens.
+- Deploy, CI, Docker, and new READY tasks.
+
+Evidence status:
+- Pending validation evidence, diff evidence, `git add -N` for new files, and Trigger authorization before commit.
+
 ## 2026-05-13 - LBC-002B
 
 Task:

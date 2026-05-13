@@ -2,24 +2,28 @@
 
 ## READY
 
-### LBC-002B - Project Scaffold
+### LBC-002C - Define API/Web local runtime and environment baseline
 
 Status: READY
 
-Type: Scaffold / Technical Foundation
+Type: Runtime / Developer Experience
 
 Operational notes:
-- This task may create a pnpm workspace.
-- This task may create `apps/web` with an Angular shell.
-- This task may configure Tailwind only in `apps/web`.
-- This task may create `apps/api` with a Fastify TypeScript shell.
-- This task may create minimal validation scripts.
+- This task may define root scripts for local web and API runtime.
+- This task may set web local runtime to `127.0.0.1:4200`.
+- This task may keep API local runtime on `127.0.0.1:3000` by default.
+- This task may allow API `HOST` and `PORT` environment variables with safe defaults.
+- This task may create `.env.example` without secrets.
+- This task may create `docs/ops/local-runtime.md`.
+- This task may keep `/health` as a technical healthcheck.
 - This task may update authorized operational documentation.
+- This task must not install new dependencies.
+- This task must not run `pnpm approve-builds`.
 - This task must not create `packages/shared`.
 - This task must not create Prisma schema, migrations, seed, or database configuration.
 - This task must not create auth, booking rules, conflict prevention, domain endpoints, or domain screens.
 - This task must not configure deploy, CI, Docker, or E2E tests.
-- This task must not open LBC-002C as READY.
+- This task must not open a new READY task.
 - This task must not be committed without explicit authorization.
 - This task must not be pushed.
 - This task must present raw validation and diff evidence before commit authorization.

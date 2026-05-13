@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-002B - Project Scaffold
+Current task: LBC-002C - Define API/Web local runtime and environment baseline
 
 Task status: READY
 
@@ -10,17 +10,18 @@ Repository status:
 - Repository initialized.
 - LBC-001 is Remote DONE at commit `3d90251`.
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
-- Minimum scaffold task is in progress.
+- LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
+- Local runtime baseline task is in progress.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-002B.
-- No push has been made for LBC-002B.
+- No commit has been made for LBC-002C.
+- No push has been made for LBC-002C.
 
 Protocol checks:
 - One READY task only: yes.
-- LBC-002B READY: yes.
-- LBC-002C READY: no.
+- LBC-002C READY: yes.
+- LBC-003 READY: no.
 - Evidence missing: no current blocker identified.
 - Authorized file scope respected: pending final diff verification.
 - Local DONE declared: no.
@@ -78,3 +79,19 @@ LBC-002B validation status:
 - `pnpm build`: passed.
 - `pnpm --filter web build`: passed.
 - `pnpm --filter api build`: passed.
+
+LBC-002C authorized scope:
+- Root local runtime scripts in `package.json`.
+- Web runtime script updates in `apps/web/package.json`.
+- API `HOST` and `PORT` defaults in `apps/api/src/server.ts`.
+- `.env.example` without secrets.
+- Local runtime documentation in `docs/ops/local-runtime.md`.
+- Operational docs updates.
+
+LBC-002C blocked scope:
+- New dependencies.
+- `pnpm approve-builds`.
+- `packages/shared`.
+- Prisma, schema, migrations, seed, and real database.
+- Auth, booking rules, conflict prevention, domain endpoints, and domain screens.
+- Deploy, CI, Docker, and new READY tasks.

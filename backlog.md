@@ -2,22 +2,24 @@
 
 ## READY
 
-### LBC-002B - Project Scaffold
+### LBC-002C - Define API/Web local runtime and environment baseline
 
-Type: Scaffold / Technical Foundation
+Type: Runtime / Developer Experience
 
 Goal:
-Create the minimum technical monorepo scaffold for the approved Angular web app and Fastify API.
+Define official local runtime scripts, ports, environment defaults, and documentation for the scaffolded web and API apps.
 
 Acceptance:
-- pnpm workspace is created.
-- Root `package.json`, `pnpm-workspace.yaml`, `pnpm-lock.yaml`, and `.gitignore` are created or updated as needed.
-- `apps/web` contains an Angular shell.
-- Tailwind is configured only for `apps/web`.
-- `apps/api` contains a Fastify TypeScript shell.
-- Minimal validation scripts exist for install, lint, typecheck, build, web build, and api build.
+- Root scripts exist for running web, API, and both together locally.
+- Web local runtime uses port `4200`.
+- API local runtime uses default port `3000`.
+- API reads `HOST` and `PORT` from environment variables with safe defaults.
+- `.env.example` exists and contains no secrets.
+- `docs/ops/local-runtime.md` documents the official local runtime.
+- `/health` remains a technical healthcheck only.
+- No new dependencies are installed.
 - No `packages/shared` package is created.
-- Prisma, schema, migrations, seed, real database, auth, booking rules, conflict prevention, domain endpoints, domain screens, deploy, CI, Docker, and LBC-002C remain outside scope.
+- Prisma, schema, migrations, seed, real database, auth, booking rules, conflict prevention, domain endpoints, domain screens, deploy, CI, Docker, and new READY tasks remain outside scope.
 - Required raw evidence is presented before any commit request.
 
 ## BACKLOG

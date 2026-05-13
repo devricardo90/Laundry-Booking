@@ -3,21 +3,22 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-002B - Project Scaffold.
+LBC-002C - Define API/Web local runtime and environment baseline.
 
 Current state:
 - Repository has been initialized.
 - LBC-001 is Remote DONE at commit `3d90251`.
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
+- LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-002B is the only READY task.
+- LBC-002C is the only READY task.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
 - Fastify TypeScript shell exists under `apps/api`.
 - Required validation commands have passed.
-- No commit has been made for LBC-002B.
-- No push has been made for LBC-002B.
+- No commit has been made for LBC-002C.
+- No push has been made for LBC-002C.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -56,7 +57,7 @@ LBC-002A draft decisions:
 
 Next protocol step:
 - Present raw validation and git diff evidence.
-- Run `git add -N` for new files before asking for commit authorization.
+- Run `git add -N` for `.env.example` and `docs/ops/local-runtime.md` before asking for commit authorization.
 - Await Trigger approval.
 - Do not commit until explicitly authorized.
 - Do not push.
@@ -64,5 +65,5 @@ Next protocol step:
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-002B may only create root workspace files, `apps/web/**`, `apps/api/**`, and authorized ops document updates.
-- `packages/shared`, Prisma, schema, migrations, seed, real database, auth, booking rules, conflict prevention, domain endpoints, domain screens, deploy, CI, Docker, E2E tests, and LBC-002C are blocked.
+- LBC-002C may only define local runtime scripts, ports, API env defaults, `.env.example`, local runtime docs, and authorized ops document updates.
+- `packages/shared`, new dependencies, `pnpm approve-builds`, Prisma, schema, migrations, seed, real database, auth, booking rules, conflict prevention, domain endpoints, domain screens, deploy, CI, Docker, and new READY tasks are blocked.

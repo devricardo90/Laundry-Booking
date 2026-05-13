@@ -9,8 +9,18 @@ app.get('/health', async () => ({
   service: 'lbc-api',
 }));
 
+const parsePort = (value: string | undefined) => {
+  const port = Number(value ?? 3000);
+
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    throw new Error(`Invalid PORT value: ${value}`);
+  }
+
+  return port;
+};
+
 const start = async () => {
-  const port = Number(process.env.PORT ?? 3000);
+  const port = parsePort(process.env.PORT);
   const host = process.env.HOST ?? '127.0.0.1';
 
   await app.listen({ port, host });

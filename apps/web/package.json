@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "dev": "ng serve --host 127.0.0.1 --port 4200",
+    "start": "ng serve --host 127.0.0.1 --port 4200",
     "lint": "prettier --check \"src/**/*.{ts,html,css}\"",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "build": "ng build",
