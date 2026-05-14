@@ -2,9 +2,9 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004E - Implement Booking Creation Endpoint
+Current task: LBC-004F - Implement Booking Cancellation API
 
-Task status: LOCAL DONE
+Task status: READY FOR TRIGGER REVIEW
 
 Repository status:
 - Repository initialized.
@@ -19,19 +19,20 @@ Repository status:
 - LBC-004B is Remote DONE at commit `7025936`.
 - LBC-004C is Remote DONE at commit `9552c7b`.
 - LBC-004D is Remote DONE at commit `f79f3dc`.
-- LBC-004E is Local DONE after Trigger technical approval.
+- LBC-004E is Remote DONE at commit `36263f6`.
+- LBC-004F is ready for Trigger review after API-only implementation and validation.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- Commit is authorized after Trigger technical approval.
-- No push has been made for LBC-004E.
+- No commit has been made for LBC-004F.
+- No push has been made for LBC-004F.
 
 Protocol checks:
-- One READY task only: LBC-004E is active.
-- LBC-004E READY: implementation authorized by Trigger.
-- Evidence missing: pending commit and post-commit evidence.
+- One READY task only: LBC-004F is active.
+- LBC-004F READY: implementation authorized by Trigger.
+- Evidence missing: pending final Trigger review.
 - Authorized file scope respected: yes.
-- Local DONE declared: yes.
+- Local DONE declared: no.
 - Remote DONE declared: no.
 
 Current approved stack:
@@ -255,3 +256,52 @@ LBC-004E validation result:
 
 LBC-004E blocked scope:
 - `apps/web`, Angular UI, admin panel, auth, cancellation, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004F READY, any new READY task, and push.
+
+LBC-004E result:
+- Remote DONE confirmed at commit `36263f6`.
+
+LBC-004F authorized scope:
+- Implement only `POST /bookings/:bookingId/cancel`.
+- Do not implement `PATCH /bookings/:bookingId`.
+- Do not create a generic booking status update endpoint.
+- Use Fastify in `apps/api`.
+- Use existing Prisma 7 configuration.
+- Validate `bookingId` as UUID.
+- Return 404 for missing Booking.
+- Return 409 for Booking status other than ACTIVE.
+- Return 409 for ACTIVE Booking that has already started or is in the past.
+- Capture `now` once.
+- Use a short `prisma.$transaction`.
+- Use conditional `updateMany` with `id`, `status: ACTIVE`, and `startTime > now`.
+- Set `status` to `CANCELED` and fill `canceledAt`.
+- Return `id`, `status`, `canceledAt`, and `timezone`.
+- Update authorized operational documentation.
+
+LBC-004F validation requirements:
+- `pnpm lint`.
+- `pnpm typecheck`.
+- `pnpm build`.
+- Local cancel test for `200`.
+- Local cancel test for invalid UUID `400`.
+- Local cancel test for missing Booking `404`.
+- Local cancel test for already CANCELED Booking `409`.
+- Local cancel test for past or started ACTIVE Booking `409`.
+- Local availability test proving CANCELED Booking does not block availability.
+- Evidence that `apps/web` was not changed.
+
+LBC-004F validation result:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local cancel test returned `200` for ACTIVE future Booking.
+- Local cancel test returned `400` for invalid UUID.
+- Local cancel test returned `404` for missing Booking.
+- Local cancel test returned `409` for already CANCELED Booking.
+- Local cancel test returned `409` for past/started ACTIVE Booking.
+- Local availability test showed BOOKED before cancellation and AVAILABLE after cancellation for the same slot.
+- Local API server was stopped after validation.
+- Temporary local test data was removed after validation.
+- `apps/web` was not changed.
+
+LBC-004F blocked scope:
+- `apps/web`, Angular UI, admin panel, auth, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004G READY, any new READY task, commit, and push.

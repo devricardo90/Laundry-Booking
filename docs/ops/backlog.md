@@ -2,6 +2,24 @@
 
 ## REMOTE DONE
 
+### LBC-004E - Implement Booking Creation Endpoint
+
+Status: Remote DONE
+
+Type: API / Mutation Endpoint
+
+Operational notes:
+- This task implemented only `POST /bookings`.
+- This task added an API-only booking route module.
+- This task registered the booking route in the Fastify server.
+- This task implemented manual TypeScript request validation.
+- This task used `prisma.$transaction`.
+- This task used PostgreSQL transaction advisory locks for Resident and LaundryRoom.
+- This task used separate lock namespaces and fixed lock order: Resident first, LaundryRoom second.
+- This task validated required local success and error cases.
+- This task did not change `apps/web`, create migration, create seed, run Prisma generate, run Prisma db push, add dependency, configure Docker, configure CI, configure deploy, implement auth, implement cancellation, create admin panel, create `packages/shared`, or open LBC-004F as READY.
+- Remote DONE confirmed at commit `36263f6`.
+
 ### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
 
 Status: Remote DONE
@@ -92,42 +110,43 @@ Operational notes:
 
 ## READY
 
-### LBC-004E - Implement Booking Creation Endpoint
+### LBC-004F - Implement Booking Cancellation API
 
-Status: LOCAL DONE
+Status: READY FOR TRIGGER REVIEW
 
 Type: API / Mutation Endpoint
 
 Operational notes:
-- This task may implement only `POST /bookings`.
-- This task may add `apps/api/src/bookings.ts` or equivalent.
-- This task may update `apps/api/src/server.ts` only to register the route.
+- This task may implement only `POST /bookings/:bookingId/cancel`.
+- This task must not implement `PATCH /bookings/:bookingId`.
+- This task must not create a generic booking status update endpoint.
+- This task may update `apps/api/src/bookings.ts`.
+- This task may update `apps/api/src/server.ts` only if route registration is required.
 - This task may use existing Prisma 7 configuration.
-- This task may implement manual TypeScript validation without adding dependencies.
-- This task may use `prisma.$transaction`.
-- This task may use PostgreSQL transaction advisory locks for Resident and LaundryRoom.
-- This task must use separate lock namespaces and fixed lock order: Resident first, LaundryRoom second.
+- This task may use a short `prisma.$transaction`.
+- This task may use conditional `updateMany`.
+- This task must not add advisory locks for cancellation.
 - This task may update authorized operational documentation.
 - This task must not change `apps/web`.
-- This task must not create Angular UI, admin panel, auth, cancellation, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004F READY, any new READY task, or push.
+- This task must not create Angular UI, admin panel, auth, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004G READY, any new READY task, commit, or push.
 
 Expected result:
-- Booking creation endpoint is implemented according to the LBC-004D contract.
+- Booking cancellation endpoint is implemented according to the LBC-004F task scope.
 - Required validation commands pass.
 - Required local endpoint tests pass.
 - No blocked scope is changed.
 
 Implementation result:
-- Added API-only booking route.
-- Registered the booking route in the Fastify server.
-- Implemented manual TypeScript request validation.
-- Implemented `prisma.$transaction`.
-- Implemented Resident and LaundryRoom transaction advisory locks with separate namespaces and fixed lock order.
+- Added `POST /bookings/:bookingId/cancel` to the existing booking route module.
+- Implemented invalid UUID handling with `400`.
+- Implemented missing Booking handling with `404`.
+- Implemented non-ACTIVE and past/started Booking handling with `409`.
+- Implemented short transaction plus conditional `updateMany`.
+- Implemented response with `id`, `status`, `canceledAt`, and `timezone`.
 - Validated required local success and error cases.
-- No `apps/web`, migration, seed, Prisma generate, Prisma db push, dependency, Docker, CI, deploy, auth, cancellation, admin panel, `packages/shared`, LBC-004F READY, or new READY task was created.
-- Trigger technical approval has been recorded before commit.
-- Commit is authorized with explicit file staging.
+- Validated that canceled Booking no longer blocks availability.
+- No `apps/web`, migration, seed, Prisma generate, Prisma db push, dependency, Docker, CI, deploy, auth, admin panel, `packages/shared`, LBC-004G READY, or new READY task was created.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004E.
+No task is READY beyond LBC-004F.

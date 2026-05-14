@@ -36,7 +36,9 @@ type BookingConflictErrorCode =
   | 'LAUNDRY_ROOM_INACTIVE'
   | 'RESIDENT_HAS_ACTIVE_BOOKING'
   | 'BOOKING_CONFLICT'
-  | 'BLOCKED_SLOT_CONFLICT';
+  | 'BLOCKED_SLOT_CONFLICT'
+  | 'BOOKING_NOT_ACTIVE'
+  | 'BOOKING_ALREADY_STARTED';
 
 class BookingConflictError extends Error {
   constructor(readonly code: BookingConflictErrorCode) {
@@ -45,10 +47,14 @@ class BookingConflictError extends Error {
 }
 
 class NotFoundError extends Error {
-  constructor(readonly resource: 'Resident' | 'LaundryRoom') {
+  constructor(readonly resource: 'Resident' | 'LaundryRoom' | 'Booking') {
     super(`${resource} not found`);
   }
 }
+
+type CancelBookingRouteParams = {
+  bookingId: string;
+};
 
 const getDatePartsInTimezone = (date: Date, timeZone: string): DateParts => {
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -222,6 +228,10 @@ const conflictMessage = (code: BookingConflictErrorCode) => {
       return 'Requested slot is no longer available';
     case 'BLOCKED_SLOT_CONFLICT':
       return 'Requested slot is blocked';
+    case 'BOOKING_NOT_ACTIVE':
+      return 'Booking cannot be canceled unless it is ACTIVE';
+    case 'BOOKING_ALREADY_STARTED':
+      return 'Booking cannot be canceled after it has started';
   }
 };
 
@@ -339,6 +349,103 @@ export const registerBookingRoutes = (app: FastifyInstance) => {
         startTime: booking.startTime.toISOString(),
         endTime: booking.endTime.toISOString(),
         status: booking.status,
+        timezone: operationalTimezone,
+      });
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        return reply.code(404).send({
+          error: 'Not Found',
+          message: `${error.resource} not found`,
+        });
+      }
+
+      if (error instanceof BookingConflictError) {
+        return reply.code(409).send({
+          error: 'Conflict',
+          message: conflictMessage(error.code),
+        });
+      }
+
+      throw error;
+    }
+  });
+
+  app.post<{ Params: CancelBookingRouteParams }>('/bookings/:bookingId/cancel', async (request, reply) => {
+    const { bookingId } = request.params;
+
+    if (!uuidPattern.test(bookingId)) {
+      return reply.code(400).send({
+        error: 'Bad Request',
+        message: 'bookingId must be a valid UUID',
+      });
+    }
+
+    const now = new Date();
+
+    try {
+      const booking = await prisma.$transaction(async (tx) => {
+        const existingBooking = await tx.booking.findUnique({
+          where: { id: bookingId },
+          select: {
+            id: true,
+            status: true,
+            startTime: true,
+          },
+        });
+
+        if (!existingBooking) {
+          throw new NotFoundError('Booking');
+        }
+
+        if (existingBooking.status !== 'ACTIVE') {
+          throw new BookingConflictError('BOOKING_NOT_ACTIVE');
+        }
+
+        if (existingBooking.startTime <= now) {
+          throw new BookingConflictError('BOOKING_ALREADY_STARTED');
+        }
+
+        const updateResult = await tx.booking.updateMany({
+          where: {
+            id: bookingId,
+            status: 'ACTIVE',
+            startTime: { gt: now },
+          },
+          data: {
+            status: 'CANCELED',
+            canceledAt: now,
+          },
+        });
+
+        if (updateResult.count === 0) {
+          throw new BookingConflictError('BOOKING_NOT_ACTIVE');
+        }
+
+        const canceledBooking = await tx.booking.findUnique({
+          where: { id: bookingId },
+          select: {
+            id: true,
+            status: true,
+            canceledAt: true,
+          },
+        });
+
+        const canceledAt = canceledBooking?.canceledAt;
+
+        if (!canceledBooking || !canceledAt) {
+          throw new Error('Canceled booking was not found after update');
+        }
+
+        return {
+          ...canceledBooking,
+          canceledAt,
+        };
+      });
+
+      return reply.code(200).send({
+        id: booking.id,
+        status: booking.status,
+        canceledAt: booking.canceledAt.toISOString(),
         timezone: operationalTimezone,
       });
     } catch (error) {

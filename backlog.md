@@ -2,6 +2,31 @@
 
 ## REMOTE DONE
 
+### LBC-004E - Implement Booking Creation Endpoint
+
+Status: Remote DONE
+
+Type: API / Mutation Endpoint
+
+Acceptance:
+- `POST /bookings` accepts `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- Success returns `201 Created` with `id`, `residentId`, `laundryRoomId`, `startTime`, `endTime`, `status: ACTIVE`, and `timezone: Europe/Stockholm`.
+- Invalid request data returns `400`.
+- Missing Resident or LaundryRoom returns `404`.
+- Domain conflicts return `409`.
+- Resident must exist and be ACTIVE.
+- LaundryRoom must exist and be ACTIVE.
+- Slot must be inside the 14-day window, not in the past, and aligned to the fixed 2-hour grid.
+- ACTIVE Booking overlap blocks creation.
+- CANCELED Booking does not block creation.
+- BlockedSlot overlap blocks creation.
+- Resident with another future ACTIVE Booking is rejected.
+- Booking creation uses `prisma.$transaction`.
+- Transaction advisory locks are acquired for Resident and LaundryRoom with separate namespaces and fixed order.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests passed.
+- No `apps/web`, UI, auth, cancellation, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004F READY, new READY task, or push was created during the task.
+- Remote DONE confirmed at commit `36263f6`.
+
 ### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
 
 Status: Remote DONE
@@ -79,41 +104,38 @@ Acceptance:
 
 ## READY
 
-### LBC-004E - Implement Booking Creation Endpoint
+### LBC-004F - Implement Booking Cancellation API
 
-Status: LOCAL DONE
+Status: READY FOR TRIGGER REVIEW
 
 Type: API / Mutation Endpoint
 
 Goal:
-Implement only `POST /bookings` according to the LBC-004D contract.
+Implement only `POST /bookings/:bookingId/cancel`.
 
 Acceptance:
-- `POST /bookings` accepts `residentId`, `laundryRoomId`, `date`, and `slotStart`.
-- Success returns `201 Created` with `id`, `residentId`, `laundryRoomId`, `startTime`, `endTime`, `status: ACTIVE`, and `timezone: Europe/Stockholm`.
-- Invalid request data returns `400`.
-- Missing Resident or LaundryRoom returns `404`.
-- Domain conflicts return `409`.
-- Resident must exist and be ACTIVE.
-- LaundryRoom must exist and be ACTIVE.
-- Slot must be inside the 14-day window, not in the past, and aligned to the fixed 2-hour grid.
-- ACTIVE Booking overlap blocks creation.
-- CANCELED Booking does not block creation.
-- BlockedSlot overlap blocks creation.
-- Resident with another future ACTIVE Booking is rejected.
-- Booking creation uses `prisma.$transaction`.
-- Transaction advisory locks are acquired for Resident and LaundryRoom with separate namespaces and fixed order.
+- `POST /bookings/:bookingId/cancel` is implemented.
+- `PATCH /bookings/:bookingId` is not implemented.
+- Success returns `200 OK` with `id`, `status: CANCELED`, `canceledAt`, and `timezone: Europe/Stockholm`.
+- Invalid `bookingId` returns `400`.
+- Missing Booking returns `404`.
+- Booking with status other than ACTIVE returns `409`.
+- ACTIVE Booking that has already started or is in the past returns `409`.
+- Cancelation sets `canceledAt` using server time.
+- Booking is not deleted and remains historical.
+- CANCELED Booking does not block availability.
+- Concurrency uses short transaction plus conditional `updateMany`.
+- No advisory lock is added for cancellation.
 - `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests pass.
-- No `apps/web`, UI, auth, cancellation, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004F READY, new READY task, or push is created.
+- No `apps/web`, UI, auth, admin panel, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004G READY, new READY task, commit, or push is created.
 
 Completed:
-- Implemented API-only `POST /bookings`.
-- Added transaction advisory locks for Resident and LaundryRoom with separate namespaces and fixed lock order.
+- Implemented API-only `POST /bookings/:bookingId/cancel`.
+- Implemented conditional cancellation with short transaction and `updateMany`.
 - Validated required success and error cases locally.
+- Validated that canceled Booking no longer blocks availability.
 - `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
-- Trigger technical approval has been recorded before commit.
-- Commit is authorized with explicit file staging.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004E.
+No task is READY beyond LBC-004F.

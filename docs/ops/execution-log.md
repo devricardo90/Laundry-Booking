@@ -1,5 +1,59 @@
 # Execution Log
 
+## 2026-05-14 - LBC-004F
+
+Task:
+LBC-004F - Implement Booking Cancellation API.
+
+Decision:
+- Trigger authorized LBC-004F as the only READY task.
+- LBC-004E is confirmed Remote DONE at commit `36263f6`.
+- This task may implement only `POST /bookings/:bookingId/cancel` in `apps/api`.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` showed `36263f6`, `f79f3dc`, and `9552c7b`.
+
+Authorized scope:
+- Implement only `POST /bookings/:bookingId/cancel`.
+- Do not implement `PATCH /bookings/:bookingId`.
+- Do not create a generic booking status update endpoint.
+- Use existing Fastify and Prisma 7 setup.
+- Validate `bookingId` as UUID.
+- Return 404 for missing Booking.
+- Return 409 for Booking status other than ACTIVE.
+- Return 409 for ACTIVE Booking that has already started or is in the past.
+- Capture `now` once.
+- Use a short `prisma.$transaction`.
+- Use conditional `updateMany` with `id`, `status: ACTIVE`, and `startTime > now`.
+- Set `status` to `CANCELED` and fill `canceledAt`.
+- Update authorized operational documentation.
+
+Actions completed:
+- Added cancellation route to the existing booking route module.
+- Updated operational documentation for LBC-004F.
+
+Validation completed:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local endpoint test returned `200` for canceling an ACTIVE future Booking.
+- Local endpoint test returned `400` for invalid `bookingId`.
+- Local endpoint test returned `404` for missing Booking.
+- Local endpoint test returned `409` for already CANCELED Booking.
+- Local endpoint test returned `409` for past/started ACTIVE Booking.
+- Local availability test returned BOOKED before cancellation and AVAILABLE after cancellation for the same slot.
+- The local API server used for validation was stopped after testing.
+- Temporary local test data was removed after validation.
+- `apps/web` was not changed.
+
+Blocked scope:
+- `apps/web`, Angular UI, admin panel, auth, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004G READY, any new READY task, commit, push, and Remote DONE declaration.
+
+Evidence status:
+- Pending final git status and diff evidence for Trigger review.
+
 ## 2026-05-14 - LBC-004E
 
 Task:
