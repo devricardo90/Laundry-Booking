@@ -1,10 +1,163 @@
 <main class="min-h-dvh bg-slate-50 text-slate-950">
-  <section class="mx-auto flex min-h-dvh max-w-5xl flex-col justify-center px-6 py-10">
-    <p class="text-sm font-medium uppercase tracking-wide text-slate-500">Laundry Booking Condo</p>
-    <h1 class="mt-3 text-3xl font-semibold">LBC scaffold is running</h1>
-    <p class="mt-4 max-w-2xl text-base leading-7 text-slate-700">
-      This Angular shell validates the web workspace only. Booking flows and domain screens remain
-      outside LBC-002B.
+  <header class="border-b border-slate-200 bg-white px-6 py-4">
+    <p class="text-xs font-medium uppercase tracking-widest text-slate-400">
+      Laundry Booking Condo
     </p>
-  </section>
+    <h1 class="text-xl font-semibold text-slate-900">Booking</h1>
+  </header>
+
+  <div class="mx-auto max-w-3xl space-y-6 px-6 py-8">
+    @if (actionSuccess()) {
+      <div class="rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+        {{ actionSuccess() }}
+      </div>
+    }
+    @if (actionError()) {
+      <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        {{ actionError() }}
+      </div>
+    }
+
+    <!-- Consulta -->
+    <section class="rounded-lg border border-slate-200 bg-white p-6">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Consulta</h2>
+      <div class="space-y-4">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700" for="laundryRoomId">
+            Laundry Room ID
+          </label>
+          <input
+            id="laundryRoomId"
+            type="text"
+            [(ngModel)]="laundryRoomId"
+            class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+            placeholder="UUID da lavanderia"
+          />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700" for="residentId">
+            Resident ID
+          </label>
+          <input
+            id="residentId"
+            type="text"
+            [(ngModel)]="residentId"
+            class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+            placeholder="UUID do morador"
+          />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700" for="date">Data</label>
+          <input
+            id="date"
+            type="date"
+            [(ngModel)]="date"
+            class="rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          />
+        </div>
+        <button
+          (click)="load()"
+          [disabled]="loadingAvailability() || loadingBookings()"
+          class="rounded bg-blue-600 px-5 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+        >
+          @if (loadingAvailability() || loadingBookings()) {
+            Carregando...
+          } @else {
+            Consultar
+          }
+        </button>
+      </div>
+    </section>
+
+    <!-- Disponibilidade -->
+    <section class="rounded-lg border border-slate-200 bg-white p-6">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">
+        Disponibilidade
+      </h2>
+      @if (loadingAvailability()) {
+        <p class="text-sm text-slate-500">Carregando...</p>
+      } @else if (availabilityError()) {
+        <p class="text-sm text-red-600">{{ availabilityError() }}</p>
+      } @else if (slots().length === 0) {
+        <p class="text-sm text-slate-400">Selecione a lavanderia e a data e clique em Consultar.</p>
+      } @else {
+        <div class="space-y-2">
+          @for (slot of slots(); track slot.startTime) {
+            <div
+              class="flex items-center justify-between rounded border p-3"
+              [class.slot-available]="slot.status === 'AVAILABLE'"
+              [class.slot-booked]="slot.status === 'BOOKED'"
+              [class.slot-blocked]="slot.status === 'BLOCKED'"
+            >
+              <div class="flex items-center gap-3 text-sm">
+                <span class="font-mono font-medium">
+                  {{ formatTime(slot.startTime) }}–{{ formatTime(slot.endTime) }}
+                </span>
+                <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  {{ slot.status }}
+                </span>
+                @if (slot.status === 'BLOCKED' && slot.reason) {
+                  <span class="text-xs text-slate-400">({{ slot.reason }})</span>
+                }
+              </div>
+              @if (slot.status === 'AVAILABLE') {
+                <button
+                  (click)="createBooking(slot)"
+                  [disabled]="bookingSlotStart() !== null || cancelingId() !== null"
+                  class="rounded bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700 disabled:opacity-50"
+                >
+                  @if (bookingSlotStart() === slotStart(slot.startTime)) {
+                    Reservando...
+                  } @else {
+                    Reservar
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <!-- Reservas -->
+    <section class="rounded-lg border border-slate-200 bg-white p-6">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Reservas</h2>
+      @if (loadingBookings()) {
+        <p class="text-sm text-slate-500">Carregando...</p>
+      } @else if (bookingsError()) {
+        <p class="text-sm text-red-600">{{ bookingsError() }}</p>
+      } @else if (bookings().length === 0) {
+        <p class="text-sm text-slate-400">Nenhuma reserva para esta data.</p>
+      } @else {
+        <div class="space-y-2">
+          @for (booking of bookings(); track booking.id) {
+            <div class="flex items-center justify-between rounded border border-slate-200 p-3">
+              <div class="text-sm">
+                <p class="font-medium text-slate-800">{{ booking.residentName }}</p>
+                <p class="text-slate-500">
+                  {{ formatTime(booking.startTime) }}–{{ formatTime(booking.endTime) }}
+                  <span class="ml-2 text-xs font-semibold uppercase tracking-wide">
+                    {{ booking.status }}
+                  </span>
+                </p>
+              </div>
+              @if (booking.status === 'ACTIVE' && isFuture(booking.startTime)) {
+                <button
+                  (click)="cancelBooking(booking.id)"
+                  [disabled]="cancelingId() !== null || bookingSlotStart() !== null"
+                  class="rounded border border-red-300 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 disabled:opacity-50"
+                >
+                  @if (cancelingId() === booking.id) {
+                    Cancelando...
+                  } @else {
+                    Cancelar
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+    </section>
+  </div>
 </main>

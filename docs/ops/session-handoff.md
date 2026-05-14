@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-004G - Booking Read/List API.
+LBC-005A - Minimal Angular Booking Flow.
 
 Current state:
 - Repository has been initialized.
@@ -20,8 +20,13 @@ Current state:
 - LBC-004D is Remote DONE at commit `f79f3dc`.
 - LBC-004E is Remote DONE at commit `36263f6`.
 - LBC-004F is Remote DONE at commit `1e76fb9`.
+- LBC-004G is Remote DONE at commit `252c16e`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-004G is READY for Trigger review after API-only implementation and validation.
+- LBC-005A is READY for Trigger review after Angular UI implementation and validation.
+- Angular dev proxy is configured via `apps/web/proxy.conf.json` to route `/api/*` to `http://127.0.0.1:3000`.
+- Angular dev server calls only relative `/api/*` URLs with no hardcoded backend host.
+- `provideHttpClient()` is added to `app.config.ts`.
+- Booking flow component is fully implemented with local signal state.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
@@ -30,11 +35,12 @@ Current state:
 - Prisma tooling, Prisma 7 config, migration, and seed baseline are versioned.
 - The read-only availability endpoint is implemented and Remote DONE.
 - The booking creation contract and concurrency strategy have been technically approved by the Trigger.
-- `POST /bookings` implementation and validation are technically approved by the Trigger.
+- `POST /bookings` implementation and validation are Remote DONE.
 - `POST /bookings/:bookingId/cancel` implementation is Remote DONE.
-- `GET /bookings` implementation and validation are complete for Trigger review.
-- No commit has been made for LBC-004G.
-- No push has been made for LBC-004G.
+- `GET /bookings` implementation and validation are Remote DONE.
+- `proxy.conf.json` was audited via `git add -N` and appears in `git diff`.
+- No commit has been made for LBC-005A.
+- No push has been made for LBC-005A.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -71,12 +77,17 @@ LBC-002A draft decisions:
 - Future Prisma target: 7.8.x.
 - Future PostgreSQL target: 18.x.
 
+Seed data (dev only):
+- Laundry Room A: `11111111-1111-4111-8111-111111111111`
+- Development Resident: `22222222-2222-4222-8222-222222222222`
+- Development Admin: `33333333-3333-4333-8333-333333333333`
+
 Next protocol step:
-- Review LBC-004G final evidence.
+- Review LBC-005A final evidence including proxy.conf.json diff.
 - Do not commit without Trigger authorization.
 - Do not push.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-004G may include `apps/api/src/bookings.ts`, `apps/api/src/server.ts` only if required, and authorized operational documentation.
-- `apps/web`, Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, `prisma db push`, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, commit without authorization, push, LBC-004H READY, and any new READY task are blocked.
+- LBC-005A authorized files: `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.ts`, `apps/web/src/app/app.html`, `apps/web/src/app/app.css`, and operational docs.
+- `apps/api`, `package.json`, `pnpm-lock.yaml`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, admin panel, new UI library, global store, commit without authorization, push, LBC-005B READY, and any new READY task are blocked.

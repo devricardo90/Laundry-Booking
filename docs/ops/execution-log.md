@@ -1,5 +1,65 @@
 # Execution Log
 
+## 2026-05-14 - LBC-005A
+
+Task:
+LBC-005A - Minimal Angular Booking Flow.
+
+Decision:
+- Trigger authorized LBC-005A as the only READY task.
+- LBC-004G is confirmed Remote DONE at commit `252c16e`.
+- Discussion Gate assessed: READY with Angular Dev Proxy as CORS solution.
+- CORS via `@fastify/cors` was not used because the package is not installed.
+- Angular proxy approach was authorized instead: no backend changes required.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries.
+- `git log --oneline -3` showed `252c16e`, `1e76fb9`, and `36263f6`.
+
+Authorized scope:
+- Create `apps/web/proxy.conf.json` to proxy `/api` to `http://127.0.0.1:3000` with path rewrite.
+- Add `proxyConfig` to `apps/web/angular.json` serve target options.
+- Add `provideHttpClient()` to `apps/web/src/app/app.config.ts`.
+- Implement booking flow in `apps/web/src/app/app.ts` with `HttpClient`, signals, and `FormsModule`.
+- Implement UI template in `apps/web/src/app/app.html`.
+- Add slot status CSS classes to `apps/web/src/app/app.css`.
+- Update authorized operational documentation.
+
+Actions completed:
+- Created `apps/web/proxy.conf.json`.
+- Updated `apps/web/angular.json` to add `proxyConfig` to the serve target.
+- Updated `apps/web/src/app/app.config.ts` to add `provideHttpClient()`.
+- Implemented full booking flow component in `apps/web/src/app/app.ts`.
+- Implemented full UI template in `apps/web/src/app/app.html`.
+- Added slot status color classes to `apps/web/src/app/app.css`.
+- Applied Prettier formatting fix to `app.html`.
+- Ran `git add -N apps/web/proxy.conf.json` to make new file auditable.
+- Updated all operational documentation.
+
+Validation completed:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed (177 kB initial bundle, under 500 kB budget).
+- Angular dev server served the app at `http://127.0.0.1:4200`.
+- `/api/health` via proxy returned `{"status":"ok","service":"lbc-api"}`.
+- Availability endpoint via proxy returned 12 slots with AVAILABLE and BOOKED statuses.
+- Cancel existing ACTIVE booking via proxy returned `200 CANCELED`.
+- Create new booking via proxy returned `201 ACTIVE`.
+- Bookings list via proxy returned updated list reflecting cancel and create.
+- Error state 409 returned `{"message":"Resident already has a future ACTIVE booking"}` (error display confirmed).
+- Error state 400 returned for invalid UUID and out-of-range date (error display confirmed).
+- `proxy.conf.json` audited via `git add -N` and visible in `git diff`.
+- `git diff --check` showed no whitespace errors.
+- No file outside the authorized list was altered.
+
+Blocked scope:
+- `apps/api/src/server.ts`, `apps/api/src/bookings.ts`, `apps/api/src/availability.ts`, `package.json`, `pnpm-lock.yaml`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, login, admin panel, permissions, payment, notifications, complex visual calendar, design system, new UI library, global store, LBC-005B READY, any new READY task, commit without authorization, and push.
+
+Evidence status:
+- All validation outputs presented in raw form.
+- `git status`, `git diff --stat`, `git diff --check`, `git diff -- apps/web/proxy.conf.json`, and `git diff --name-only` presented in full.
+- Pending Trigger commit authorization.
+
 ## 2026-05-14 - LBC-004G
 
 Task:

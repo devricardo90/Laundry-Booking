@@ -2,6 +2,26 @@
 
 ## REMOTE DONE
 
+### LBC-004G - Booking Read/List API
+
+Status: Remote DONE
+
+Type: API / Read Endpoint
+
+Acceptance:
+- `GET /bookings` is implemented.
+- Optional filters are `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED`.
+- `date=YYYY-MM-DD` is interpreted in `Europe/Stockholm`.
+- Response items include `id`, `laundryRoomId`, `residentName`, `startTime`, `endTime`, `status`, `canceledAt`, and `timezone`.
+- Root response includes `timezone: Europe/Stockholm`.
+- CANCELED bookings remain visible for history when the filter permits.
+- Invalid UUID returns `400`.
+- Invalid date returns `400`.
+- Invalid status returns `400`.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests passed.
+- No `apps/web`, UI, auth, login, permissions, admin panel, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004H READY, new READY task, or push was created during the task.
+- Remote DONE confirmed at commit `252c16e`.
+
 ### LBC-004F - Implement Booking Cancellation API
 
 Status: Remote DONE
@@ -127,35 +147,44 @@ Acceptance:
 
 ## READY
 
-### LBC-004G - Booking Read/List API
+### LBC-005A - Minimal Angular Booking Flow
 
 Status: READY FOR TRIGGER REVIEW
 
-Type: API / Read Endpoint
+Type: UI / Angular Frontend
 
 Goal:
-Implement only `GET /bookings`.
+Implement a minimal Angular UI for the laundry room booking flow.
 
 Acceptance:
-- `GET /bookings` is implemented.
-- Optional filters are `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED`.
-- `date=YYYY-MM-DD` is interpreted in `Europe/Stockholm`.
-- Response items include `id`, `laundryRoomId`, `residentName`, `startTime`, `endTime`, `status`, `canceledAt`, and `timezone`.
-- Root response includes `timezone: Europe/Stockholm`.
-- CANCELED bookings remain visible for history when the filter permits.
-- Invalid UUID returns `400`.
-- Invalid date returns `400`.
-- Invalid status returns `400`.
-- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests pass.
-- No `apps/web`, UI, auth, login, permissions, admin panel, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004H READY, new READY task, commit, or push is created.
+- Angular dev proxy is configured to forward `/api/*` to `http://127.0.0.1:3000`.
+- UI allows entering laundryRoomId and residentId as text inputs.
+- UI allows selecting a date.
+- UI allows querying availability via `GET /api/laundry-rooms/:id/availability`.
+- UI shows slots with AVAILABLE, BOOKED, and BLOCKED status.
+- UI allows creating a booking via `POST /api/bookings` for AVAILABLE slots.
+- UI lists existing bookings via `GET /api/bookings`.
+- UI allows canceling a future ACTIVE booking via `POST /api/bookings/:id/cancel`.
+- UI updates availability and booking list after create or cancel.
+- Loading, error, empty, and success states are implemented.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local manual tests pass.
+- No auth, login, admin panel, permissions, resident profile, payment, notification, complex visual calendar, design system, new UI library, global store, `packages/shared`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, new READY task, commit without authorization, or push is created.
 
 Completed:
-- Implemented API-only `GET /bookings`.
-- Implemented simple filters for `laundryRoomId`, `date`, and `status`.
-- Returned resident display name and ISO timestamps.
-- Validated required list and error cases locally.
-- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
+- Configured `apps/web/proxy.conf.json` to proxy `/api` to `http://127.0.0.1:3000` with path rewrite.
+- Added `proxyConfig` option to `apps/web/angular.json` serve target.
+- Added `provideHttpClient()` to `apps/web/src/app/app.config.ts`.
+- Implemented full booking flow component in `apps/web/src/app/app.ts` using `HttpClient`, signals, and `FormsModule`.
+- Implemented full template in `apps/web/src/app/app.html` with Tailwind CSS.
+- Added slot status color classes to `apps/web/src/app/app.css`.
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed (177 kB initial bundle, under 500 kB budget).
+- Angular dev server serves at `http://127.0.0.1:4200`.
+- Proxy forwarded `/api/health` correctly.
+- Manual tests passed for availability, cancel, create, and list via proxy.
+- `proxy.conf.json` audited via `git add -N`.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004G.
+No task is READY beyond LBC-005A.

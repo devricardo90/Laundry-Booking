@@ -2,6 +2,22 @@
 
 ## REMOTE DONE
 
+### LBC-004G - Booking Read/List API
+
+Status: Remote DONE
+
+Type: API / Read Endpoint
+
+Operational notes:
+- This task implemented only `GET /bookings`.
+- This task supported optional filters for `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED`.
+- This task interpreted `date=YYYY-MM-DD` in `Europe/Stockholm`.
+- This task returned ISO timestamps and included `timezone: Europe/Stockholm`.
+- This task kept CANCELED bookings visible when the filter permitted.
+- This task validated invalid UUID, date, and status with `400`.
+- This task did not change `apps/web`, create migration, create seed, run Prisma generate, run Prisma db push, add dependency, configure Docker, configure CI, configure deploy, implement auth, create admin panel, create `packages/shared`, or open LBC-004H as READY.
+- Remote DONE confirmed at commit `252c16e`.
+
 ### LBC-004F - Implement Booking Cancellation API
 
 Status: Remote DONE
@@ -128,40 +144,24 @@ Operational notes:
 
 ## READY
 
-### LBC-004G - Booking Read/List API
+### LBC-005A - Minimal Angular Booking Flow
 
 Status: READY FOR TRIGGER REVIEW
 
-Type: API / Read Endpoint
+Type: UI / Angular Frontend
 
 Operational notes:
-- This task may implement only `GET /bookings`.
-- This task may support only `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED` query filters.
-- This task must interpret `date=YYYY-MM-DD` in `Europe/Stockholm`.
-- This task must return timestamps as ISO strings.
-- This task must include `timezone: Europe/Stockholm`.
-- This task must keep CANCELED bookings visible when the filter permits.
-- This task may update `apps/api/src/bookings.ts`.
-- This task may update `apps/api/src/server.ts` only if required.
-- This task may use existing Prisma 7 configuration.
-- This task may update authorized operational documentation.
-- This task must not change `apps/web`.
-- This task must not create Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, LBC-004H READY, any new READY task, commit, or push.
-
-Expected result:
-- Booking list endpoint is implemented according to the LBC-004G task scope.
-- Required validation commands pass.
-- Required local endpoint tests pass.
-- No blocked scope is changed.
-
-Implementation result:
-- Added `GET /bookings` to the existing booking route module.
-- Implemented optional filters for `laundryRoomId`, `date`, and `status`.
-- Implemented invalid UUID, date, and status handling with `400`.
-- Returned `residentName`, ISO timestamps, `canceledAt`, and `timezone`.
-- Validated required local list and error cases.
-- No `apps/web`, migration, seed, Prisma generate, Prisma db push, dependency, Docker, CI, deploy, auth, login, permissions, admin panel, `packages/shared`, LBC-004H READY, or new READY task was created.
+- This task created `apps/web/proxy.conf.json` to proxy `/api` to `http://127.0.0.1:3000` with path rewrite.
+- This task added `proxyConfig` to the `serve` target in `apps/web/angular.json`.
+- This task added `provideHttpClient()` to `apps/web/src/app/app.config.ts`.
+- This task implemented the booking flow component in `apps/web/src/app/app.ts` using `HttpClient`, signals, and `FormsModule`.
+- This task implemented the UI template in `apps/web/src/app/app.html` with Tailwind CSS.
+- This task added slot status CSS classes to `apps/web/src/app/app.css`.
+- This task did not install new dependencies, change `package.json`, change `pnpm-lock.yaml`, change `apps/api`, create migration, create versioned seed, run Prisma generate, run Prisma db push, configure Docker, configure CI, configure deploy, implement auth, create admin panel, create `packages/shared`, or open LBC-005B as READY.
+- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
+- Manual tests passed for availability, cancel, create, and list via proxy.
+- `proxy.conf.json` audited via `git add -N`.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004G.
+No task is READY beyond LBC-005A.

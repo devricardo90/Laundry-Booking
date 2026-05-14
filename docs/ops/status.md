@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004G - Booking Read/List API
+Current task: LBC-005A - Minimal Angular Booking Flow
 
 Task status: READY FOR TRIGGER REVIEW
 
@@ -21,17 +21,19 @@ Repository status:
 - LBC-004D is Remote DONE at commit `f79f3dc`.
 - LBC-004E is Remote DONE at commit `36263f6`.
 - LBC-004F is Remote DONE at commit `1e76fb9`.
-- LBC-004G is ready for Trigger review after API-only implementation and validation.
+- LBC-004G is Remote DONE at commit `252c16e`.
+- LBC-005A is ready for Trigger review after Angular UI implementation and validation.
+- Angular dev proxy is configured via `apps/web/proxy.conf.json`.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-004G.
-- No push has been made for LBC-004G.
+- No commit has been made for LBC-005A.
+- No push has been made for LBC-005A.
 
 Protocol checks:
-- One READY task only: LBC-004G is active.
-- LBC-004G READY: implementation authorized by Trigger.
-- Evidence missing: pending final Trigger review.
+- One READY task only: LBC-005A is active.
+- LBC-005A READY: implementation authorized by Trigger.
+- Evidence complete: proxy audit via `git add -N`, `git diff --check` clean, all validations passed.
 - Authorized file scope respected: yes.
 - Local DONE declared: no.
 - Remote DONE declared: no.
@@ -335,3 +337,34 @@ LBC-004G validation result:
 
 LBC-004G blocked scope:
 - `apps/web`, Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, LBC-004H READY, any new READY task, commit, and push.
+
+LBC-004G result:
+- Remote DONE confirmed at commit `252c16e`.
+
+LBC-005A authorized scope:
+- Create `apps/web/proxy.conf.json` to proxy `/api` to `http://127.0.0.1:3000` with path rewrite.
+- Add `proxyConfig` option to `apps/web/angular.json` serve target.
+- Add `provideHttpClient()` to `apps/web/src/app/app.config.ts`.
+- Implement booking flow in `apps/web/src/app/app.ts` using `HttpClient`, signals, and `FormsModule`.
+- Implement UI template in `apps/web/src/app/app.html`.
+- Add slot status CSS classes to `apps/web/src/app/app.css`.
+- Update authorized operational documentation.
+
+LBC-005A validation result:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed (177 kB initial, under 500 kB budget).
+- Angular dev server served the app at `http://127.0.0.1:4200`.
+- `/api/health` via proxy returned `{"status":"ok","service":"lbc-api"}`.
+- Availability endpoint via proxy returned 12 slots with AVAILABLE and BOOKED statuses.
+- Cancel booking via proxy returned `200 CANCELED`.
+- Create booking via proxy returned `201 ACTIVE`.
+- Bookings list via proxy returned updated list after changes.
+- Error 409 returned `{"message":"Resident already has a future ACTIVE booking"}`.
+- Error 400 returned for invalid UUID and out-of-range date.
+- `proxy.conf.json` audited via `git add -N` and visible in `git diff`.
+- `git diff --check` showed no whitespace errors.
+- No file outside the authorized list was altered.
+
+LBC-005A blocked scope:
+- `apps/api/src/server.ts` (CORS not applicable: `@fastify/cors` is not installed), `apps/api/src/bookings.ts`, `apps/api/src/availability.ts`, `package.json`, `pnpm-lock.yaml`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, login, admin panel, permissions, payment, notifications, complex visual calendar, design system, new UI library, global store, LBC-005B READY, any new READY task, commit without authorization, and push.

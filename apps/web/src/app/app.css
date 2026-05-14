@@ -1,0 +1,14 @@
+.slot-available {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.slot-booked {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.slot-blocked {
+  background-color: #fff7ed;
+  border-color: #fed7aa;
+}
