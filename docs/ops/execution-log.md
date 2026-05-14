@@ -1,5 +1,67 @@
 # Execution Log
 
+## 2026-05-14 - LBC-005B
+
+Task:
+LBC-005B - UI Usability Pass.
+
+Decision:
+- Trigger authorized LBC-005B as the only READY task.
+- LBC-005A is confirmed as pending Remote DONE (commit authorization pending).
+- Scope is UI-only: no backend changes, no new endpoints, no new dependencies.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` showed only LBC-005A changes (from prior session).
+- `git log --oneline -3` showed `252c16e`, `1e76fb9`, and `36263f6`.
+
+Authorized scope:
+- Add `hasQueried` signal and view-helper methods to `apps/web/src/app/app.ts`.
+- Improve labels, helpers, placeholders, state messages, and badges in `apps/web/src/app/app.html`.
+- Update authorized operational documentation.
+
+Actions completed:
+- Added `hasQueried = signal(false)` to `app.ts`.
+- Added `statusLabel()`, `statusBadgeClass()`, `bookingStatusLabel()`, `bookingStatusBadgeClass()` methods.
+- Set `hasQueried.set(true)` in `load()`.
+- Translated all UI strings to English.
+- Added helper text for laundryRoomId: "Development seed laundry room ID — change to test with another laundry room."
+- Added helper text for residentId: "Development seed resident ID — used when creating a booking."
+- Added UUID format placeholder for both ID inputs (`font-mono` class applied).
+- Added date helper text: "Must be within the next 14 days."
+- Added section subtitle in Filters: "Enter the details below and click Check Availability to see slots and bookings."
+- Renamed button to "Check Availability".
+- Distinguished initial state ("Enter your details above and click Check Availability.") from empty-after-query ("No slots found for this date." / "No bookings for this date.").
+- Added slot status badges with color variants: Available (green), Booked (red), Blocked (orange).
+- Added booking status badges: Active (green), Canceled (gray).
+- Improved success/error banners: left border accent, ✓/✕ icon prefix.
+- Renamed slot button to "Book" / "Booking..." with `aria-label`.
+- Renamed cancel button to "Cancel booking" / "Canceling..." with `aria-label` and increased visual weight.
+- Applied Prettier formatting fix to `app.html`.
+- Updated operational documentation.
+
+Validation completed:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed (180 kB initial, under 500 kB budget).
+- Angular dev server recompiled automatically; new strings confirmed in `main.js`.
+- Availability test returned 12 slots with AVAILABLE and BOOKED statuses.
+- Cancel booking returned `200 CANCELED`.
+- Create booking returned `201 ACTIVE`.
+- Bookings list returned ACTIVE and CANCELED entries.
+- Error 409 returned `{"message":"Resident already has a future ACTIVE booking"}`.
+- Error 400 returned for invalid UUID and out-of-range date.
+- Empty state: bookings query for clean date returned `{"items":[]}`.
+- `git status --short` showed only `apps/web/src/app/app.html` and `apps/web/src/app/app.ts` modified.
+- `git diff --check` showed no whitespace errors.
+- `apps/api/*`, `angular.json`, `proxy.conf.json`, `app.config.ts`, `app.css`, `package.json`, `pnpm-lock.yaml`, `prisma/` were not altered.
+
+Blocked scope:
+- `apps/api/*`, `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.css`, `package.json`, `pnpm-lock.yaml`, `prisma/`, new endpoint, auth, login, admin, permissions, payment, notifications, complex visual calendar, design system, new UI library, `packages/shared`, deploy, Docker, CI, LBC-005C READY, any new READY task, commit without authorization, and push.
+
+Evidence status:
+- All validation outputs presented in raw form.
+- Pending Trigger commit authorization.
+
 ## 2026-05-14 - LBC-005A
 
 Task:

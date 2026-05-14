@@ -2,6 +2,18 @@
 
 ## REMOTE DONE
 
+### LBC-005A - Minimal Angular Booking Flow
+
+Status: Remote DONE (pending commit confirmation)
+
+Type: UI / Angular Frontend
+
+Acceptance:
+- Angular dev proxy configured, `provideHttpClient()` added, booking flow component implemented.
+- Availability, create booking, list bookings, and cancel booking flows working via proxy.
+- Loading, error, empty, and success states implemented.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build` passed.
+
 ### LBC-004G - Booking Read/List API
 
 Status: Remote DONE
@@ -147,44 +159,34 @@ Acceptance:
 
 ## READY
 
-### LBC-005A - Minimal Angular Booking Flow
+### LBC-005B - UI Usability Pass
 
 Status: READY FOR TRIGGER REVIEW
 
-Type: UI / Angular Frontend
+Type: UI / Angular Frontend — Usability
 
 Goal:
-Implement a minimal Angular UI for the laundry room booking flow.
+Improve clarity and usability of the existing Angular booking screen for manual testing and demonstration.
 
 Acceptance:
-- Angular dev proxy is configured to forward `/api/*` to `http://127.0.0.1:3000`.
-- UI allows entering laundryRoomId and residentId as text inputs.
-- UI allows selecting a date.
-- UI allows querying availability via `GET /api/laundry-rooms/:id/availability`.
-- UI shows slots with AVAILABLE, BOOKED, and BLOCKED status.
-- UI allows creating a booking via `POST /api/bookings` for AVAILABLE slots.
-- UI lists existing bookings via `GET /api/bookings`.
-- UI allows canceling a future ACTIVE booking via `POST /api/bookings/:id/cancel`.
-- UI updates availability and booking list after create or cancel.
-- Loading, error, empty, and success states are implemented.
-- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local manual tests pass.
-- No auth, login, admin panel, permissions, resident profile, payment, notification, complex visual calendar, design system, new UI library, global store, `packages/shared`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, new READY task, commit without authorization, or push is created.
+- Helper texts added for laundryRoomId and residentId.
+- Placeholders added with UUID format hint.
+- Flow guidance added to the filter section.
+- Date helper text added.
+- Initial state ("never queried") distinguished from empty state ("queried, no results") via `hasQueried` signal.
+- Status badges added for slots (Available, Booked, Blocked) and bookings (Active, Canceled).
+- Success/error banners improved with left-border accent and icon prefix.
+- Button text improved: "Check Availability", "Book", "Cancel booking".
+- All UI strings in English.
+- No backend change, no new endpoint, no new dependency.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build` pass.
 
 Completed:
-- Configured `apps/web/proxy.conf.json` to proxy `/api` to `http://127.0.0.1:3000` with path rewrite.
-- Added `proxyConfig` option to `apps/web/angular.json` serve target.
-- Added `provideHttpClient()` to `apps/web/src/app/app.config.ts`.
-- Implemented full booking flow component in `apps/web/src/app/app.ts` using `HttpClient`, signals, and `FormsModule`.
-- Implemented full template in `apps/web/src/app/app.html` with Tailwind CSS.
-- Added slot status color classes to `apps/web/src/app/app.css`.
-- `pnpm lint` passed.
-- `pnpm typecheck` passed.
-- `pnpm build` passed (177 kB initial bundle, under 500 kB budget).
-- Angular dev server serves at `http://127.0.0.1:4200`.
-- Proxy forwarded `/api/health` correctly.
-- Manual tests passed for availability, cancel, create, and list via proxy.
-- `proxy.conf.json` audited via `git add -N`.
+- Added `hasQueried` signal and 4 view-helper methods to `app.ts`.
+- Rewrote `app.html` with improved labels, helpers, badges, and state messages.
+- All validation commands pass.
+- Manual tests confirm all flows and states work correctly.
 
 ## BACKLOG
 
-No task is READY beyond LBC-005A.
+No task is READY beyond LBC-005B.

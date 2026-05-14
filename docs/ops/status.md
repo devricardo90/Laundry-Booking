@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-005A - Minimal Angular Booking Flow
+Current task: LBC-005B - UI Usability Pass
 
 Task status: READY FOR TRIGGER REVIEW
 
@@ -22,18 +22,19 @@ Repository status:
 - LBC-004E is Remote DONE at commit `36263f6`.
 - LBC-004F is Remote DONE at commit `1e76fb9`.
 - LBC-004G is Remote DONE at commit `252c16e`.
-- LBC-005A is ready for Trigger review after Angular UI implementation and validation.
+- LBC-005A is Remote DONE (pending commit confirmation from Trigger).
+- LBC-005B is ready for Trigger review after UI usability improvements.
 - Angular dev proxy is configured via `apps/web/proxy.conf.json`.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-005A.
-- No push has been made for LBC-005A.
+- No commit has been made for LBC-005B.
+- No push has been made for LBC-005B.
 
 Protocol checks:
-- One READY task only: LBC-005A is active.
-- LBC-005A READY: implementation authorized by Trigger.
-- Evidence complete: proxy audit via `git add -N`, `git diff --check` clean, all validations passed.
+- One READY task only: LBC-005B is active.
+- LBC-005B READY: implementation authorized by Trigger.
+- Evidence complete: `git diff --check` clean, all validations passed, only 2 files modified.
 - Authorized file scope respected: yes.
 - Local DONE declared: no.
 - Remote DONE declared: no.
@@ -368,3 +369,22 @@ LBC-005A validation result:
 
 LBC-005A blocked scope:
 - `apps/api/src/server.ts` (CORS not applicable: `@fastify/cors` is not installed), `apps/api/src/bookings.ts`, `apps/api/src/availability.ts`, `package.json`, `pnpm-lock.yaml`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, login, admin panel, permissions, payment, notifications, complex visual calendar, design system, new UI library, global store, LBC-005B READY, any new READY task, commit without authorization, and push.
+
+LBC-005B authorized scope:
+- Update `apps/web/src/app/app.ts` to add `hasQueried` signal and view-helper methods for slot and booking status badges.
+- Update `apps/web/src/app/app.html` to improve labels, helper texts, placeholders, state messages, and status badges.
+- Update authorized operational documentation.
+
+LBC-005B validation result:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed (180 kB initial, under 500 kB budget).
+- Angular dev server recompiled new code automatically (confirmed via `main.js` grep for new strings).
+- Availability, cancel, create, and list manual tests passed via proxy.
+- Error 409, error 400, empty state confirmed.
+- `git status` showed only `apps/web/src/app/app.html` and `apps/web/src/app/app.ts` modified.
+- `git diff --check` showed no whitespace errors.
+- No blocked file was altered.
+
+LBC-005B blocked scope:
+- `apps/api/*`, `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.css`, `package.json`, `pnpm-lock.yaml`, `prisma/`, new endpoint, auth, login, admin, permissions, payment, notifications, complex visual calendar, design system, new UI library, `packages/shared`, deploy, Docker, CI, LBC-005C READY, any new READY task, commit without authorization, and push.

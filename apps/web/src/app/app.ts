@@ -51,6 +51,7 @@ export class App {
 
   slots = signal<Slot[]>([]);
   bookings = signal<Booking[]>([]);
+  hasQueried = signal(false);
 
   loadingAvailability = signal(false);
   loadingBookings = signal(false);
@@ -87,8 +88,39 @@ export class App {
     return new Date(isoUtc) > new Date();
   }
 
+  statusLabel(status: Slot['status']): string {
+    const labels: Record<Slot['status'], string> = {
+      AVAILABLE: 'Available',
+      BOOKED: 'Booked',
+      BLOCKED: 'Blocked',
+    };
+    return labels[status];
+  }
+
+  statusBadgeClass(status: Slot['status']): string {
+    const base = 'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold';
+    const variants: Record<Slot['status'], string> = {
+      AVAILABLE: 'bg-green-100 text-green-800',
+      BOOKED: 'bg-red-100 text-red-800',
+      BLOCKED: 'bg-orange-100 text-orange-800',
+    };
+    return `${base} ${variants[status]}`;
+  }
+
+  bookingStatusLabel(status: Booking['status']): string {
+    return status === 'ACTIVE' ? 'Active' : 'Canceled';
+  }
+
+  bookingStatusBadgeClass(status: Booking['status']): string {
+    const base = 'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold';
+    return status === 'ACTIVE'
+      ? `${base} bg-green-100 text-green-800`
+      : `${base} bg-slate-100 text-slate-600`;
+  }
+
   async load(): Promise<void> {
     if (!this.laundryRoomId.trim() || !this.date) return;
+    this.hasQueried.set(true);
     this.actionError.set(null);
     this.actionSuccess.set(null);
     await Promise.all([this.loadAvailability(), this.loadBookings()]);
@@ -144,7 +176,7 @@ export class App {
         }),
       );
       this.actionSuccess.set(
-        `Reserva criada: ${this.formatTime(slot.startTime)}–${this.formatTime(slot.endTime)}.`,
+        `Booking created: ${this.formatTime(slot.startTime)}–${this.formatTime(slot.endTime)}.`,
       );
       await Promise.all([this.loadAvailability(), this.loadBookings()]);
     } catch (err) {
@@ -160,7 +192,7 @@ export class App {
     this.actionSuccess.set(null);
     try {
       await firstValueFrom(this.http.post(`${API}/bookings/${bookingId}/cancel`, {}));
-      this.actionSuccess.set('Reserva cancelada.');
+      this.actionSuccess.set('Booking canceled.');
       await Promise.all([this.loadAvailability(), this.loadBookings()]);
     } catch (err) {
       this.actionError.set(this.extractError(err));
@@ -173,8 +205,8 @@ export class App {
     if (err instanceof HttpErrorResponse) {
       const body = err.error as { message?: string } | null;
       if (body?.message) return body.message;
-      return `Erro ${err.status}: ${err.statusText}`;
+      return `Error ${err.status}: ${err.statusText}`;
     }
-    return 'Erro inesperado.';
+    return 'Unexpected error.';
   }
 }

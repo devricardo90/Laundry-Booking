@@ -8,19 +8,28 @@
 
   <div class="mx-auto max-w-3xl space-y-6 px-6 py-8">
     @if (actionSuccess()) {
-      <div class="rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
-        {{ actionSuccess() }}
+      <div
+        class="flex items-start gap-3 rounded-md border-l-4 border-green-500 bg-green-50 px-4 py-3 text-sm text-green-800"
+      >
+        <span class="font-bold leading-5">✓</span>
+        <span>{{ actionSuccess() }}</span>
       </div>
     }
     @if (actionError()) {
-      <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-        {{ actionError() }}
+      <div
+        class="flex items-start gap-3 rounded-md border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-800"
+      >
+        <span class="font-bold leading-5">✕</span>
+        <span>{{ actionError() }}</span>
       </div>
     }
 
-    <!-- Consulta -->
+    <!-- Filters -->
     <section class="rounded-lg border border-slate-200 bg-white p-6">
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Consulta</h2>
+      <h2 class="mb-1 text-sm font-semibold uppercase tracking-wide text-slate-500">Filters</h2>
+      <p class="mb-4 text-sm text-slate-500">
+        Enter the details below and click Check Availability to see slots and bookings.
+      </p>
       <div class="space-y-4">
         <div>
           <label class="mb-1 block text-sm font-medium text-slate-700" for="laundryRoomId">
@@ -30,9 +39,12 @@
             id="laundryRoomId"
             type="text"
             [(ngModel)]="laundryRoomId"
-            class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-            placeholder="UUID da lavanderia"
+            class="w-full rounded border border-slate-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
+            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
           />
+          <p class="mt-1 text-xs text-slate-400">
+            Development seed laundry room ID — change to test with another laundry room.
+          </p>
         </div>
         <div>
           <label class="mb-1 block text-sm font-medium text-slate-700" for="residentId">
@@ -42,18 +54,22 @@
             id="residentId"
             type="text"
             [(ngModel)]="residentId"
-            class="w-full rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-            placeholder="UUID do morador"
+            class="w-full rounded border border-slate-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
+            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
           />
+          <p class="mt-1 text-xs text-slate-400">
+            Development seed resident ID — used when creating a booking.
+          </p>
         </div>
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="date">Data</label>
+          <label class="mb-1 block text-sm font-medium text-slate-700" for="date">Date</label>
           <input
             id="date"
             type="date"
             [(ngModel)]="date"
             class="rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
           />
+          <p class="mt-1 text-xs text-slate-400">Must be within the next 14 days.</p>
         </div>
         <button
           (click)="load()"
@@ -61,25 +77,27 @@
           class="rounded bg-blue-600 px-5 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
         >
           @if (loadingAvailability() || loadingBookings()) {
-            Carregando...
+            Loading...
           } @else {
-            Consultar
+            Check Availability
           }
         </button>
       </div>
     </section>
 
-    <!-- Disponibilidade -->
+    <!-- Availability -->
     <section class="rounded-lg border border-slate-200 bg-white p-6">
       <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">
-        Disponibilidade
+        Availability
       </h2>
       @if (loadingAvailability()) {
-        <p class="text-sm text-slate-500">Carregando...</p>
+        <p class="text-sm text-slate-500">Loading availability...</p>
       } @else if (availabilityError()) {
         <p class="text-sm text-red-600">{{ availabilityError() }}</p>
+      } @else if (!hasQueried()) {
+        <p class="text-sm text-slate-400">Enter your details above and click Check Availability.</p>
       } @else if (slots().length === 0) {
-        <p class="text-sm text-slate-400">Selecione a lavanderia e a data e clique em Consultar.</p>
+        <p class="text-sm text-slate-400">No slots found for this date.</p>
       } @else {
         <div class="space-y-2">
           @for (slot of slots(); track slot.startTime) {
@@ -93,23 +111,26 @@
                 <span class="font-mono font-medium">
                   {{ formatTime(slot.startTime) }}–{{ formatTime(slot.endTime) }}
                 </span>
-                <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                  {{ slot.status }}
+                <span [class]="statusBadgeClass(slot.status)">
+                  {{ statusLabel(slot.status) }}
+                  @if (slot.status === 'BLOCKED' && slot.reason) {
+                    <span class="ml-1 font-normal opacity-70">({{ slot.reason }})</span>
+                  }
                 </span>
-                @if (slot.status === 'BLOCKED' && slot.reason) {
-                  <span class="text-xs text-slate-400">({{ slot.reason }})</span>
-                }
               </div>
               @if (slot.status === 'AVAILABLE') {
                 <button
                   (click)="createBooking(slot)"
                   [disabled]="bookingSlotStart() !== null || cancelingId() !== null"
+                  [attr.aria-label]="
+                    'Book slot ' + formatTime(slot.startTime) + ' to ' + formatTime(slot.endTime)
+                  "
                   class="rounded bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700 disabled:opacity-50"
                 >
                   @if (bookingSlotStart() === slotStart(slot.startTime)) {
-                    Reservando...
+                    Booking...
                   } @else {
-                    Reservar
+                    Book
                   }
                 </button>
               }
@@ -119,38 +140,43 @@
       }
     </section>
 
-    <!-- Reservas -->
+    <!-- Bookings -->
     <section class="rounded-lg border border-slate-200 bg-white p-6">
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Reservas</h2>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Bookings</h2>
       @if (loadingBookings()) {
-        <p class="text-sm text-slate-500">Carregando...</p>
+        <p class="text-sm text-slate-500">Loading bookings...</p>
       } @else if (bookingsError()) {
         <p class="text-sm text-red-600">{{ bookingsError() }}</p>
+      } @else if (!hasQueried()) {
+        <p class="text-sm text-slate-400">Query availability to see bookings for this date.</p>
       } @else if (bookings().length === 0) {
-        <p class="text-sm text-slate-400">Nenhuma reserva para esta data.</p>
+        <p class="text-sm text-slate-400">No bookings for this date.</p>
       } @else {
         <div class="space-y-2">
           @for (booking of bookings(); track booking.id) {
             <div class="flex items-center justify-between rounded border border-slate-200 p-3">
               <div class="text-sm">
-                <p class="font-medium text-slate-800">{{ booking.residentName }}</p>
-                <p class="text-slate-500">
-                  {{ formatTime(booking.startTime) }}–{{ formatTime(booking.endTime) }}
-                  <span class="ml-2 text-xs font-semibold uppercase tracking-wide">
-                    {{ booking.status }}
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-slate-800">{{ booking.residentName }}</span>
+                  <span [class]="bookingStatusBadgeClass(booking.status)">
+                    {{ bookingStatusLabel(booking.status) }}
                   </span>
+                </div>
+                <p class="mt-0.5 font-mono text-xs text-slate-500">
+                  {{ formatTime(booking.startTime) }}–{{ formatTime(booking.endTime) }}
                 </p>
               </div>
               @if (booking.status === 'ACTIVE' && isFuture(booking.startTime)) {
                 <button
                   (click)="cancelBooking(booking.id)"
                   [disabled]="cancelingId() !== null || bookingSlotStart() !== null"
-                  class="rounded border border-red-300 px-3 py-1 text-xs font-medium text-red-600 hover:bg-red-50 disabled:opacity-50"
+                  [attr.aria-label]="'Cancel booking at ' + formatTime(booking.startTime)"
+                  class="rounded border border-red-400 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700 hover:bg-red-100 disabled:opacity-50"
                 >
                   @if (cancelingId() === booking.id) {
-                    Cancelando...
+                    Canceling...
                   } @else {
-                    Cancelar
+                    Cancel booking
                   }
                 </button>
               }

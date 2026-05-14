@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-005A - Minimal Angular Booking Flow.
+LBC-005B - UI Usability Pass.
 
 Current state:
 - Repository has been initialized.
@@ -22,11 +22,13 @@ Current state:
 - LBC-004F is Remote DONE at commit `1e76fb9`.
 - LBC-004G is Remote DONE at commit `252c16e`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-005A is READY for Trigger review after Angular UI implementation and validation.
+- LBC-005A is Remote DONE (pending commit confirmation from Trigger).
+- LBC-005B is READY for Trigger review after UI usability improvements.
 - Angular dev proxy is configured via `apps/web/proxy.conf.json` to route `/api/*` to `http://127.0.0.1:3000`.
 - Angular dev server calls only relative `/api/*` URLs with no hardcoded backend host.
 - `provideHttpClient()` is added to `app.config.ts`.
 - Booking flow component is fully implemented with local signal state.
+- UI has been improved with helper texts, badges, distinct state messages, and clearer buttons.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
@@ -83,11 +85,11 @@ Seed data (dev only):
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
 Next protocol step:
-- Review LBC-005A final evidence including proxy.conf.json diff.
+- Review LBC-005B final evidence.
 - Do not commit without Trigger authorization.
 - Do not push.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-005A authorized files: `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.ts`, `apps/web/src/app/app.html`, `apps/web/src/app/app.css`, and operational docs.
-- `apps/api`, `package.json`, `pnpm-lock.yaml`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, admin panel, new UI library, global store, commit without authorization, push, LBC-005B READY, and any new READY task are blocked.
+- LBC-005B authorized files: `apps/web/src/app/app.ts`, `apps/web/src/app/app.html`, and operational docs.
+- `apps/api`, `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.css`, `package.json`, `pnpm-lock.yaml`, `prisma/`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, admin panel, new UI library, global store, commit without authorization, push, LBC-005C READY, and any new READY task are blocked.

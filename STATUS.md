@@ -2,12 +2,12 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-005A - Minimal Angular Booking Flow
+Current task: LBC-005B - UI Usability Pass
 
 Status: READY FOR TRIGGER REVIEW
 
 Protocol state:
-- LBC-005A is the active READY task and is a minimal Angular UI implementation task.
+- LBC-005B is the active READY task and is a UI usability improvement task.
 - LBC-001 is Remote DONE at commit `3d90251`.
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
 - LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
@@ -22,36 +22,36 @@ Protocol state:
 - LBC-004E is Remote DONE at commit `36263f6`.
 - LBC-004F is Remote DONE at commit `1e76fb9`.
 - LBC-004G is Remote DONE at commit `252c16e`.
-- LBC-005A implements a minimal Angular UI for availability, booking creation, booking list, and booking cancellation.
-- No auth, admin panel, login, permissions, store global, new dependencies, new READY task, commit without authorization, or push is authorized.
-- LBC-005A implementation and required validation evidence are ready for Trigger review.
-- No commit or push has been made for LBC-005A.
+- LBC-005A is Remote DONE (pending commit confirmation from Trigger).
+- LBC-005B implements UI usability improvements only: labels, helpers, badges, state distinction, button clarity.
+- No backend, no new endpoint, no new dependency, no auth, no new READY task, no commit without authorization, no push is authorized.
+- LBC-005B implementation and required validation evidence are ready for Trigger review.
+- No commit or push has been made for LBC-005B.
 
 Scope guard:
-- Files authorized for LBC-005A are `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.ts`, `apps/web/src/app/app.html`, `apps/web/src/app/app.css`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- LBC-005A must not change `apps/api` except `apps/api/src/server.ts` only if `@fastify/cors` is already installed — it was not installed, so `apps/api` was not changed.
-- LBC-005A must not install new dependencies, alter `package.json`, alter `pnpm-lock.yaml`, create migration, versioned seed, Prisma generate, Prisma db push, deploy, Docker, or CI.
-- Real `.env` files and real credentials must not be committed.
+- Files authorized for LBC-005B are `apps/web/src/app/app.html`, `apps/web/src/app/app.ts`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- `apps/web/src/app/app.css` was not needed.
+- `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts` were not altered.
+- `apps/api/*`, `package.json`, `pnpm-lock.yaml`, `prisma/` were not altered.
+- LBC-005B must not create auth, login, admin, permissions, payment, notifications, complex visual calendar, design system, new UI library, `packages/shared`, deploy, Docker, CI, LBC-005C READY, or any new READY task.
 
 Completion evidence checklist:
-- Initial repository guard evidence has been presented.
-- Angular proxy is configured via `apps/web/proxy.conf.json` and `apps/web/angular.json`.
-- Angular dev server calls only relative `/api/*` URLs with no hardcoded backend host.
-- `provideHttpClient()` is added to `app.config.ts`.
-- Booking flow component is implemented with local signal state.
-- UI supports laundryRoomId input, residentId input, date input, Consultar button, slot list, booking list, Reservar button per AVAILABLE slot, and Cancelar button per future ACTIVE booking.
-- Loading, error, empty, and success states are implemented.
-- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
-- Angular dev server serves the app at `http://127.0.0.1:4200`.
-- `/api/health` via proxy returned `{"status":"ok","service":"lbc-api"}`.
-- Availability endpoint via proxy returned 12 slots with AVAILABLE and BOOKED statuses.
-- Cancel booking via proxy returned `200 CANCELED`.
-- Create booking via proxy returned `201 ACTIVE`.
-- Bookings list via proxy returned updated list after changes.
-- Error state: 409 conflict returned `{"message":"Resident already has a future ACTIVE booking"}`.
-- Error state: 400 returned for invalid UUID and out-of-range date.
-- `proxy.conf.json` audited via `git add -N` and visible in `git diff`.
-- `git diff --check` showed no whitespace errors.
+- `hasQueried` signal added to `app.ts` — distinguishes initial state from empty-after-query state.
+- `statusLabel()`, `statusBadgeClass()`, `bookingStatusLabel()`, `bookingStatusBadgeClass()` helpers added.
+- Success/error banners improved: left-border accent, ✓/✕ icon prefix.
+- Filters section: title "Filters", subtitle with flow guidance, helper texts for laundryRoomId and residentId, date helper "Must be within the next 14 days.", button renamed "Check Availability".
+- UUID inputs use `font-mono` class, placeholder shows `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
+- Availability section: title "Availability", state messages in English, slot badges (Available/Booked/Blocked), "Book" button with aria-label.
+- Bookings section: title "Bookings", state messages in English, booking status badges (Active/Canceled), "Cancel booking" button with increased visual weight and aria-label.
+- All UI strings in English.
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed (180 kB, under 500 kB budget).
+- Angular dev server reloaded with new code confirmed via `main.js` grep.
+- Availability, cancel, create, list manual tests passed via proxy.
+- Error 409 and 400 confirmed. Empty state confirmed. Loading state confirmed by message strings.
+- `git status`: only `apps/web/src/app/app.html` and `apps/web/src/app/app.ts` modified.
+- `git diff --check`: no whitespace errors.
 - No blocked file was altered.
 - Local DONE has not been declared.
 - Remote DONE must not be declared without commit, push, and origin synchronization verification.
