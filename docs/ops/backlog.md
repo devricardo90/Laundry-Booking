@@ -2,6 +2,26 @@
 
 ## REMOTE DONE
 
+### LBC-004C - Implement Availability API Read Endpoint
+
+Status: Remote DONE
+
+Type: API / Read Endpoint
+
+Operational notes:
+- This task implemented only `GET /laundry-rooms/:laundryRoomId/availability?date=YYYY-MM-DD`.
+- This task used no `/api` prefix.
+- This task connected the API to the local/dev PostgreSQL database through Prisma 7 and the PostgreSQL adapter.
+- This task added a small Prisma helper and read-only availability route module.
+- This task validated UUID, strict required `YYYY-MM-DD`, `Europe/Stockholm` operational date interpretation, and today through today plus 14 days.
+- This task returned 400 for invalid input and 404 for missing LaundryRoom.
+- This task treated ACTIVE bookings as BOOKED, ignored CANCELED bookings, and treated BlockedSlots as BLOCKED.
+- This task used priority `BLOCKED > BOOKED > AVAILABLE`.
+- This task returned the documented response contract with ISO UTC slot timestamps.
+- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
+- Local endpoint validation passed for 200, 400, and 404 cases.
+- Remote DONE confirmed at commit `9552c7b`.
+
 ### LBC-004B - Apply Dev Prisma Migration and Seed Minimal Availability Data
 
 Status: Remote DONE
@@ -52,33 +72,34 @@ Operational notes:
 - Trigger approved LBC-004A for Local DONE and commit after evidence review.
 - Remote DONE confirmed at commit `967a321`.
 
-## READY FOR TRIGGER REVIEW
+## READY
 
-### LBC-004C - Implement Availability API Read Endpoint
+### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
 
-Status: READY FOR TRIGGER REVIEW
+Status: Local DONE
 
-Type: API / Read Endpoint
+Type: Documentation / Architecture
 
 Operational notes:
-- This task may implement only `GET /laundry-rooms/:laundryRoomId/availability?date=YYYY-MM-DD`.
-- This task may add a small Prisma helper for the API.
-- This task may add the Prisma 7 PostgreSQL adapter and `pg` dependency if needed.
-- This task may update API package metadata and `pnpm-lock.yaml` only for required runtime dependencies.
-- This task may validate against the existing local/dev seed data.
+- This task may create `docs/architecture/booking-creation-contract.md`.
+- This task may update `docs/product/business-rules.md` for booking creation contract references and rule alignment.
 - This task may update authorized operational documentation.
-- This task must not implement booking creation, booking cancellation, auth, Angular UI, admin panel, mutation endpoints, new migration, new seed, `prisma db push`, Docker, deploy, CI, `packages/shared`, or any new READY task.
+- This task may document the proposed route `POST /bookings`.
+- This task may document request fields `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- This task may document `Europe/Stockholm` interpretation and UTC `startTime`/`endTime` response timestamps.
+- This task may document `201`, `400`, `404`, and `409` behavior.
+- This task may document domain validations and concurrency strategy.
+- This task may document future transaction plus advisory lock protection and future PostgreSQL exclusion constraint hardening.
+- This task must not implement `POST /bookings`.
+- This task must not change `apps/api` or `apps/web`.
+- This task must not create controllers, services, repositories, migration, seed, Prisma generate, Prisma db push, Docker, CI, deploy, remote database, production configuration, auth, cancellation, admin panel, Angular UI, LBC-004E READY, or any new READY task.
 
-Implementation result:
-- Added read-only availability route without `/api` prefix.
-- Added Prisma 7 PostgreSQL adapter usage in the API.
-- Implemented validation for UUID, required strict date, `Europe/Stockholm` date interpretation, and 14-day window.
-- Implemented read-only slot evaluation for ACTIVE bookings, CANCELED bookings, and BlockedSlots.
-- Implemented response contract with ISO UTC slot timestamps.
-- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
-- Local endpoint validation passed for 200, 400, and 404 cases.
-- Local DONE and commit remain blocked until Trigger authorization.
+Expected result:
+- Booking creation contract is documented before implementation.
+- Concurrency risk is documented before implementation.
+- No code or database implementation is created.
+- Trigger technical approval has been recorded before commit.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004C.
+No task is READY.

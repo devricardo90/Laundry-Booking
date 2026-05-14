@@ -2,9 +2,9 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004C - Implement Availability API Read Endpoint
+Current task: LBC-004D - Define Booking Creation Contract and Concurrency Strategy
 
-Task status: READY FOR TRIGGER REVIEW
+Task status: LOCAL DONE
 
 Repository status:
 - Repository initialized.
@@ -17,19 +17,19 @@ Repository status:
 - LBC-003C is Remote DONE at commit `e5285f4`.
 - LBC-004A is Remote DONE at commit `967a321`.
 - LBC-004B is Remote DONE at commit `7025936`.
-- LBC-004C is ready for Trigger review after implementing and validating the read-only availability endpoint.
+- LBC-004C is Remote DONE at commit `9552c7b`.
+- LBC-004D is Local DONE after Trigger technical approval and is documentation-only.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-004C.
-- No push has been made for LBC-004C.
+- No push has been made for LBC-004D.
 
 Protocol checks:
-- One READY task only: LBC-004C is active and awaiting Trigger review.
-- LBC-004C READY: ready for Trigger review.
-- Evidence missing: pending final Trigger review.
-- Authorized file scope respected: pending final diff verification.
-- Local DONE declared: no.
+- One READY task only: no task is READY after LBC-004D Local DONE.
+- LBC-004D Local DONE: Trigger technical approval recorded.
+- Evidence missing: pending commit and post-commit evidence.
+- Authorized file scope respected: yes.
+- Local DONE declared: yes.
 - Remote DONE declared: no.
 
 Current approved stack:
@@ -200,7 +200,23 @@ LBC-004C validation result:
 - `pnpm typecheck` passed.
 - `pnpm build` passed.
 - Local endpoint validation proved BOOKED at 08:00-10:00, BLOCKED at 10:00-12:00, AVAILABLE at 12:00-14:00, at least one other AVAILABLE slot, invalid input 400, and missing LaundryRoom 404.
-- Local DONE has not been declared.
+- Remote DONE confirmed at commit `9552c7b`.
 
 LBC-004C blocked scope:
 - Booking creation, booking cancellation, auth, Angular UI, admin panel, mutation of bookings or blocked slots, new migration, new seed, `prisma db push`, Docker, deploy, CI, `packages/shared`, large controller/service/repository refactor, and any new READY task.
+
+LBC-004D authorized scope:
+- Create `docs/architecture/booking-creation-contract.md`.
+- Update `docs/product/business-rules.md` only for booking creation contract references and rule alignment.
+- Update `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- Document proposed `POST /bookings` request and response contract.
+- Document `Europe/Stockholm` request interpretation and UTC `startTime`/`endTime` response timestamps.
+- Document `400`, `404`, and `409` error behavior.
+- Document domain validations for Resident, LaundryRoom, 14-day window, 2-hour slot grid, ACTIVE Booking, CANCELED Booking, BlockedSlot, and one future ACTIVE booking per Resident.
+- Document concurrency risk from read-only availability.
+- Document future transaction plus advisory lock strategy and future PostgreSQL exclusion constraint hardening.
+
+LBC-004D blocked scope:
+- Implementing `POST /bookings`.
+- Changing `apps/api` or `apps/web`.
+- Creating controllers, services, repositories, migration, seed, Prisma generate, Prisma db push, Docker, CI, deploy, remote database, production configuration, auth, cancellation, admin panel, Angular UI, LBC-004E READY, any new READY task, or push.

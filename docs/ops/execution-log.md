@@ -1,5 +1,45 @@
 # Execution Log
 
+## 2026-05-14 - LBC-004D
+
+Task:
+LBC-004D - Define Booking Creation Contract and Concurrency Strategy.
+
+Decision:
+- Trigger authorized LBC-004D as the only READY task.
+- LBC-004C is confirmed Remote DONE at commit `9552c7b`.
+- This task is documentation-only and must not implement booking creation.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -5` showed `9552c7b`, `7025936`, `967a321`, `e5285f4`, and `c31ed8c`.
+
+Authorized scope:
+- Create `docs/architecture/booking-creation-contract.md`.
+- Update `docs/product/business-rules.md` if needed for booking creation rule alignment.
+- Update authorized operational documentation.
+- Document proposed `POST /bookings` contract.
+- Document request body with `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- Document `Europe/Stockholm` interpretation and UTC `startTime`/`endTime` response timestamps.
+- Document `201`, `400`, `404`, and `409` behavior.
+- Document domain validations and concurrency strategy.
+- Document future transaction plus advisory lock protection and future PostgreSQL exclusion constraint hardening.
+
+Actions completed:
+- Added booking creation contract documentation.
+- Added business-rules reference for the booking creation contract.
+- Updated operational documentation for LBC-004D.
+
+Blocked scope:
+- Implementing `POST /bookings`, changing `apps/api`, changing `apps/web`, controllers, services, repositories, new migration, new seed, Prisma generate, Prisma db push, Docker, CI, deploy, remote database, production, auth, cancellation, admin panel, Angular UI, LBC-004E READY, any new READY task, push, and Remote DONE declaration.
+
+Evidence status:
+- Trigger technically approved LBC-004D after content review.
+- Local DONE recorded before commit.
+- Commit is authorized only with explicit file staging.
+- Push remains blocked.
+
 ## 2026-05-13 - LBC-004C
 
 Task:

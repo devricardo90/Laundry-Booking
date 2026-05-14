@@ -127,6 +127,16 @@ The planned read-only Availability API contract is documented in `docs/architect
 
 LBC-004A defines the endpoint contract, timezone interpretation, response shape, slot format, status values, reason privacy rules, 14-day read window, and development persistence strategy. It does not implement an endpoint, route, controller, service, repository, migration, seed, authentication, Angular screen, or booking creation flow.
 
+## Booking Creation Contract Reference
+
+The planned Booking Creation API contract is documented in `docs/architecture/booking-creation-contract.md`.
+
+LBC-004D defines the proposed `POST /bookings` contract, request body, timezone interpretation, success response, error behavior, domain validations, and concurrency strategy. It does not implement an endpoint, controller, service, repository, migration, seed, Prisma generate, Prisma db push, authentication, Angular screen, cancellation flow, or admin panel.
+
+For the MVP, booking creation uses `date` and `slotStart` interpreted in `Europe/Stockholm`; the API converts the selected local slot to UTC `startTime` and `endTime`.
+
+Availability reads are not sufficient to protect booking creation. The future booking creation implementation must protect the write path with a transaction and a concurrency strategy before inserting an ACTIVE Booking.
+
 ## Validation Criteria
 
 Validation must happen before persistence and must be protected against race conditions in implementation tasks.

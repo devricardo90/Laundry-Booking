@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-004C - Implement Availability API Read Endpoint.
+LBC-004D - Define Booking Creation Contract and Concurrency Strategy.
 
 Current state:
 - Repository has been initialized.
@@ -16,17 +16,18 @@ Current state:
 - LBC-003C is Remote DONE at commit `e5285f4`.
 - LBC-004A is Remote DONE at commit `967a321`.
 - LBC-004B is Remote DONE at commit `7025936`.
+- LBC-004C is Remote DONE at commit `9552c7b`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-004C is ready for Trigger review after endpoint implementation and validation.
+- LBC-004D is Local DONE after Trigger technical approval as a documentation-only contract task.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
 - Fastify TypeScript shell exists under `apps/api`.
 - Required validation commands have passed.
 - Prisma tooling, Prisma 7 config, migration, and seed baseline are versioned.
-- The read-only availability endpoint is implemented locally for review.
-- No commit has been made for LBC-004C.
-- No push has been made for LBC-004C.
+- The read-only availability endpoint is implemented and Remote DONE.
+- The booking creation contract and concurrency strategy have been technically approved by the Trigger.
+- No push has been made for LBC-004D.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -64,12 +65,11 @@ LBC-002A draft decisions:
 - Future PostgreSQL target: 18.x.
 
 Next protocol step:
-- Present final git status and diff evidence for LBC-004C.
-- Await Trigger decision for Local DONE and commit authorization.
+- Commit LBC-004D only with explicit file staging if authorized.
 - Do not push.
-- Do not declare Local DONE without Trigger authorization.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-004C may include `apps/api/src/server.ts`, a small Prisma helper, an availability route module, API dependency metadata needed for Prisma 7 runtime access, root lockfile updates from those dependencies, and operational documentation.
-- Booking creation, booking cancellation, auth, Angular product UI, admin panel, mutation endpoints, new migration, new seed, `prisma db push`, Docker, deploy, CI, `packages/shared`, large controller/service/repository refactor, commit without authorization, push, and any new READY task are blocked.
+- LBC-004D may include `docs/architecture/booking-creation-contract.md`, `docs/product/business-rules.md`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- LBC-004D avoided changing `docs/architecture/availability-api-contract.md`.
+- Implementing `POST /bookings`, changing `apps/api`, changing `apps/web`, booking cancellation, auth, Angular product UI, admin panel, controllers, services, repositories, new migration, new seed, Prisma generate, `prisma db push`, Docker, deploy, CI, `packages/shared`, commit without authorization, push, LBC-004E READY, and any new READY task are blocked.
