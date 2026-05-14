@@ -1,5 +1,49 @@
 # Execution Log
 
+## 2026-05-14 - LBC-004G
+
+Task:
+LBC-004G - Booking Read/List API.
+
+Decision:
+- Trigger authorized LBC-004G as the only READY task.
+- LBC-004F is confirmed Remote DONE.
+- This task may implement only `GET /bookings` in `apps/api`.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` showed `1e76fb9`, `36263f6`, and `f79f3dc`.
+
+Authorized scope:
+- Implement only `GET /bookings`.
+- Support only `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED` query filters.
+- Interpret `date=YYYY-MM-DD` in `Europe/Stockholm`.
+- Return ISO timestamps and include `timezone: Europe/Stockholm`.
+- Keep CANCELED bookings visible for history when the filter permits.
+- Validate invalid UUID, invalid date, and invalid status with `400`.
+- Update authorized operational documentation.
+
+Actions completed:
+- Added booking list route to the existing booking route module.
+- Updated operational documentation for LBC-004G.
+
+Validation completed:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local `GET /bookings` test returned existing reservations.
+- Local filtered tests passed for `laundryRoomId`, `date`, `status=ACTIVE`, and `status=CANCELED`.
+- Local invalid input tests returned `400` for invalid UUID, invalid date, and invalid status.
+- Temporary local test data was removed after validation.
+- `apps/web` was not changed.
+
+Blocked scope:
+- `apps/web`, Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, LBC-004H READY, any new READY task, commit, push, and Remote DONE declaration.
+
+Evidence status:
+- Pending final git status and diff evidence for Trigger review.
+
 ## 2026-05-14 - LBC-004F
 
 Task:

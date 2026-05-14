@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004F - Implement Booking Cancellation API
+Current task: LBC-004G - Booking Read/List API
 
 Task status: READY FOR TRIGGER REVIEW
 
@@ -20,16 +20,17 @@ Repository status:
 - LBC-004C is Remote DONE at commit `9552c7b`.
 - LBC-004D is Remote DONE at commit `f79f3dc`.
 - LBC-004E is Remote DONE at commit `36263f6`.
-- LBC-004F is ready for Trigger review after API-only implementation and validation.
+- LBC-004F is Remote DONE at commit `1e76fb9`.
+- LBC-004G is ready for Trigger review after API-only implementation and validation.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-004F.
-- No push has been made for LBC-004F.
+- No commit has been made for LBC-004G.
+- No push has been made for LBC-004G.
 
 Protocol checks:
-- One READY task only: LBC-004F is active.
-- LBC-004F READY: implementation authorized by Trigger.
+- One READY task only: LBC-004G is active.
+- LBC-004G READY: implementation authorized by Trigger.
 - Evidence missing: pending final Trigger review.
 - Authorized file scope respected: yes.
 - Local DONE declared: no.
@@ -303,5 +304,34 @@ LBC-004F validation result:
 - Temporary local test data was removed after validation.
 - `apps/web` was not changed.
 
-LBC-004F blocked scope:
-- `apps/web`, Angular UI, admin panel, auth, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004G READY, any new READY task, commit, and push.
+LBC-004F result:
+- Remote DONE confirmed at commit `1e76fb9`.
+
+LBC-004G authorized scope:
+- Implement only `GET /bookings`.
+- Support optional query filters `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED`.
+- Interpret `date=YYYY-MM-DD` in `Europe/Stockholm`.
+- Return ISO timestamps and include `timezone: Europe/Stockholm`.
+- Include CANCELED bookings when the filter permits.
+- Validate invalid UUID, date, and status with `400`.
+- Update authorized operational documentation.
+
+LBC-004G validation requirements:
+- `pnpm lint`.
+- `pnpm typecheck`.
+- `pnpm build`.
+- Local `GET /bookings` test returning existing reservations.
+- Local tests for `laundryRoomId`, `date`, `status=ACTIVE`, and `status=CANCELED`.
+- Local `400` tests for invalid UUID, invalid date, and invalid status.
+- Evidence that `apps/web` was not changed.
+
+LBC-004G validation result:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local list tests passed for unfiltered listing, `laundryRoomId`, `date`, `status=ACTIVE`, and `status=CANCELED`.
+- Local invalid input tests returned `400` for invalid UUID, invalid date, and invalid status.
+- `apps/web` was not changed.
+
+LBC-004G blocked scope:
+- `apps/web`, Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, LBC-004H READY, any new READY task, commit, and push.

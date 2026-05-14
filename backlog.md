@@ -2,6 +2,29 @@
 
 ## REMOTE DONE
 
+### LBC-004F - Implement Booking Cancellation API
+
+Status: Remote DONE
+
+Type: API / Mutation Endpoint
+
+Acceptance:
+- `POST /bookings/:bookingId/cancel` is implemented.
+- `PATCH /bookings/:bookingId` is not implemented.
+- Success returns `200 OK` with `id`, `status: CANCELED`, `canceledAt`, and `timezone: Europe/Stockholm`.
+- Invalid `bookingId` returns `400`.
+- Missing Booking returns `404`.
+- Booking with status other than ACTIVE returns `409`.
+- ACTIVE Booking that has already started or is in the past returns `409`.
+- Cancelation sets `canceledAt` using server time.
+- Booking is not deleted and remains historical.
+- CANCELED Booking does not block availability.
+- Concurrency uses short transaction plus conditional `updateMany`.
+- No advisory lock is added for cancellation.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests passed.
+- No `apps/web`, UI, auth, admin panel, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004G READY, new READY task, or push was created during the task.
+- Remote DONE confirmed at commit `1e76fb9`.
+
 ### LBC-004E - Implement Booking Creation Endpoint
 
 Status: Remote DONE
@@ -104,38 +127,35 @@ Acceptance:
 
 ## READY
 
-### LBC-004F - Implement Booking Cancellation API
+### LBC-004G - Booking Read/List API
 
 Status: READY FOR TRIGGER REVIEW
 
-Type: API / Mutation Endpoint
+Type: API / Read Endpoint
 
 Goal:
-Implement only `POST /bookings/:bookingId/cancel`.
+Implement only `GET /bookings`.
 
 Acceptance:
-- `POST /bookings/:bookingId/cancel` is implemented.
-- `PATCH /bookings/:bookingId` is not implemented.
-- Success returns `200 OK` with `id`, `status: CANCELED`, `canceledAt`, and `timezone: Europe/Stockholm`.
-- Invalid `bookingId` returns `400`.
-- Missing Booking returns `404`.
-- Booking with status other than ACTIVE returns `409`.
-- ACTIVE Booking that has already started or is in the past returns `409`.
-- Cancelation sets `canceledAt` using server time.
-- Booking is not deleted and remains historical.
-- CANCELED Booking does not block availability.
-- Concurrency uses short transaction plus conditional `updateMany`.
-- No advisory lock is added for cancellation.
+- `GET /bookings` is implemented.
+- Optional filters are `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED`.
+- `date=YYYY-MM-DD` is interpreted in `Europe/Stockholm`.
+- Response items include `id`, `laundryRoomId`, `residentName`, `startTime`, `endTime`, `status`, `canceledAt`, and `timezone`.
+- Root response includes `timezone: Europe/Stockholm`.
+- CANCELED bookings remain visible for history when the filter permits.
+- Invalid UUID returns `400`.
+- Invalid date returns `400`.
+- Invalid status returns `400`.
 - `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests pass.
-- No `apps/web`, UI, auth, admin panel, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004G READY, new READY task, commit, or push is created.
+- No `apps/web`, UI, auth, login, permissions, admin panel, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004H READY, new READY task, commit, or push is created.
 
 Completed:
-- Implemented API-only `POST /bookings/:bookingId/cancel`.
-- Implemented conditional cancellation with short transaction and `updateMany`.
-- Validated required success and error cases locally.
-- Validated that canceled Booking no longer blocks availability.
+- Implemented API-only `GET /bookings`.
+- Implemented simple filters for `laundryRoomId`, `date`, and `status`.
+- Returned resident display name and ISO timestamps.
+- Validated required list and error cases locally.
 - `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004F.
+No task is READY beyond LBC-004G.

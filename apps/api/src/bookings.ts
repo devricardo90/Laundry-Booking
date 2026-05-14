@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import type { Prisma } from '@prisma/client';
 import type { FastifyInstance } from 'fastify';
 import { prisma } from './prisma.js';
 
@@ -56,6 +57,16 @@ type CancelBookingRouteParams = {
   bookingId: string;
 };
 
+type ListBookingsQuery = {
+  laundryRoomId?: string;
+  date?: string;
+  status?: string;
+};
+
+type BookingListStatus = 'ACTIVE' | 'CANCELED';
+
+const bookingListStatuses = new Set<BookingListStatus>(['ACTIVE', 'CANCELED']);
+
 const getDatePartsInTimezone = (date: Date, timeZone: string): DateParts => {
   const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone,
@@ -100,9 +111,19 @@ const parseDate = (value: string): DateParts | null => {
     month: Number(monthText),
     day: Number(dayText),
   };
+  const validDate = new Date(Date.UTC(dateParts.year, dateParts.month - 1, dateParts.day));
   const normalized = datePartsToKey(dateParts);
 
-  return normalized === value ? dateParts : null;
+  if (
+    normalized !== value ||
+    validDate.getUTCFullYear() !== dateParts.year ||
+    validDate.getUTCMonth() + 1 !== dateParts.month ||
+    validDate.getUTCDate() !== dateParts.day
+  ) {
+    return null;
+  }
+
+  return dateParts;
 };
 
 const parseSlotStartHour = (value: string): number | null => {
@@ -236,6 +257,82 @@ const conflictMessage = (code: BookingConflictErrorCode) => {
 };
 
 export const registerBookingRoutes = (app: FastifyInstance) => {
+  app.get<{ Querystring: ListBookingsQuery }>('/bookings', async (request, reply) => {
+    const { laundryRoomId, date, status } = request.query;
+    const where: Prisma.BookingWhereInput = {};
+
+    if (laundryRoomId !== undefined) {
+      if (!uuidPattern.test(laundryRoomId)) {
+        return reply.code(400).send({
+          error: 'Bad Request',
+          message: 'laundryRoomId must be a valid UUID',
+        });
+      }
+
+      where.laundryRoomId = laundryRoomId;
+    }
+
+    if (date !== undefined) {
+      const parsedDate = parseDate(date);
+
+      if (!parsedDate) {
+        return reply.code(400).send({
+          error: 'Bad Request',
+          message: 'date must use YYYY-MM-DD format',
+        });
+      }
+
+      const dayStart = localTimeToUtcDate(parsedDate, 0, operationalTimezone);
+      const nextDayStart = localTimeToUtcDate(addDaysToDateParts(parsedDate, 1), 0, operationalTimezone);
+
+      where.startTime = { lt: nextDayStart };
+      where.endTime = { gt: dayStart };
+    }
+
+    if (status !== undefined) {
+      if (!bookingListStatuses.has(status as BookingListStatus)) {
+        return reply.code(400).send({
+          error: 'Bad Request',
+          message: 'status must be ACTIVE or CANCELED',
+        });
+      }
+
+      where.status = status as BookingListStatus;
+    }
+
+    const bookings = await prisma.booking.findMany({
+      where,
+      orderBy: [{ startTime: 'asc' }, { id: 'asc' }],
+      select: {
+        id: true,
+        laundryRoomId: true,
+        startTime: true,
+        endTime: true,
+        status: true,
+        canceledAt: true,
+        resident: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    return {
+      items: bookings.map((booking) => ({
+        id: booking.id,
+        laundryRoomId: booking.laundryRoomId,
+        residentName: booking.resident.name,
+        startTime: booking.startTime.toISOString(),
+        endTime: booking.endTime.toISOString(),
+        status: booking.status,
+        canceledAt: booking.canceledAt?.toISOString() ?? null,
+        timezone: operationalTimezone,
+      })),
+      timezone: operationalTimezone,
+    };
+  });
+
   app.post<{ Body: unknown }>('/bookings', async (request, reply) => {
     const parsedBody = validateBody(request.body);
 

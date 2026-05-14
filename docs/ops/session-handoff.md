@@ -3,7 +3,7 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-004F - Implement Booking Cancellation API.
+LBC-004G - Booking Read/List API.
 
 Current state:
 - Repository has been initialized.
@@ -19,8 +19,9 @@ Current state:
 - LBC-004C is Remote DONE at commit `9552c7b`.
 - LBC-004D is Remote DONE at commit `f79f3dc`.
 - LBC-004E is Remote DONE at commit `36263f6`.
+- LBC-004F is Remote DONE at commit `1e76fb9`.
 - Official stack decision is documented in `docs/architecture/stack-decision.md`.
-- LBC-004F is READY for Trigger review after API-only implementation and validation.
+- LBC-004G is READY for Trigger review after API-only implementation and validation.
 - Minimum pnpm workspace scaffold has been created.
 - Angular shell exists under `apps/web`.
 - Tailwind CSS is configured only under `apps/web`.
@@ -30,9 +31,10 @@ Current state:
 - The read-only availability endpoint is implemented and Remote DONE.
 - The booking creation contract and concurrency strategy have been technically approved by the Trigger.
 - `POST /bookings` implementation and validation are technically approved by the Trigger.
-- `POST /bookings/:bookingId/cancel` implementation and validation are complete for Trigger review.
-- No commit has been made for LBC-004F.
-- No push has been made for LBC-004F.
+- `POST /bookings/:bookingId/cancel` implementation is Remote DONE.
+- `GET /bookings` implementation and validation are complete for Trigger review.
+- No commit has been made for LBC-004G.
+- No push has been made for LBC-004G.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -70,11 +72,11 @@ LBC-002A draft decisions:
 - Future PostgreSQL target: 18.x.
 
 Next protocol step:
-- Review LBC-004F final evidence.
+- Review LBC-004G final evidence.
 - Do not commit without Trigger authorization.
 - Do not push.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-004F may include `apps/api/src/bookings.ts`, `apps/api/src/server.ts` only if route registration is required, `apps/api/src/prisma.ts` only if a minimal adjustment is unavoidable, and authorized operational documentation.
-- `apps/web`, Angular UI, admin panel, auth, migration, versioned seed, Prisma generate, `prisma db push`, remote database, deploy, Docker, CI, `packages/shared`, commit without authorization, push, LBC-004G READY, and any new READY task are blocked.
+- LBC-004G may include `apps/api/src/bookings.ts`, `apps/api/src/server.ts` only if required, and authorized operational documentation.
+- `apps/web`, Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, `prisma db push`, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, commit without authorization, push, LBC-004H READY, and any new READY task are blocked.

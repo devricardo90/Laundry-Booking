@@ -2,6 +2,24 @@
 
 ## REMOTE DONE
 
+### LBC-004F - Implement Booking Cancellation API
+
+Status: Remote DONE
+
+Type: API / Mutation Endpoint
+
+Operational notes:
+- This task implemented only `POST /bookings/:bookingId/cancel`.
+- This task did not implement `PATCH /bookings/:bookingId`.
+- This task did not create a generic booking status update endpoint.
+- This task used existing Fastify and Prisma 7 setup.
+- This task used a short transaction plus conditional `updateMany`.
+- This task set `status` to `CANCELED` and filled `canceledAt`.
+- This task validated required local success and error cases.
+- This task validated that canceled Booking no longer blocks availability.
+- This task did not change `apps/web`, create migration, create seed, run Prisma generate, run Prisma db push, add dependency, configure Docker, configure CI, configure deploy, implement auth, create admin panel, create `packages/shared`, or open LBC-004G as READY.
+- Remote DONE confirmed at commit `1e76fb9`.
+
 ### LBC-004E - Implement Booking Creation Endpoint
 
 Status: Remote DONE
@@ -110,43 +128,40 @@ Operational notes:
 
 ## READY
 
-### LBC-004F - Implement Booking Cancellation API
+### LBC-004G - Booking Read/List API
 
 Status: READY FOR TRIGGER REVIEW
 
-Type: API / Mutation Endpoint
+Type: API / Read Endpoint
 
 Operational notes:
-- This task may implement only `POST /bookings/:bookingId/cancel`.
-- This task must not implement `PATCH /bookings/:bookingId`.
-- This task must not create a generic booking status update endpoint.
+- This task may implement only `GET /bookings`.
+- This task may support only `laundryRoomId`, `date=YYYY-MM-DD`, and `status=ACTIVE|CANCELED` query filters.
+- This task must interpret `date=YYYY-MM-DD` in `Europe/Stockholm`.
+- This task must return timestamps as ISO strings.
+- This task must include `timezone: Europe/Stockholm`.
+- This task must keep CANCELED bookings visible when the filter permits.
 - This task may update `apps/api/src/bookings.ts`.
-- This task may update `apps/api/src/server.ts` only if route registration is required.
+- This task may update `apps/api/src/server.ts` only if required.
 - This task may use existing Prisma 7 configuration.
-- This task may use a short `prisma.$transaction`.
-- This task may use conditional `updateMany`.
-- This task must not add advisory locks for cancellation.
 - This task may update authorized operational documentation.
 - This task must not change `apps/web`.
-- This task must not create Angular UI, admin panel, auth, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004G READY, any new READY task, commit, or push.
+- This task must not create Angular UI, admin panel, auth, login, permissions, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, pagination complexity, reports, visual calendar, LBC-004H READY, any new READY task, commit, or push.
 
 Expected result:
-- Booking cancellation endpoint is implemented according to the LBC-004F task scope.
+- Booking list endpoint is implemented according to the LBC-004G task scope.
 - Required validation commands pass.
 - Required local endpoint tests pass.
 - No blocked scope is changed.
 
 Implementation result:
-- Added `POST /bookings/:bookingId/cancel` to the existing booking route module.
-- Implemented invalid UUID handling with `400`.
-- Implemented missing Booking handling with `404`.
-- Implemented non-ACTIVE and past/started Booking handling with `409`.
-- Implemented short transaction plus conditional `updateMany`.
-- Implemented response with `id`, `status`, `canceledAt`, and `timezone`.
-- Validated required local success and error cases.
-- Validated that canceled Booking no longer blocks availability.
-- No `apps/web`, migration, seed, Prisma generate, Prisma db push, dependency, Docker, CI, deploy, auth, admin panel, `packages/shared`, LBC-004G READY, or new READY task was created.
+- Added `GET /bookings` to the existing booking route module.
+- Implemented optional filters for `laundryRoomId`, `date`, and `status`.
+- Implemented invalid UUID, date, and status handling with `400`.
+- Returned `residentName`, ISO timestamps, `canceledAt`, and `timezone`.
+- Validated required local list and error cases.
+- No `apps/web`, migration, seed, Prisma generate, Prisma db push, dependency, Docker, CI, deploy, auth, login, permissions, admin panel, `packages/shared`, LBC-004H READY, or new READY task was created.
 
 ## BACKLOG
 
-No task is READY beyond LBC-004F.
+No task is READY beyond LBC-004G.
