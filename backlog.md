@@ -2,6 +2,25 @@
 
 ## REMOTE DONE
 
+### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
+
+Status: Remote DONE
+
+Type: Documentation / Architecture
+
+Acceptance:
+- Proposed route `POST /bookings` is documented.
+- Proposed body includes `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- `date` and `slotStart` are interpreted in `Europe/Stockholm`.
+- Future API conversion to UTC `startTime` and `endTime` is documented.
+- `201`, `400`, `404`, and `409` response behavior is documented.
+- Domain validation rules are documented for Resident, LaundryRoom, 14-day window, 2-hour grid, ACTIVE Booking, CANCELED Booking, BlockedSlot, and one future ACTIVE booking per Resident.
+- Concurrency risk is documented because availability is read-only.
+- Future transaction plus Resident and LaundryRoom advisory lock strategy is documented.
+- Future PostgreSQL exclusion constraint hardening is documented as a later option.
+- No endpoint, app code, migration, seed, UI, dependency, Docker, CI, deploy, LBC-004E READY, or new READY task was created.
+- Remote DONE confirmed at commit `f79f3dc`.
+
 ### LBC-004C - Implement Availability API Read Endpoint
 
 Status: Remote DONE
@@ -60,28 +79,41 @@ Acceptance:
 
 ## READY
 
-### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
+### LBC-004E - Implement Booking Creation Endpoint
 
-Status: Local DONE
+Status: LOCAL DONE
 
-Type: Documentation / Architecture
+Type: API / Mutation Endpoint
 
 Goal:
-Document the booking creation API contract and concurrency strategy before implementing `POST /bookings`.
+Implement only `POST /bookings` according to the LBC-004D contract.
 
 Acceptance:
-- Proposed route `POST /bookings` is documented.
-- Proposed body includes `residentId`, `laundryRoomId`, `date`, and `slotStart`.
-- `date` and `slotStart` are interpreted in `Europe/Stockholm`.
-- Future API conversion to UTC `startTime` and `endTime` is documented.
-- `201`, `400`, `404`, and `409` response behavior is documented.
-- Domain validation rules are documented for Resident, LaundryRoom, 14-day window, 2-hour grid, ACTIVE Booking, CANCELED Booking, BlockedSlot, and one future ACTIVE booking per Resident.
-- Concurrency risk is documented because availability is read-only.
-- Future transaction plus advisory lock strategy is documented.
-- Future PostgreSQL exclusion constraint hardening is documented as a later option.
-- No endpoint, app code, migration, seed, UI, dependency, Docker, CI, deploy, commit, push, LBC-004E READY, or new READY task is created.
+- `POST /bookings` accepts `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- Success returns `201 Created` with `id`, `residentId`, `laundryRoomId`, `startTime`, `endTime`, `status: ACTIVE`, and `timezone: Europe/Stockholm`.
+- Invalid request data returns `400`.
+- Missing Resident or LaundryRoom returns `404`.
+- Domain conflicts return `409`.
+- Resident must exist and be ACTIVE.
+- LaundryRoom must exist and be ACTIVE.
+- Slot must be inside the 14-day window, not in the past, and aligned to the fixed 2-hour grid.
+- ACTIVE Booking overlap blocks creation.
+- CANCELED Booking does not block creation.
+- BlockedSlot overlap blocks creation.
+- Resident with another future ACTIVE Booking is rejected.
+- Booking creation uses `prisma.$transaction`.
+- Transaction advisory locks are acquired for Resident and LaundryRoom with separate namespaces and fixed order.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build`, and required local endpoint tests pass.
+- No `apps/web`, UI, auth, cancellation, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004F READY, new READY task, or push is created.
+
+Completed:
+- Implemented API-only `POST /bookings`.
+- Added transaction advisory locks for Resident and LaundryRoom with separate namespaces and fixed lock order.
+- Validated required success and error cases locally.
+- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
 - Trigger technical approval has been recorded before commit.
+- Commit is authorized with explicit file staging.
 
 ## BACKLOG
 
-No task is READY.
+No task is READY beyond LBC-004E.

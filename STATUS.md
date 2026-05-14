@@ -2,12 +2,12 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004D - Define Booking Creation Contract and Concurrency Strategy
+Current task: LBC-004E - Implement Booking Creation Endpoint
 
 Status: LOCAL DONE
 
 Protocol state:
-- LBC-004D is Local DONE after Trigger technical approval and is documentation-only.
+- LBC-004E is the active READY task and is an API-only implementation task.
 - LBC-001 is Remote DONE at commit `3d90251`.
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
 - LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
@@ -18,29 +18,31 @@ Protocol state:
 - LBC-004A is Remote DONE at commit `967a321`.
 - LBC-004B is Remote DONE at commit `7025936`.
 - LBC-004C is Remote DONE at commit `9552c7b`.
-- LBC-004D documents the booking creation contract and concurrency strategy before implementation.
-- Trigger technical approval for LBC-004D has been recorded.
-- No implementation of `POST /bookings` is authorized by LBC-004D.
-- No booking creation, booking cancellation, auth, Angular product UI, admin panel, deploy, CI, Docker, or `packages/shared` work has been created.
-- No push has been made for LBC-004D.
+- LBC-004D is Remote DONE at commit `f79f3dc`.
+- LBC-004E implements only `POST /bookings` following `docs/architecture/booking-creation-contract.md`.
+- No Angular UI, admin panel, auth, cancellation, migration, seed, Prisma generate, Prisma db push, deploy, Docker, CI, `packages/shared`, LBC-004F READY, or new READY task is authorized.
+- LBC-004E is Local DONE after Trigger technical approval.
+- Trigger technical approval for LBC-004E has been recorded.
+- Commit is authorized after Trigger technical approval; no push has been made for LBC-004E.
 
 Scope guard:
-- Files authorized for LBC-004D are `docs/architecture/booking-creation-contract.md`, `docs/product/business-rules.md`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- `docs/architecture/availability-api-contract.md` may be touched only if strictly necessary; LBC-004D avoided changing it.
-- Implementing `POST /bookings`, changing `apps/api`, changing `apps/web`, creating controllers/services/repositories, creating migrations, creating seed data, running Prisma generate, running Prisma db push, Docker, CI, deploy, remote database, production, auth, cancellation, admin panel, Angular UI, and opening LBC-004E or any new READY task are blocked.
+- Files authorized for LBC-004E are `apps/api/src/server.ts`, `apps/api/src/bookings.ts` or equivalent, `apps/api/src/prisma.ts` only if a minimal adjustment is required, `apps/api/package.json` and `pnpm-lock.yaml` only if a dependency is unavoidable, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- LBC-004E must not change `apps/web`.
+- LBC-004E must not create migration, seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, auth, cancellation, admin panel, Angular UI, `packages/shared`, LBC-004F READY, or any new READY task.
 - Real `.env` files and real credentials must not be committed.
 
 Completion evidence checklist:
 - Initial repository guard evidence has been presented.
-- Proposed route `POST /bookings` is documented.
-- Proposed body uses `residentId`, `laundryRoomId`, `date`, and `slotStart`.
-- `date` and `slotStart` are documented as interpreted in `Europe/Stockholm`.
-- UTC `startTime` and `endTime` response timestamps are documented.
-- `201`, `400`, `404`, and `409` behaviors are documented.
-- Domain validation rules for Resident, LaundryRoom, slot window, slot grid, ACTIVE Booking, CANCELED Booking, BlockedSlot, and one future ACTIVE Booking per Resident are documented.
-- Concurrency risk from read-only availability has been documented.
-- Future transaction plus advisory lock strategy has been documented.
-- Future PostgreSQL exclusion constraint hardening is documented as a later option.
+- `POST /bookings` is implemented in the API only.
+- Request body validation covers `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- Domain validation covers Resident existence/status, LaundryRoom existence/status, 14-day window, past slots, fixed 2-hour grid, ACTIVE Booking overlap, BlockedSlot overlap, and one future ACTIVE Booking per Resident.
+- Booking creation uses `prisma.$transaction`.
+- Booking creation acquires PostgreSQL transaction advisory locks for Resident and LaundryRoom.
+- Resident and LaundryRoom locks use separate namespaces.
+- Locks are acquired in fixed order: Resident first, LaundryRoom second.
+- Booking is created only after all validations pass.
+- Required validation commands and local endpoint tests must pass before commit authorization.
+- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
+- Local endpoint tests proved `201`, `400`, `404`, `409` active booking conflict, `409` resident future ACTIVE booking, `409` BlockedSlot, and CANCELED nonblocking behavior.
 - Local DONE has been declared after Trigger technical approval.
-- Commit authorization has been granted after Trigger technical approval and final diff evidence.
-- Remote DONE must not be declared without push and origin synchronization verification.
+- Remote DONE must not be declared without commit, push, and origin synchronization verification.

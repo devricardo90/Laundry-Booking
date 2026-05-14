@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import { registerAvailabilityRoutes } from './availability.js';
+import { registerBookingRoutes } from './bookings.js';
 import { disconnectPrisma } from './prisma.js';
 
 const app = Fastify({
@@ -12,6 +13,7 @@ app.get('/health', async () => ({
 }));
 
 registerAvailabilityRoutes(app);
+registerBookingRoutes(app);
 
 app.addHook('onClose', async () => {
   await disconnectPrisma();

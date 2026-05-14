@@ -1,5 +1,60 @@
 # Execution Log
 
+## 2026-05-14 - LBC-004E
+
+Task:
+LBC-004E - Implement Booking Creation Endpoint.
+
+Decision:
+- Trigger authorized LBC-004E as the only READY task.
+- LBC-004D is confirmed Remote DONE at commit `f79f3dc`.
+- This task may implement only `POST /bookings` in `apps/api`.
+
+Pre-change repository guard:
+- `git status --short --untracked-files=all` was run and showed no file entries, only Git global ignore permission warnings.
+- `git status -sb` was run and showed `main...origin/main`.
+- `git log --oneline -3` showed `f79f3dc`, `9552c7b`, and `7025936`.
+
+Authorized scope:
+- Implement only `POST /bookings`.
+- Use Fastify in `apps/api`.
+- Use existing Prisma 7 configuration.
+- Follow `docs/architecture/booking-creation-contract.md`.
+- Implement manual TypeScript validation without new dependency unless unavoidable.
+- Use `prisma.$transaction`.
+- Use PostgreSQL transaction advisory locks for Resident and LaundryRoom.
+- Use separate lock namespaces and fixed lock order: Resident first, LaundryRoom second.
+- Create Booking only if all validations pass.
+- Update authorized operational documentation.
+
+Actions completed:
+- Added booking route module.
+- Registered booking route in the API server.
+- Updated operational documentation for LBC-004E.
+
+Validation completed:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local endpoint test returned `400` for invalid `slotStart`.
+- Local endpoint test returned `404` for missing Resident.
+- Local endpoint test returned `404` for missing LaundryRoom.
+- Local endpoint test returned `409` for ACTIVE Booking overlap.
+- Local endpoint test returned `409` for Resident future ACTIVE Booking.
+- Local endpoint test returned `409` for BlockedSlot overlap.
+- Local endpoint test returned `201` for creating over a CANCELED Booking slot, proving CANCELED does not block.
+- The local API server used for validation was stopped after testing.
+- `apps/web` was not changed.
+
+Blocked scope:
+- `apps/web`, Angular UI, admin panel, auth, cancellation, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004F READY, any new READY task, push, and Remote DONE declaration.
+
+Evidence status:
+- Trigger technically approved LBC-004E after implementation and validation review.
+- Local DONE recorded before commit.
+- Commit is authorized only with explicit file staging.
+- Push remains blocked.
+
 ## 2026-05-14 - LBC-004D
 
 Task:

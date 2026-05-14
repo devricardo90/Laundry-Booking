@@ -2,6 +2,24 @@
 
 ## REMOTE DONE
 
+### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
+
+Status: Remote DONE
+
+Type: Documentation / Architecture
+
+Operational notes:
+- This task created `docs/architecture/booking-creation-contract.md`.
+- This task documented the proposed route `POST /bookings`.
+- This task documented request fields `residentId`, `laundryRoomId`, `date`, and `slotStart`.
+- This task documented `Europe/Stockholm` interpretation and UTC `startTime`/`endTime` response timestamps.
+- This task documented `201`, `400`, `404`, and `409` behavior.
+- This task documented domain validations and concurrency strategy.
+- This task documented future transaction plus Resident and LaundryRoom advisory lock protection.
+- This task documented future PostgreSQL exclusion constraint hardening as a later option.
+- This task did not implement `POST /bookings`, change `apps/api`, change `apps/web`, create migration, create seed, run Prisma generate, run Prisma db push, create UI, configure deploy, configure CI, configure Docker, or open LBC-004E as READY.
+- Remote DONE confirmed at commit `f79f3dc`.
+
 ### LBC-004C - Implement Availability API Read Endpoint
 
 Status: Remote DONE
@@ -74,32 +92,42 @@ Operational notes:
 
 ## READY
 
-### LBC-004D - Define Booking Creation Contract and Concurrency Strategy
+### LBC-004E - Implement Booking Creation Endpoint
 
-Status: Local DONE
+Status: LOCAL DONE
 
-Type: Documentation / Architecture
+Type: API / Mutation Endpoint
 
 Operational notes:
-- This task may create `docs/architecture/booking-creation-contract.md`.
-- This task may update `docs/product/business-rules.md` for booking creation contract references and rule alignment.
+- This task may implement only `POST /bookings`.
+- This task may add `apps/api/src/bookings.ts` or equivalent.
+- This task may update `apps/api/src/server.ts` only to register the route.
+- This task may use existing Prisma 7 configuration.
+- This task may implement manual TypeScript validation without adding dependencies.
+- This task may use `prisma.$transaction`.
+- This task may use PostgreSQL transaction advisory locks for Resident and LaundryRoom.
+- This task must use separate lock namespaces and fixed lock order: Resident first, LaundryRoom second.
 - This task may update authorized operational documentation.
-- This task may document the proposed route `POST /bookings`.
-- This task may document request fields `residentId`, `laundryRoomId`, `date`, and `slotStart`.
-- This task may document `Europe/Stockholm` interpretation and UTC `startTime`/`endTime` response timestamps.
-- This task may document `201`, `400`, `404`, and `409` behavior.
-- This task may document domain validations and concurrency strategy.
-- This task may document future transaction plus advisory lock protection and future PostgreSQL exclusion constraint hardening.
-- This task must not implement `POST /bookings`.
-- This task must not change `apps/api` or `apps/web`.
-- This task must not create controllers, services, repositories, migration, seed, Prisma generate, Prisma db push, Docker, CI, deploy, remote database, production configuration, auth, cancellation, admin panel, Angular UI, LBC-004E READY, or any new READY task.
+- This task must not change `apps/web`.
+- This task must not create Angular UI, admin panel, auth, cancellation, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004F READY, any new READY task, or push.
 
 Expected result:
-- Booking creation contract is documented before implementation.
-- Concurrency risk is documented before implementation.
-- No code or database implementation is created.
+- Booking creation endpoint is implemented according to the LBC-004D contract.
+- Required validation commands pass.
+- Required local endpoint tests pass.
+- No blocked scope is changed.
+
+Implementation result:
+- Added API-only booking route.
+- Registered the booking route in the Fastify server.
+- Implemented manual TypeScript request validation.
+- Implemented `prisma.$transaction`.
+- Implemented Resident and LaundryRoom transaction advisory locks with separate namespaces and fixed lock order.
+- Validated required local success and error cases.
+- No `apps/web`, migration, seed, Prisma generate, Prisma db push, dependency, Docker, CI, deploy, auth, cancellation, admin panel, `packages/shared`, LBC-004F READY, or new READY task was created.
 - Trigger technical approval has been recorded before commit.
+- Commit is authorized with explicit file staging.
 
 ## BACKLOG
 
-No task is READY.
+No task is READY beyond LBC-004E.

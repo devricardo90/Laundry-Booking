@@ -2,7 +2,7 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-004D - Define Booking Creation Contract and Concurrency Strategy
+Current task: LBC-004E - Implement Booking Creation Endpoint
 
 Task status: LOCAL DONE
 
@@ -18,15 +18,17 @@ Repository status:
 - LBC-004A is Remote DONE at commit `967a321`.
 - LBC-004B is Remote DONE at commit `7025936`.
 - LBC-004C is Remote DONE at commit `9552c7b`.
-- LBC-004D is Local DONE after Trigger technical approval and is documentation-only.
+- LBC-004D is Remote DONE at commit `f79f3dc`.
+- LBC-004E is Local DONE after Trigger technical approval.
 - Minimum Angular web and Fastify API scaffold files have been created.
 - Dependencies have been installed with pnpm.
 - `pnpm-lock.yaml` has been created.
-- No push has been made for LBC-004D.
+- Commit is authorized after Trigger technical approval.
+- No push has been made for LBC-004E.
 
 Protocol checks:
-- One READY task only: no task is READY after LBC-004D Local DONE.
-- LBC-004D Local DONE: Trigger technical approval recorded.
+- One READY task only: LBC-004E is active.
+- LBC-004E READY: implementation authorized by Trigger.
 - Evidence missing: pending commit and post-commit evidence.
 - Authorized file scope respected: yes.
 - Local DONE declared: yes.
@@ -220,3 +222,36 @@ LBC-004D blocked scope:
 - Implementing `POST /bookings`.
 - Changing `apps/api` or `apps/web`.
 - Creating controllers, services, repositories, migration, seed, Prisma generate, Prisma db push, Docker, CI, deploy, remote database, production configuration, auth, cancellation, admin panel, Angular UI, LBC-004E READY, any new READY task, or push.
+
+LBC-004D result:
+- Remote DONE confirmed at commit `f79f3dc`.
+
+LBC-004E authorized scope:
+- Implement only `POST /bookings`.
+- Use Fastify in `apps/api`.
+- Use the existing Prisma 7 configuration.
+- Follow `docs/architecture/booking-creation-contract.md`.
+- Validate Resident existence/status, LaundryRoom existence/status, date, slotStart, 14-day window, past slots, fixed 2-hour grid, ACTIVE Booking overlap, BlockedSlot overlap, and Resident future ACTIVE Booking limit.
+- Use `prisma.$transaction`.
+- Acquire PostgreSQL transaction advisory locks for Resident and LaundryRoom.
+- Use separate lock namespaces and acquire locks in fixed order: Resident first, LaundryRoom second.
+- Create Booking only if every validation passes.
+- Update authorized operational documentation.
+
+LBC-004E validation requirements:
+- `pnpm lint`.
+- `pnpm typecheck`.
+- `pnpm build`.
+- Local `POST /bookings` tests for 201, 400, 404, 409 active booking conflict, 409 resident future ACTIVE booking, 409 BlockedSlot, and CANCELED nonblocking behavior.
+- Evidence that `apps/web` was not changed.
+
+LBC-004E validation result:
+- `pnpm lint` passed.
+- `pnpm typecheck` passed.
+- `pnpm build` passed.
+- Local endpoint tests proved `201`, `400`, `404`, `409` active booking conflict, `409` resident future ACTIVE booking, `409` BlockedSlot, and CANCELED nonblocking behavior.
+- `apps/web` was not changed.
+- Trigger technical approval has been recorded.
+
+LBC-004E blocked scope:
+- `apps/web`, Angular UI, admin panel, auth, cancellation, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, LBC-004F READY, any new READY task, and push.
