@@ -2,9 +2,9 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-005B - UI Usability Pass
+Current task: LBC-005C - Record Local UI Smoke Evidence
 
-Task status: READY FOR TRIGGER REVIEW
+Task status: READY
 
 Repository status:
 - Repository initialized.
@@ -22,19 +22,20 @@ Repository status:
 - LBC-004E is Remote DONE at commit `36263f6`.
 - LBC-004F is Remote DONE at commit `1e76fb9`.
 - LBC-004G is Remote DONE at commit `252c16e`.
-- LBC-005A is Remote DONE (pending commit confirmation from Trigger).
-- LBC-005B is ready for Trigger review after UI usability improvements.
-- Angular dev proxy is configured via `apps/web/proxy.conf.json`.
-- Minimum Angular web and Fastify API scaffold files have been created.
-- Dependencies have been installed with pnpm.
-- `pnpm-lock.yaml` has been created.
-- No commit has been made for LBC-005B.
-- No push has been made for LBC-005B.
+- LBC-005A is Remote DONE at commit `0a33863`.
+- LBC-005B is Remote DONE at commit `ef37b8b`.
+- LBC-005C is READY to formalize smoke test evidence.
+- Local UI Smoke Test result: SUCCESS.
+- API /health responded OK.
+- Angular UI functional via proxy.
+- All domain flows (availability, create, list, cancel) verified.
+- No code or database changes during smoke test.
+- apps/web/angular.json is clean.
 
 Protocol checks:
-- One READY task only: LBC-005B is active.
-- LBC-005B READY: implementation authorized by Trigger.
-- Evidence complete: `git diff --check` clean, all validations passed, only 2 files modified.
+- One READY task only: LBC-005C is active.
+- LBC-005C READY: documentation authorized by Trigger.
+- Evidence complete: `git diff --check` clean, only documentation files modified.
 - Authorized file scope respected: yes.
 - Local DONE declared: no.
 - Remote DONE declared: no.

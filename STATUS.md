@@ -2,12 +2,11 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-005B - UI Usability Pass
+Current task: LBC-005C - Record Local UI Smoke Evidence
 
-Status: READY FOR TRIGGER REVIEW
+Status: READY
 
 Protocol state:
-- LBC-005B is the active READY task and is a UI usability improvement task.
 - LBC-001 is Remote DONE at commit `3d90251`.
 - LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
 - LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
@@ -22,36 +21,24 @@ Protocol state:
 - LBC-004E is Remote DONE at commit `36263f6`.
 - LBC-004F is Remote DONE at commit `1e76fb9`.
 - LBC-004G is Remote DONE at commit `252c16e`.
-- LBC-005A is Remote DONE (pending commit confirmation from Trigger).
-- LBC-005B implements UI usability improvements only: labels, helpers, badges, state distinction, button clarity.
-- No backend, no new endpoint, no new dependency, no auth, no new READY task, no commit without authorization, no push is authorized.
-- LBC-005B implementation and required validation evidence are ready for Trigger review.
-- No commit or push has been made for LBC-005B.
+- LBC-005A is Remote DONE at commit `0a33863`.
+- LBC-005B is Remote DONE at commit `ef37b8b`.
+- LBC-005C is the active READY task for operational documentation only.
+- Local UI Smoke Test confirmed: API /health OK, Angular UI functional via proxy, full flow (availability, create, list, cancel) tested and working.
+- No code, commit, push, migration, seed, deploy, Prisma generate/db push, Docker, CI or new READY was made after the smoke test.
 
 Scope guard:
-- Files authorized for LBC-005B are `apps/web/src/app/app.html`, `apps/web/src/app/app.ts`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- `apps/web/src/app/app.css` was not needed.
-- `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts` were not altered.
-- `apps/api/*`, `package.json`, `pnpm-lock.yaml`, `prisma/` were not altered.
-- LBC-005B must not create auth, login, admin, permissions, payment, notifications, complex visual calendar, design system, new UI library, `packages/shared`, deploy, Docker, CI, LBC-005C READY, or any new READY task.
+- Files authorized for LBC-005C are `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- `apps/web/*`, `apps/api/*`, `package.json`, `pnpm-lock.yaml`, `prisma/` are strictly blocked.
+- No new features, no commit/push without explicit authorization.
 
 Completion evidence checklist:
-- `hasQueried` signal added to `app.ts` — distinguishes initial state from empty-after-query state.
-- `statusLabel()`, `statusBadgeClass()`, `bookingStatusLabel()`, `bookingStatusBadgeClass()` helpers added.
-- Success/error banners improved: left-border accent, ✓/✕ icon prefix.
-- Filters section: title "Filters", subtitle with flow guidance, helper texts for laundryRoomId and residentId, date helper "Must be within the next 14 days.", button renamed "Check Availability".
-- UUID inputs use `font-mono` class, placeholder shows `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
-- Availability section: title "Availability", state messages in English, slot badges (Available/Booked/Blocked), "Book" button with aria-label.
-- Bookings section: title "Bookings", state messages in English, booking status badges (Active/Canceled), "Cancel booking" button with increased visual weight and aria-label.
-- All UI strings in English.
-- `pnpm lint` passed.
-- `pnpm typecheck` passed.
-- `pnpm build` passed (180 kB, under 500 kB budget).
-- Angular dev server reloaded with new code confirmed via `main.js` grep.
-- Availability, cancel, create, list manual tests passed via proxy.
-- Error 409 and 400 confirmed. Empty state confirmed. Loading state confirmed by message strings.
-- `git status`: only `apps/web/src/app/app.html` and `apps/web/src/app/app.ts` modified.
-- `git diff --check`: no whitespace errors.
-- No blocked file was altered.
-- Local DONE has not been declared.
-- Remote DONE must not be declared without commit, push, and origin synchronization verification.
+- LBC-005B confirmed Remote DONE at `ef37b8b`.
+- Local API started with `DATABASE_URL` in PowerShell.
+- `GET /health` returned `{"status":"ok","service":"lbc-api"}`.
+- Angular UI opened at `http://127.0.0.1:4200`.
+- Proxy `/api` verified working.
+- All flows tested in browser and working normally.
+- Only operational documentation modified for LBC-005C.
+- `git status` shows only authorized documentation files modified.
+- `apps/web/angular.json` is clean.

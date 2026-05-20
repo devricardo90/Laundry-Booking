@@ -1,5 +1,29 @@
 # Execution Log
 
+## 2026-05-20 - LBC-005C
+
+Task:
+LBC-005C - Record Local UI Smoke Evidence.
+
+Decision:
+- Trigger authorized LBC-005C as the only READY task.
+- Task is documentation-only to formalize local smoke test results.
+
+Actions completed:
+- Formalized LBC-005B as Remote DONE at commit `ef37b8b`.
+- Recorded local UI smoke test evidence:
+  - API started with `DATABASE_URL` in PowerShell.
+  - `GET /health` returned `{"status":"ok","service":"lbc-api"}`.
+  - Angular UI served at `http://127.0.0.1:4200`.
+  - Proxy `/api` verified functional.
+  - Manual flow (availability, create, list, cancel) verified in browser.
+  - No code or database changes during smoke test.
+- Updated all authorized operational documentation files.
+
+Validation completed:
+- `git status` confirms only documentation files modified.
+- `apps/web/angular.json` is clean.
+
 ## 2026-05-14 - LBC-005B
 
 Task:

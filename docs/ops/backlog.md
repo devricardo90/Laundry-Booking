@@ -166,18 +166,33 @@ Operational notes:
 
 ### LBC-005B - UI Usability Pass
 
-Status: READY FOR TRIGGER REVIEW
+Status: Remote DONE
 
 Type: UI / Angular Frontend — Usability
 
 Operational notes:
 - This task added `hasQueried` signal and 4 view-helper methods to `apps/web/src/app/app.ts`.
-- This task updated `apps/web/src/app/app.html` with improved labels, helper texts, UUID placeholders, flow guidance, distinct initial vs. empty states, slot status badges (Available/Booked/Blocked), booking status badges (Active/Canceled), improved success/error banners, and clearer button labels ("Check Availability", "Book", "Cancel booking").
-- This task did not change `apps/web/src/app/app.css`, `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/api/*`, `package.json`, `pnpm-lock.yaml`, `prisma/`, or any other file.
-- This task did not install new dependencies, create migration, seed, run Prisma generate, run Prisma db push, configure Docker, CI, deploy, implement auth, create admin panel, create `packages/shared`, or open LBC-005C as READY.
-- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed (180 kB, under 500 kB budget).
+- This task updated `apps/web/src/app/app.html` with improved labels, helper texts, UUID placeholders, flow guidance, distinct initial vs. empty states, slot status badges, booking status badges, improved banners, and clearer button labels.
+- `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
 - Manual tests passed for all flows and states.
+- Remote DONE confirmed at commit `ef37b8b`.
+
+## READY
+
+### LBC-005C - Record Local UI Smoke Evidence
+
+Status: READY
+
+Type: Documentation / Ops
+
+Operational notes:
+- This task formalizes the local UI smoke test evidence.
+- API started with `DATABASE_URL` in PowerShell.
+- `GET /health` returned OK.
+- Angular UI verified functional via proxy.
+- No code, migration, or seed changes occurred during the smoke test.
+- This task updates only authorized documentation files.
 
 ## BACKLOG
 
-No task is READY beyond LBC-005B.
+No task is READY beyond LBC-005C.

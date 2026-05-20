@@ -161,12 +161,9 @@ Acceptance:
 
 ### LBC-005B - UI Usability Pass
 
-Status: READY FOR TRIGGER REVIEW
+Status: Remote DONE
 
 Type: UI / Angular Frontend — Usability
-
-Goal:
-Improve clarity and usability of the existing Angular booking screen for manual testing and demonstration.
 
 Acceptance:
 - Helper texts added for laundryRoomId and residentId.
@@ -180,13 +177,26 @@ Acceptance:
 - All UI strings in English.
 - No backend change, no new endpoint, no new dependency.
 - `pnpm lint`, `pnpm typecheck`, `pnpm build` pass.
+- Remote DONE confirmed at commit `ef37b8b`.
 
-Completed:
-- Added `hasQueried` signal and 4 view-helper methods to `app.ts`.
-- Rewrote `app.html` with improved labels, helpers, badges, and state messages.
-- All validation commands pass.
-- Manual tests confirm all flows and states work correctly.
+## READY
+
+### LBC-005C - Record Local UI Smoke Evidence
+
+Status: READY
+
+Type: Documentation / Ops
+
+Goal:
+Formalize the local smoke test results for the Angular UI flow and API.
+
+Acceptance:
+- Status and backlog files updated to reflect LBC-005B Remote DONE at `ef37b8b`.
+- Operational docs updated with smoke test evidence (API health, proxy functionality, flow validation).
+- No code, migration, seed, or build changes introduced.
+- `git status` confirms only authorized documentation files modified.
+- `apps/web/angular.json` confirms as clean.
 
 ## BACKLOG
 
-No task is READY beyond LBC-005B.
+No task is READY beyond LBC-005C.
