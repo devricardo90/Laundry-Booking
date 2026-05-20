@@ -1,5 +1,22 @@
 # Execution Log
 
+## 2026-05-20 - LBC-006A
+
+Task:
+LBC-006A - Define Demo Data Presets Strategy.
+
+Decision:
+- Trigger authorized LBC-006A as the first task of SPR-01.
+- Task is documentation-only to define the approach for reducing UUID friction.
+
+Actions completed:
+- Created `docs/architecture/demo-presets-strategy.md` defining the frontend-hardcoded preset approach.
+- Updated operational documentation.
+
+Validation completed:
+- Git status and diff checked.
+- No code or database files modified.
+
 ## 2026-05-20 - LBC-005C
 
 Task:

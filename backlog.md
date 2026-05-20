@@ -183,12 +183,9 @@ Acceptance:
 
 ### LBC-005C - Record Local UI Smoke Evidence
 
-Status: READY
+Status: Remote DONE
 
 Type: Documentation / Ops
-
-Goal:
-Formalize the local smoke test results for the Angular UI flow and API.
 
 Acceptance:
 - Status and backlog files updated to reflect LBC-005B Remote DONE at `ef37b8b`.
@@ -196,7 +193,34 @@ Acceptance:
 - No code, migration, seed, or build changes introduced.
 - `git status` confirms only authorized documentation files modified.
 - `apps/web/angular.json` confirms as clean.
+- Remote DONE confirmed at commit `9dd8962`.
+
+## READY
+
+### LBC-006A - Define Demo Data Presets Strategy
+
+Status: READY
+
+Type: Documentation / Architecture
+
+Goal:
+Define the strategy for adding UI presets to eliminate manual UUID copying friction.
+
+Acceptance:
+- `docs/architecture/demo-presets-strategy.md` created.
+- Strategy defines frontend-hardcoded presets based on seed data.
+- Strategy defines no backend or database changes.
+- Strategy defines boundaries (not security, no new dependencies).
+- Exit criteria for implementation (LBC-006B) defined.
+- Operational docs updated.
 
 ## BACKLOG
 
-No task is READY beyond LBC-005C.
+### LBC-006B - Implement Angular UI Development Presets
+
+Status: BACKLOG
+
+Type: UI / UX
+
+Goal:
+Implement the demo presets in the Angular UI according to the strategy defined in LBC-006A.

@@ -2,43 +2,25 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-005C - Record Local UI Smoke Evidence
+Current task: LBC-006A - Define Demo Data Presets Strategy
 
 Task status: READY
 
 Repository status:
 - Repository initialized.
-- LBC-001 is Remote DONE at commit `3d90251`.
-- LBC-002A is Remote DONE at commit `d6b7673cc6be018308b2d8bf4d6220141e58f509`.
-- LBC-002B is Remote DONE at commit `b577a40b61b016aef345d27e41cd8dcc9c9ff67a`.
-- LBC-002C is Remote DONE at commit `93f32c7`.
-- LBC-003A is Remote DONE at commit `fe1ac8c`.
-- LBC-003B is Remote DONE at commit `c31ed8c`.
-- LBC-003C is Remote DONE at commit `e5285f4`.
-- LBC-004A is Remote DONE at commit `967a321`.
-- LBC-004B is Remote DONE at commit `7025936`.
-- LBC-004C is Remote DONE at commit `9552c7b`.
-- LBC-004D is Remote DONE at commit `f79f3dc`.
-- LBC-004E is Remote DONE at commit `36263f6`.
-- LBC-004F is Remote DONE at commit `1e76fb9`.
-- LBC-004G is Remote DONE at commit `252c16e`.
-- LBC-005A is Remote DONE at commit `0a33863`.
-- LBC-005B is Remote DONE at commit `ef37b8b`.
-- LBC-005C is READY to formalize smoke test evidence.
-- Local UI Smoke Test result: SUCCESS.
-- API /health responded OK.
-- Angular UI functional via proxy.
-- All domain flows (availability, create, list, cancel) verified.
-- No code or database changes during smoke test.
-- apps/web/angular.json is clean.
+- LBC-001 through LBC-005C are Remote DONE.
+- Latest remote commit: `9dd8962` (LBC-005C).
+- LBC-006A is active for strategy definition.
+- SPR-01 (Demo UX & Friction Reduction) active.
 
 Protocol checks:
-- One READY task only: LBC-005C is active.
-- LBC-005C READY: documentation authorized by Trigger.
+- One READY task only: LBC-006A is active.
+- LBC-006A READY: documentation authorized by Trigger.
 - Evidence complete: `git diff --check` clean, only documentation files modified.
 - Authorized file scope respected: yes.
 - Local DONE declared: no.
 - Remote DONE declared: no.
+
 
 Current approved stack:
 - Frontend: Angular + TypeScript + Tailwind.

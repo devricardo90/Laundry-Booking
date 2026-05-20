@@ -3,17 +3,14 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-005C - Record Local UI Smoke Evidence.
+LBC-006A - Define Demo Data Presets Strategy.
 
 Current state:
-- Repository initialized.
-- LBC-001 through LBC-005B are Remote DONE.
-- Latest remote commit is `ef37b8b` (LBC-005B).
-- LBC-005C is READY to formalize smoke test evidence.
-- Local UI smoke test (full flow via proxy) confirmed as SUCCESS.
-- API and UI are functionally verified for the current scope.
-- `apps/web/angular.json` is clean.
-- Only authorized operational documentation is being updated.
+- LBC-001 through LBC-005C are Remote DONE.
+- SPR-01 (Demo UX & Friction Reduction) started.
+- Strategy for UI presets defined in `docs/architecture/demo-presets-strategy.md`.
+- No code changes made yet.
+- Repository is clean and synchronized.
 
 Key product decisions:
 - The primary user is the condominium resident.

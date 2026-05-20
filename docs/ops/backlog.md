@@ -181,18 +181,35 @@ Operational notes:
 
 ### LBC-005C - Record Local UI Smoke Evidence
 
-Status: READY
+Status: Remote DONE
 
 Type: Documentation / Ops
 
 Operational notes:
-- This task formalizes the local UI smoke test evidence.
-- API started with `DATABASE_URL` in PowerShell.
-- `GET /health` returned OK.
-- Angular UI verified functional via proxy.
-- No code, migration, or seed changes occurred during the smoke test.
-- This task updates only authorized documentation files.
+- Formalized smoke test evidence for LBC-005B.
+- Verified full flow success via Angular proxy.
+- Remote DONE confirmed at commit `9dd8962`.
+
+## READY
+
+### LBC-006A - Define Demo Data Presets Strategy
+
+Status: READY
+
+Type: Documentation / Architecture
+
+Operational notes:
+- Active task for SPR-01.
+- Goal: Create `docs/architecture/demo-presets-strategy.md`.
+- No code or API changes allowed.
 
 ## BACKLOG
 
-No task is READY beyond LBC-005C.
+### LBC-006B - Implement Angular UI Development Presets
+
+Status: BACKLOG
+
+Type: UI / UX
+
+Goal:
+Implement the demo presets in the Angular UI.
