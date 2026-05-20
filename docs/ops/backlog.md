@@ -190,26 +190,48 @@ Operational notes:
 - Verified full flow success via Angular proxy.
 - Remote DONE confirmed at commit `9dd8962`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-006A - Define Demo Data Presets Strategy
 
-Status: READY
+Status: Remote DONE
 
 Type: Documentation / Architecture
 
 Operational notes:
-- Active task for SPR-01.
-- Goal: Create `docs/architecture/demo-presets-strategy.md`.
-- No code or API changes allowed.
+- Created `docs/architecture/demo-presets-strategy.md`.
+- Defined frontend-hardcoded presets based on seed data.
+- Defined no backend or database changes.
+- Defined boundaries: not security, no new dependencies.
+- Defined exit criteria for future implementation.
+- Updated operational documentation.
+- Remote DONE confirmed at commit `d6f8060`.
 
-## BACKLOG
+## READY / IN_PROGRESS
 
-### LBC-006B - Implement Angular UI Development Presets
+### LBC-007A - Define Product Roadmap and Current Sprint Objective
 
-Status: BACKLOG
+Status: READY / IN_PROGRESS
+
+Type: DOCS / ROADMAP
+
+Operational notes:
+- Active documentation task for SPR-01.
+- Creates the official product roadmap above individual tasks.
+- Creates the current objective document for SPR-01 - Product Demo Readiness.
+- Keeps LBC-007B as FUTURE / SUGGESTED only.
+- Does not authorize UI implementation.
+
+## FUTURE / SUGGESTED
+
+### LBC-007B - Implement Angular UI Development Presets
+
+Status: FUTURE / SUGGESTED
 
 Type: UI / UX
 
 Goal:
 Implement the demo presets in the Angular UI.
+
+Operational note:
+LBC-007B is not READY and must not be opened without explicit Ricardo authorization.

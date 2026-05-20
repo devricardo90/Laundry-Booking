@@ -2,24 +2,54 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-006A - Define Demo Data Presets Strategy
+Current task: LBC-007A - Define Product Roadmap and Current Sprint Objective
 
-Task status: READY
+Task status: READY / IN_PROGRESS
 
 Repository status:
 - Repository initialized.
-- LBC-001 through LBC-005C are Remote DONE.
-- Latest remote commit: `9dd8962` (LBC-005C).
-- LBC-006A is active for strategy definition.
-- SPR-01 (Demo UX & Friction Reduction) active.
+- LBC-001 through LBC-006A are Remote DONE.
+- Latest remote commit: `d6f8060` (LBC-006A).
+- LBC-007A is active for roadmap and sprint objective documentation.
+- Official current sprint: SPR-01 - Product Demo Readiness.
 
 Protocol checks:
-- One READY task only: LBC-006A is active.
-- LBC-006A READY: documentation authorized by Trigger.
-- Evidence complete: `git diff --check` clean, only documentation files modified.
-- Authorized file scope respected: yes.
+- One active READY task only: LBC-007A.
+- LBC-007A READY / IN_PROGRESS: documentation authorized.
+- LBC-007B is FUTURE / SUGGESTED only and is not READY.
+- Required validation for this documentation-only task: `git diff --check`.
+- Authorized file scope respected: yes; pending Ricardo review.
 - Local DONE declared: no.
 - Remote DONE declared: no.
+
+Current sprint objective:
+- Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
+
+LBC-007A authorized scope:
+- Create `docs/product/roadmap.md`.
+- Create `docs/ops/current-objective.md`.
+- Update `STATUS.md`.
+- Update `backlog.md`.
+- Update `docs/ops/status.md`.
+- Update `docs/ops/backlog.md`.
+- Update `docs/ops/execution-log.md`.
+- Update `docs/ops/session-handoff.md`.
+
+LBC-007A blocked scope:
+- Angular UI presets.
+- `apps/web`.
+- `apps/api`.
+- `prisma`.
+- `package.json`.
+- `pnpm-lock.yaml`.
+- `angular.json`.
+- `tsconfig.json`.
+- Dependencies.
+- Migrations.
+- Seed.
+- Deploy, Docker, or CI/CD.
+- Auth, admin, notifications, or payments.
+- Opening or marking LBC-007B as READY.
 
 
 Current approved stack:

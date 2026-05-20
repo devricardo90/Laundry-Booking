@@ -2,23 +2,26 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-006A - Define Demo Data Presets Strategy
+Current task: LBC-007A - Define Product Roadmap and Current Sprint Objective
 
-Status: READY
+Status: READY / IN_PROGRESS
 
 Protocol state:
-- LBC-001 through LBC-005C are Remote DONE.
-- Latest remote commit: `9dd8962` (LBC-005C).
-- LBC-006A is the active task for defining the demo preset strategy.
+- LBC-001 through LBC-006A are Remote DONE.
+- Latest remote commit: `d6f8060` (LBC-006A).
+- LBC-007A is the active documentation task for defining the product roadmap and current sprint objective.
+- Official current sprint: SPR-01 - Product Demo Readiness.
 - Task is documentation-only; no code changes allowed.
-- Sprint objective: Remove manual UUID friction (SPR-01).
+- LBC-007B remains FUTURE / SUGGESTED and is not READY.
 
 Scope guard:
-- Files authorized: `docs/architecture/demo-presets-strategy.md`, `STATUS.md`, `backlog.md`, `docs/ops/*`.
-- Strictly blocked: `apps/web/*`, `apps/api/*`, `prisma/*`, `package.json`, `pnpm-lock.yaml`, auth implementation, UI implementation.
+- Files authorized: `docs/product/roadmap.md`, `docs/ops/current-objective.md`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- Strictly blocked: `apps/web/*`, `apps/api/*`, `prisma/*`, `package.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig.json`, dependencies, migrations, seed, deploy, Docker, CI/CD, auth, admin, notifications, payments, and opening LBC-007B as READY.
 
 Completion evidence checklist:
-- `docs/architecture/demo-presets-strategy.md` created with required content.
+- `docs/product/roadmap.md` created with product roadmap phases.
+- `docs/ops/current-objective.md` created with SPR-01 objective, scope, non-goals, exit criteria, candidate tasks, and future tasks.
 - Operational docs updated.
-- Git status and diff validated.
+- New files made auditable with `git add -N`.
+- `git diff --check` validated.
 - No code or config files modified.

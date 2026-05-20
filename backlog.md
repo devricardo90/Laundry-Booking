@@ -195,16 +195,13 @@ Acceptance:
 - `apps/web/angular.json` confirms as clean.
 - Remote DONE confirmed at commit `9dd8962`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-006A - Define Demo Data Presets Strategy
 
-Status: READY
+Status: Remote DONE
 
 Type: Documentation / Architecture
-
-Goal:
-Define the strategy for adding UI presets to eliminate manual UUID copying friction.
 
 Acceptance:
 - `docs/architecture/demo-presets-strategy.md` created.
@@ -213,14 +210,43 @@ Acceptance:
 - Strategy defines boundaries (not security, no new dependencies).
 - Exit criteria for implementation (LBC-006B) defined.
 - Operational docs updated.
+- Remote DONE confirmed at commit `d6f8060`.
 
-## BACKLOG
+## READY / IN_PROGRESS
 
-### LBC-006B - Implement Angular UI Development Presets
+### LBC-007A - Define Product Roadmap and Current Sprint Objective
 
-Status: BACKLOG
+Status: READY / IN_PROGRESS
+
+Type: DOCS / ROADMAP
+
+Goal:
+Create the official roadmap and current sprint objective documentation so future implementation tasks are anchored to a clear product objective.
+
+Sprint:
+SPR-01 - Product Demo Readiness.
+
+Acceptance:
+- Product roadmap phases documented.
+- Current sprint objective documented.
+- Allowed scope documented.
+- Explicit non-goals documented.
+- Exit criteria documented.
+- Candidate tasks documented.
+- Future tasks not READY yet documented.
+- LBC-007B remains FUTURE / SUGGESTED and is not READY.
+- No code, config, dependency, migration, seed, deploy, Docker, or CI/CD files changed.
+
+## FUTURE / SUGGESTED
+
+### LBC-007B - Implement Angular UI Development Presets
+
+Status: FUTURE / SUGGESTED
 
 Type: UI / UX
 
 Goal:
 Implement the demo presets in the Angular UI according to the strategy defined in LBC-006A.
+
+Protocol note:
+LBC-007B is not READY and must not be opened without explicit Ricardo authorization.

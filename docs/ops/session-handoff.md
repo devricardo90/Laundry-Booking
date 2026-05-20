@@ -3,14 +3,17 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-006A - Define Demo Data Presets Strategy.
+LBC-007A - Define Product Roadmap and Current Sprint Objective.
 
 Current state:
-- LBC-001 through LBC-005C are Remote DONE.
-- SPR-01 (Demo UX & Friction Reduction) started.
-- Strategy for UI presets defined in `docs/architecture/demo-presets-strategy.md`.
-- No code changes made yet.
-- Repository is clean and synchronized.
+- LBC-001 through LBC-006A are Remote DONE.
+- Latest remote commit: `d6f8060` (LBC-006A).
+- SPR-01 - Product Demo Readiness is the official current sprint.
+- LBC-007A is documentation-only and currently in progress.
+- LBC-007B is FUTURE / SUGGESTED only and is not READY.
+
+Current sprint objective:
+Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -53,11 +56,11 @@ Seed data (dev only):
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
 Next protocol step:
-- Review LBC-005B final evidence.
+- Review LBC-007A documentation evidence.
 - Do not commit without Trigger authorization.
 - Do not push.
 - Do not declare Remote DONE without push and origin synchronization verification.
 
 Scope note:
-- LBC-005B authorized files: `apps/web/src/app/app.ts`, `apps/web/src/app/app.html`, and operational docs.
-- `apps/api`, `apps/web/angular.json`, `apps/web/proxy.conf.json`, `apps/web/src/app/app.config.ts`, `apps/web/src/app/app.css`, `package.json`, `pnpm-lock.yaml`, `prisma/`, migration, versioned seed, Prisma generate, Prisma db push, remote database, deploy, Docker, CI, `packages/shared`, auth, admin panel, new UI library, global store, commit without authorization, push, LBC-005C READY, and any new READY task are blocked.
+- LBC-007A authorized files: `docs/product/roadmap.md`, `docs/ops/current-objective.md`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- `apps/web`, `apps/api`, `prisma`, `package.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig.json`, dependencies, migrations, seed, deploy, Docker, CI/CD, auth, admin, notifications, payments, commit without authorization, push, and opening LBC-007B as READY are blocked.
