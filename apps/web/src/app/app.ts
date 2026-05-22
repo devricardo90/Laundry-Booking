@@ -5,6 +5,16 @@ import { firstValueFrom } from 'rxjs';
 
 const API = '/api';
 const TIMEZONE = 'Europe/Stockholm';
+const DEVELOPMENT_PRESETS = [
+  {
+    label: 'Development Resident + Laundry Room A',
+    description: 'Development Resident in Laundry Room A',
+    residentId: '22222222-2222-4222-8222-222222222222',
+    laundryRoomId: '11111111-1111-4111-8111-111111111111',
+  },
+] as const;
+
+type DevelopmentPreset = (typeof DEVELOPMENT_PRESETS)[number];
 
 interface Slot {
   startTime: string;
@@ -48,6 +58,7 @@ export class App {
   laundryRoomId = '11111111-1111-4111-8111-111111111111';
   residentId = '22222222-2222-4222-8222-222222222222';
   date = new Date().toISOString().slice(0, 10);
+  developmentPresets = DEVELOPMENT_PRESETS;
 
   slots = signal<Slot[]>([]);
   bookings = signal<Booking[]>([]);
@@ -116,6 +127,13 @@ export class App {
     return status === 'ACTIVE'
       ? `${base} bg-green-100 text-green-800`
       : `${base} bg-slate-100 text-slate-600`;
+  }
+
+  applyDevelopmentPreset(preset: DevelopmentPreset): void {
+    this.residentId = preset.residentId;
+    this.laundryRoomId = preset.laundryRoomId;
+    this.actionError.set(null);
+    this.actionSuccess.set(`Loaded demo helper: ${preset.description}.`);
   }
 
   async load(): Promise<void> {
