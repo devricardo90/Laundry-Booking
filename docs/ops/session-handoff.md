@@ -3,14 +3,15 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-007A - Define Product Roadmap and Current Sprint Objective.
+LBC-007B - Implement Angular UI Development Presets.
 
 Current state:
-- LBC-001 through LBC-006A are Remote DONE.
-- Latest remote commit: `d6f8060` (LBC-006A).
+- LBC-001 through LBC-007A are Remote DONE.
+- Latest remote commit: `b0c5d06` (LBC-007A).
 - SPR-01 - Product Demo Readiness is the official current sprint.
-- LBC-007A is documentation-only and currently in progress.
-- LBC-007B is FUTURE / SUGGESTED only and is not READY.
+- LBC-007B is READY by documentation-only promotion.
+- LBC-007B implementation has not started.
+- LBC-007B implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
 
 Current sprint objective:
 Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
@@ -56,11 +57,20 @@ Seed data (dev only):
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
 Next protocol step:
-- Review LBC-007A documentation evidence.
-- Do not commit without Trigger authorization.
+- Review LBC-007B READY promotion documentation evidence.
+- Do not implement Angular UI yet.
+- Do not commit without Ricardo authorization.
 - Do not push.
-- Do not declare Remote DONE without push and origin synchronization verification.
+- Do not begin LBC-007B implementation until this promotion is committed and synchronized.
 
 Scope note:
-- LBC-007A authorized files: `docs/product/roadmap.md`, `docs/ops/current-objective.md`, `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- `apps/web`, `apps/api`, `prisma`, `package.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig.json`, dependencies, migrations, seed, deploy, Docker, CI/CD, auth, admin, notifications, payments, commit without authorization, push, and opening LBC-007B as READY are blocked.
+- LBC-007B READY promotion authorized files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- Current promotion task blocks `apps/web`, `apps/api`, `prisma`, `package.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig.json`, dependencies, migrations, seed, build/lint/typecheck, deploy, Docker, CI/CD, auth, admin, notifications, payments, UI implementation, commit without authorization, and push.
+
+Future LBC-007B implementation scope after promotion sync:
+- Add hardcoded development/demo presets in the Angular UI.
+- Use Laundry Room A `11111111-1111-4111-8111-111111111111`.
+- Use Development Resident `22222222-2222-4222-8222-222222222222`.
+- Allow existing UI controls to fill `residentId` and `laundryRoomId`.
+- Preserve check availability -> book -> list -> cancel.
+- Do not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.

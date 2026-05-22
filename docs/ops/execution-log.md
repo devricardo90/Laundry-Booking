@@ -1,5 +1,40 @@
 # Execution Log
 
+## 2026-05-22 - LBC-007B READY Promotion
+
+Task:
+LBC-007B - Implement Angular UI Development Presets.
+
+Type:
+DOCS / READY PROMOTION.
+
+Decision:
+- Ricardo authorized only the documentation promotion of LBC-007B to READY.
+- LBC-007A is confirmed Remote DONE at commit `b0c5d06`.
+- LBC-007B becomes the single active READY task.
+- Angular UI implementation is not authorized in this task.
+- Implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
+
+Future implementation scope documented:
+- Add hardcoded development/demo presets in the Angular UI.
+- Use Laundry Room A `11111111-1111-4111-8111-111111111111`.
+- Use Development Resident `22222222-2222-4222-8222-222222222222`.
+- Allow the existing UI controls to fill `residentId` and `laundryRoomId`.
+- Preserve check availability -> book -> list -> cancel.
+- Do not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.
+
+Actions completed:
+- Updated operational status and backlog files.
+- Recorded LBC-007A as Remote DONE at `b0c5d06`.
+- Promoted LBC-007B to READY.
+- Recorded that LBC-007B has not been implemented yet.
+
+Blocked scope:
+- `apps/web`, `apps/api`, `prisma`, `package.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig.json`, dependencies, migrations, seed, build/lint/typecheck, UI implementation, commit, and push.
+
+Evidence status:
+- Pending final git status and diff evidence for Ricardo review.
+
 ## 2026-05-20 - LBC-007A
 
 Task:

@@ -142,11 +142,11 @@ Operational notes:
 - Trigger approved LBC-004A for Local DONE and commit after evidence review.
 - Remote DONE confirmed at commit `967a321`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-005A - Minimal Angular Booking Flow
 
-Status: READY FOR TRIGGER REVIEW
+Status: Remote DONE
 
 Type: UI / Angular Frontend
 
@@ -161,8 +161,9 @@ Operational notes:
 - `pnpm lint`, `pnpm typecheck`, and `pnpm build` passed.
 - Manual tests passed for availability, cancel, create, and list via proxy.
 - `proxy.conf.json` audited via `git add -N`.
+- Remote DONE confirmed at commit `0a33863`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-005B - UI Usability Pass
 
@@ -177,7 +178,7 @@ Operational notes:
 - Manual tests passed for all flows and states.
 - Remote DONE confirmed at commit `ef37b8b`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-005C - Record Local UI Smoke Evidence
 
@@ -207,11 +208,11 @@ Operational notes:
 - Updated operational documentation.
 - Remote DONE confirmed at commit `d6f8060`.
 
-## READY / IN_PROGRESS
+## REMOTE DONE
 
 ### LBC-007A - Define Product Roadmap and Current Sprint Objective
 
-Status: READY / IN_PROGRESS
+Status: Remote DONE
 
 Type: DOCS / ROADMAP
 
@@ -221,17 +222,26 @@ Operational notes:
 - Creates the current objective document for SPR-01 - Product Demo Readiness.
 - Keeps LBC-007B as FUTURE / SUGGESTED only.
 - Does not authorize UI implementation.
+- Remote DONE confirmed at commit `b0c5d06`.
 
-## FUTURE / SUGGESTED
+## READY
 
 ### LBC-007B - Implement Angular UI Development Presets
 
-Status: FUTURE / SUGGESTED
+Status: READY
 
-Type: UI / UX
+Type: DOCS / READY PROMOTION
 
 Goal:
 Implement the demo presets in the Angular UI.
 
-Operational note:
-LBC-007B is not READY and must not be opened without explicit Ricardo authorization.
+Operational notes:
+- Ricardo authorized only the documentation promotion of LBC-007B to READY.
+- LBC-007B implementation has not started.
+- Implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
+- Future implementation should add hardcoded development/demo presets in the Angular UI.
+- Future implementation should use Laundry Room A `11111111-1111-4111-8111-111111111111`.
+- Future implementation should use Development Resident `22222222-2222-4222-8222-222222222222`.
+- Future implementation should let the existing controls fill `residentId` and `laundryRoomId`.
+- Future implementation should preserve check availability -> book -> list -> cancel.
+- Future implementation must not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.

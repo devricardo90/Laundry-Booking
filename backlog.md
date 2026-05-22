@@ -4,7 +4,7 @@
 
 ### LBC-005A - Minimal Angular Booking Flow
 
-Status: Remote DONE (pending commit confirmation)
+Status: Remote DONE
 
 Type: UI / Angular Frontend
 
@@ -13,6 +13,7 @@ Acceptance:
 - Availability, create booking, list bookings, and cancel booking flows working via proxy.
 - Loading, error, empty, and success states implemented.
 - `pnpm lint`, `pnpm typecheck`, `pnpm build` passed.
+- Remote DONE confirmed at commit `0a33863`.
 
 ### LBC-004G - Booking Read/List API
 
@@ -157,7 +158,7 @@ Acceptance:
 - Required raw evidence is presented before any commit request.
 - Remote DONE confirmed at commit `967a321`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-005B - UI Usability Pass
 
@@ -179,7 +180,7 @@ Acceptance:
 - `pnpm lint`, `pnpm typecheck`, `pnpm build` pass.
 - Remote DONE confirmed at commit `ef37b8b`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-005C - Record Local UI Smoke Evidence
 
@@ -212,11 +213,11 @@ Acceptance:
 - Operational docs updated.
 - Remote DONE confirmed at commit `d6f8060`.
 
-## READY / IN_PROGRESS
+## REMOTE DONE
 
 ### LBC-007A - Define Product Roadmap and Current Sprint Objective
 
-Status: READY / IN_PROGRESS
+Status: Remote DONE
 
 Type: DOCS / ROADMAP
 
@@ -236,17 +237,37 @@ Acceptance:
 - Future tasks not READY yet documented.
 - LBC-007B remains FUTURE / SUGGESTED and is not READY.
 - No code, config, dependency, migration, seed, deploy, Docker, or CI/CD files changed.
+- Remote DONE confirmed at commit `b0c5d06`.
 
-## FUTURE / SUGGESTED
+## READY
 
 ### LBC-007B - Implement Angular UI Development Presets
 
-Status: FUTURE / SUGGESTED
+Status: READY
 
-Type: UI / UX
+Type: DOCS / READY PROMOTION
 
 Goal:
 Implement the demo presets in the Angular UI according to the strategy defined in LBC-006A.
 
-Protocol note:
-LBC-007B is not READY and must not be opened without explicit Ricardo authorization.
+Implementation status:
+- Not implemented yet.
+- Implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
+
+Future implementation scope:
+- Add hardcoded development/demo presets in the Angular UI.
+- Use known dev seed IDs:
+  - Laundry Room A: `11111111-1111-4111-8111-111111111111`
+  - Development Resident: `22222222-2222-4222-8222-222222222222`
+- Allow the existing UI controls to fill `residentId` and `laundryRoomId`.
+- Preserve the flow: check availability -> book -> list -> cancel.
+- Keep API behavior and response shapes unchanged.
+
+Blocked scope:
+- `apps/api/*`.
+- `prisma/*`.
+- Seed changes or seed execution.
+- New migrations.
+- New dependencies.
+- `package.json`, `pnpm-lock.yaml`, `angular.json`, and `tsconfig.json`.
+- Commit and push during this READY promotion task.
