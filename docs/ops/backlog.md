@@ -224,24 +224,42 @@ Operational notes:
 - Does not authorize UI implementation.
 - Remote DONE confirmed at commit `b0c5d06`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-007B - Implement Angular UI Development Presets
 
-Status: READY
+Status: Remote DONE
 
-Type: DOCS / READY PROMOTION
+Type: UI / Angular Frontend
 
 Goal:
 Implement the demo presets in the Angular UI.
 
 Operational notes:
-- Ricardo authorized only the documentation promotion of LBC-007B to READY.
-- LBC-007B implementation has not started.
-- Implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
-- Future implementation should add hardcoded development/demo presets in the Angular UI.
-- Future implementation should use Laundry Room A `11111111-1111-4111-8111-111111111111`.
-- Future implementation should use Development Resident `22222222-2222-4222-8222-222222222222`.
-- Future implementation should let the existing controls fill `residentId` and `laundryRoomId`.
-- Future implementation should preserve check availability -> book -> list -> cancel.
-- Future implementation must not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.
+- This task added hardcoded development/demo presets in the Angular UI.
+- This task used Laundry Room A `11111111-1111-4111-8111-111111111111`.
+- This task used Development Resident `22222222-2222-4222-8222-222222222222`.
+- This task let the existing controls fill `residentId` and `laundryRoomId`.
+- This task preserved check availability -> book -> list -> cancel.
+- This task did not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.
+- Remote DONE confirmed at commit `9009aa5`.
+
+## READY
+
+### LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
+
+Status: READY
+
+Type: DOCS / EVIDENCE
+
+Goal:
+Record local demo smoke evidence for the preset-assisted flow after LBC-007B.
+
+Operational notes:
+- LBC-007C is documentation/evidence only.
+- May start local PostgreSQL, API, and web if needed.
+- Must use Development Presets during smoke validation.
+- Smoke target is check availability -> create booking -> list booking -> cancel booking.
+- Confirm success, error, and empty states where possible.
+- Must not change `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI, backend, auth, or open any new READY task besides LBC-007C.
+- Commit and push are blocked.

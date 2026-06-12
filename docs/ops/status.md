@@ -2,67 +2,68 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-007B - Implement Angular UI Development Presets
+Current task: LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
 
 Task status: READY
 
 Repository status:
 - Repository initialized.
-- LBC-001 through LBC-007A are Remote DONE.
-- Latest remote commit: `b0c5d06` (LBC-007A).
-- LBC-007B is promoted to READY by documentation-only authorization.
-- LBC-007B implementation has not started.
-- LBC-007B implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
+- LBC-001 through LBC-007B are Remote DONE.
+- Latest remote commit: `9009aa5` (LBC-007B).
+- LBC-007B is Remote DONE at commit `9009aa5`.
+- LBC-007C is opened as READY by documentation-only authorization.
+- LBC-007C is documentation/evidence only.
 - Official current sprint: SPR-01 - Product Demo Readiness.
 
 Protocol checks:
-- One active READY task only: LBC-007B.
-- LBC-007A Remote DONE confirmed at `b0c5d06`.
-- LBC-007B READY promotion authorized as documentation-only.
-- LBC-007B is READY for implementation only after this documentation promotion is reviewed, committed, pushed, and origin synchronization is verified.
-- Required validation for this documentation-only READY promotion: `git diff --check`.
+- One active READY task only: LBC-007C.
+- LBC-007B Remote DONE confirmed at `9009aa5`.
+- LBC-007C READY opening authorized as documentation/evidence only.
+- Required validation for this documentation-only READY opening: `git diff --check`.
 - Authorized file scope: documentation files only.
-- Strictly blocked during this promotion: `apps/web`, `apps/api`, `prisma`, dependencies, migrations, seed, build, lint, typecheck, deploy, Docker, CI/CD, runtime changes, and actual UI implementation.
+- Strictly blocked during this opening: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, dependencies, migrations, seed, Docker, deploy, UI changes, backend changes, auth, and any new READY task besides LBC-007C.
 - Local DONE declared: no.
 - Remote DONE declared: no.
 
 Current sprint objective:
 - Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
 
-LBC-007B READY promotion authorized scope:
+LBC-007C READY opening authorized scope:
 - Update `STATUS.md`.
 - Update `backlog.md`.
 - Update `docs/ops/status.md`.
 - Update `docs/ops/backlog.md`.
 - Update `docs/ops/execution-log.md`.
 - Update `docs/ops/session-handoff.md`.
-- Record LBC-007A as Remote DONE at `b0c5d06`.
-- Promote LBC-007B to READY.
-- Record that LBC-007B is not implemented yet.
-- Record that implementation may start only after this promotion is reviewed, committed, pushed, and origin synchronization is verified.
+- Record LBC-007B as Remote DONE at `9009aa5`.
+- Open LBC-007C as READY.
+- Record that LBC-007C is documentation/evidence only.
+- Record the local demo smoke target for the preset-assisted flow.
 
-LBC-007B future implementation scope:
-- Add hardcoded development/demo presets in the Angular UI.
-- Use Laundry Room A `11111111-1111-4111-8111-111111111111`.
-- Use Development Resident `22222222-2222-4222-8222-222222222222`.
-- Allow the existing UI controls to fill `residentId` and `laundryRoomId`.
-- Preserve check availability -> book -> list -> cancel.
-- Do not alter API, Prisma, seed, dependencies, or runtime configuration.
+LBC-007C smoke target:
+- Start local PostgreSQL, API, and web if needed.
+- Use Development Presets.
+- Check availability.
+- Create booking.
+- List booking.
+- Cancel booking.
+- Confirm success, error, and empty states where possible.
 
-LBC-007B READY promotion blocked scope:
+LBC-007C READY opening blocked scope:
 - `apps/web`.
 - `apps/api`.
 - `prisma`.
 - `package.json`.
-- `pnpm-lock.yaml`.
-- `angular.json`.
-- `tsconfig.json`.
+- Lockfiles.
 - Dependencies.
 - Migrations.
 - Seed.
-- Deploy, Docker, or CI/CD.
-- Auth, admin, notifications, or payments.
-- UI implementation.
+- Docker.
+- Deploy.
+- UI changes.
+- Backend changes.
+- Auth.
+- New READY task besides LBC-007C.
 - Commit and push.
 
 

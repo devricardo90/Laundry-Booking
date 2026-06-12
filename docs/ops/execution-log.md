@@ -1,5 +1,42 @@
 # Execution Log
 
+## 2026-06-12 - LBC-007C READY Opening
+
+Task:
+LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence.
+
+Type:
+DOCS / EVIDENCE.
+
+Decision:
+- Ricardo authorized opening LBC-007C as READY.
+- LBC-007B is confirmed Remote DONE at commit `9009aa5`.
+- LBC-007C becomes the single active READY task.
+- LBC-007C is documentation/evidence only.
+- Product code, backend code, persistence code, dependencies, migrations, seed, Docker, deploy, auth, commit, and push are not authorized in this opening.
+
+Smoke target documented:
+- Start local PostgreSQL, API, and web if needed.
+- Use Development Presets.
+- Check availability.
+- Create booking.
+- List booking.
+- Cancel booking.
+- Confirm success, error, and empty states where possible.
+
+Actions completed:
+- Updated operational status and backlog files.
+- Recorded LBC-007B as Remote DONE at `9009aa5`.
+- Opened LBC-007C as READY.
+- Recorded LBC-007C as documentation/evidence only.
+- Recorded smoke target and blocked scope.
+
+Blocked scope:
+- `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, new READY task besides LBC-007C, commit, and push.
+
+Evidence status:
+- Pending final git status and diff evidence for Ricardo review.
+
 ## 2026-05-22 - LBC-007B READY Promotion
 
 Task:

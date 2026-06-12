@@ -239,22 +239,18 @@ Acceptance:
 - No code, config, dependency, migration, seed, deploy, Docker, or CI/CD files changed.
 - Remote DONE confirmed at commit `b0c5d06`.
 
-## READY
+## REMOTE DONE
 
 ### LBC-007B - Implement Angular UI Development Presets
 
-Status: READY
+Status: Remote DONE
 
-Type: DOCS / READY PROMOTION
+Type: UI / Angular Frontend
 
 Goal:
 Implement the demo presets in the Angular UI according to the strategy defined in LBC-006A.
 
-Implementation status:
-- Not implemented yet.
-- Implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
-
-Future implementation scope:
+Acceptance:
 - Add hardcoded development/demo presets in the Angular UI.
 - Use known dev seed IDs:
   - Laundry Room A: `11111111-1111-4111-8111-111111111111`
@@ -262,12 +258,46 @@ Future implementation scope:
 - Allow the existing UI controls to fill `residentId` and `laundryRoomId`.
 - Preserve the flow: check availability -> book -> list -> cancel.
 - Keep API behavior and response shapes unchanged.
+- No backend, Prisma, seed, dependency, migration, deploy, Docker, auth, or product-scope expansion introduced.
+- Remote DONE confirmed at commit `9009aa5`.
+
+## READY
+
+### LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
+
+Status: READY
+
+Type: DOCS / EVIDENCE
+
+Goal:
+Record local demo smoke evidence for the preset-assisted booking flow after LBC-007B.
+
+Task nature:
+- Documentation/evidence only.
+- May start local PostgreSQL, API, and web if needed for smoke validation.
+- Must not change application code, backend code, persistence code, dependencies, migrations, seed data, Docker, deploy configuration, or auth.
+
+Smoke target:
+- Use Development Presets.
+- Check availability.
+- Create booking.
+- List booking.
+- Cancel booking.
+- Confirm success, error, and empty states where possible.
 
 Blocked scope:
+- `apps/web/*`.
 - `apps/api/*`.
 - `prisma/*`.
-- Seed changes or seed execution.
-- New migrations.
-- New dependencies.
-- `package.json`, `pnpm-lock.yaml`, `angular.json`, and `tsconfig.json`.
-- Commit and push during this READY promotion task.
+- `package.json`.
+- Lockfiles.
+- Migrations.
+- Seed changes.
+- Docker.
+- Dependencies.
+- Deploy.
+- UI changes.
+- Backend changes.
+- Auth.
+- New READY task besides LBC-007C.
+- Commit and push.

@@ -3,15 +3,15 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-007B - Implement Angular UI Development Presets.
+LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence.
 
 Current state:
-- LBC-001 through LBC-007A are Remote DONE.
-- Latest remote commit: `b0c5d06` (LBC-007A).
+- LBC-001 through LBC-007B are Remote DONE.
+- Latest remote commit: `9009aa5` (LBC-007B).
 - SPR-01 - Product Demo Readiness is the official current sprint.
-- LBC-007B is READY by documentation-only promotion.
-- LBC-007B implementation has not started.
-- LBC-007B implementation may start only after this READY promotion is reviewed, committed, pushed, and origin synchronization is verified.
+- LBC-007B is Remote DONE at commit `9009aa5`.
+- LBC-007C is READY by documentation-only opening.
+- LBC-007C is documentation/evidence only.
 
 Current sprint objective:
 Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
@@ -57,20 +57,21 @@ Seed data (dev only):
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
 Next protocol step:
-- Review LBC-007B READY promotion documentation evidence.
-- Do not implement Angular UI yet.
+- Review LBC-007C READY opening documentation evidence.
+- After review, run local demo smoke validation for the preset-assisted flow.
 - Do not commit without Ricardo authorization.
 - Do not push.
-- Do not begin LBC-007B implementation until this promotion is committed and synchronized.
+- Do not change app, API, Prisma, dependency, migration, seed, Docker, deploy, UI, backend, or auth files during LBC-007C.
 
 Scope note:
-- LBC-007B READY promotion authorized files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- Current promotion task blocks `apps/web`, `apps/api`, `prisma`, `package.json`, `pnpm-lock.yaml`, `angular.json`, `tsconfig.json`, dependencies, migrations, seed, build/lint/typecheck, deploy, Docker, CI/CD, auth, admin, notifications, payments, UI implementation, commit without authorization, and push.
+- LBC-007C READY opening authorized files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- Current READY opening blocks `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, new READY task besides LBC-007C, commit without authorization, and push.
 
-Future LBC-007B implementation scope after promotion sync:
-- Add hardcoded development/demo presets in the Angular UI.
-- Use Laundry Room A `11111111-1111-4111-8111-111111111111`.
-- Use Development Resident `22222222-2222-4222-8222-222222222222`.
-- Allow existing UI controls to fill `residentId` and `laundryRoomId`.
-- Preserve check availability -> book -> list -> cancel.
-- Do not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.
+LBC-007C smoke target:
+- Start local PostgreSQL, API, and web if needed.
+- Use Development Presets.
+- Check availability.
+- Create booking.
+- List booking.
+- Cancel booking.
+- Confirm success, error, and empty states where possible.
