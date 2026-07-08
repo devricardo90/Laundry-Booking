@@ -1,205 +1,451 @@
-<main class="min-h-dvh bg-slate-50 text-slate-950">
-  <header class="border-b border-slate-200 bg-white px-6 py-4">
-    <p class="text-xs font-medium uppercase tracking-widest text-slate-400">
-      Laundry Booking Condo
-    </p>
-    <h1 class="text-xl font-semibold text-slate-900">Booking</h1>
+<main class="min-h-screen bg-slate-100 text-slate-900 font-sans">
+  <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg"
+        >
+          LB
+        </div>
+        <div>
+          <p class="text-xs font-medium uppercase tracking-widest text-slate-400">
+            Laundry Booking Condo
+          </p>
+          <h1 class="text-lg sm:text-xl font-semibold text-slate-900">Booking Manager</h1>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <div class="mx-auto max-w-3xl space-y-6 px-6 py-8">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
     @if (actionSuccess()) {
       <div
-        class="flex items-start gap-3 rounded-md border-l-4 border-green-500 bg-green-50 px-4 py-3 text-sm text-green-800"
+        class="mb-6 flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 px-4 sm:px-5 py-4 text-sm text-green-800 shadow-sm"
       >
-        <span class="font-bold leading-5">✓</span>
-        <span>{{ actionSuccess() }}</span>
+        <div
+          class="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+        >
+          ✓
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Success</p>
+          <p class="mt-1">{{ actionSuccess() }}</p>
+        </div>
       </div>
     }
     @if (actionError()) {
       <div
-        class="flex items-start gap-3 rounded-md border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-800"
+        class="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 sm:px-5 py-4 text-sm text-red-800 shadow-sm"
       >
-        <span class="font-bold leading-5">✕</span>
-        <span>{{ actionError() }}</span>
+        <div
+          class="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+        >
+          ✕
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold">Error</p>
+          <p class="mt-1">{{ actionError() }}</p>
+        </div>
       </div>
     }
 
-    <!-- Filters -->
-    <section class="rounded-lg border border-slate-200 bg-white p-6">
-      <h2 class="mb-1 text-sm font-semibold uppercase tracking-wide text-slate-500">Filters</h2>
-      <p class="mb-4 text-sm text-slate-500">
-        Enter the details below and click Check Availability to see slots and bookings.
-      </p>
-      <div class="space-y-4">
-        <div class="rounded-md border border-blue-100 bg-blue-50 p-4">
-          <h3 class="text-xs font-semibold uppercase tracking-wide text-blue-800">
-            Development Presets
-          </h3>
-          <div class="mt-3 flex flex-wrap gap-2">
-            @for (preset of developmentPresets; track preset.label) {
-              <button
-                type="button"
-                (click)="applyDevelopmentPreset(preset)"
-                class="rounded border border-blue-300 bg-white px-3 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100"
-              >
-                {{ preset.label }}
-              </button>
-            }
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Filters / Presets -->
+      <section class="lg:col-span-1">
+        <div class="rounded-2xl bg-white border border-slate-200 shadow-lg overflow-hidden">
+          <div
+            class="px-5 sm:px-6 py-5 border-b border-slate-100 bg-gradient-to-r from-blue-50 to-indigo-50"
+          >
+            <h2 class="text-base font-semibold text-slate-800 flex items-center gap-2">
+              <span class="w-1.5 h-6 bg-blue-500 rounded-full"></span>
+              Booking Setup
+            </h2>
           </div>
-        </div>
-        <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="laundryRoomId">
-            Laundry Room ID
-          </label>
-          <input
-            id="laundryRoomId"
-            type="text"
-            [(ngModel)]="laundryRoomId"
-            class="w-full rounded border border-slate-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
-            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-          />
-          <p class="mt-1 text-xs text-slate-400">
-            Development seed laundry room ID — change to test with another laundry room.
-          </p>
-        </div>
-        <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="residentId">
-            Resident ID
-          </label>
-          <input
-            id="residentId"
-            type="text"
-            [(ngModel)]="residentId"
-            class="w-full rounded border border-slate-300 px-3 py-2 font-mono text-sm focus:border-blue-500 focus:outline-none"
-            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-          />
-          <p class="mt-1 text-xs text-slate-400">
-            Development seed resident ID — used when creating a booking.
-          </p>
-        </div>
-        <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700" for="date">Date</label>
-          <input
-            id="date"
-            type="date"
-            [(ngModel)]="date"
-            class="rounded border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-          />
-          <p class="mt-1 text-xs text-slate-400">Must be within the next 14 days.</p>
-        </div>
-        <button
-          (click)="load()"
-          [disabled]="loadingAvailability() || loadingBookings()"
-          class="rounded bg-blue-600 px-5 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
-        >
-          @if (loadingAvailability() || loadingBookings()) {
-            Loading...
-          } @else {
-            Check Availability
-          }
-        </button>
-      </div>
-    </section>
-
-    <!-- Availability -->
-    <section class="rounded-lg border border-slate-200 bg-white p-6">
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">
-        Availability
-      </h2>
-      @if (loadingAvailability()) {
-        <p class="text-sm text-slate-500">Loading availability...</p>
-      } @else if (availabilityError()) {
-        <p class="text-sm text-red-600">{{ availabilityError() }}</p>
-      } @else if (!hasQueried()) {
-        <p class="text-sm text-slate-400">Enter your details above and click Check Availability.</p>
-      } @else if (slots().length === 0) {
-        <p class="text-sm text-slate-400">No slots found for this date.</p>
-      } @else {
-        <div class="space-y-2">
-          @for (slot of slots(); track slot.startTime) {
+          <div class="p-5 sm:p-6 space-y-5">
+            <!-- Presets -->
             <div
-              class="flex items-center justify-between rounded border p-3"
-              [class.slot-available]="slot.status === 'AVAILABLE'"
-              [class.slot-booked]="slot.status === 'BOOKED'"
-              [class.slot-blocked]="slot.status === 'BLOCKED'"
+              class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100 p-4"
             >
-              <div class="flex items-center gap-3 text-sm">
-                <span class="font-mono font-medium">
-                  {{ formatTime(slot.startTime) }}–{{ formatTime(slot.endTime) }}
-                </span>
-                <span [class]="statusBadgeClass(slot.status)">
-                  {{ statusLabel(slot.status) }}
-                  @if (slot.status === 'BLOCKED' && slot.reason) {
-                    <span class="ml-1 font-normal opacity-70">({{ slot.reason }})</span>
-                  }
-                </span>
+              <h3 class="text-sm font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                🎯 Demo Preset
+              </h3>
+              <p class="text-xs text-blue-700/80 mb-3">
+                Quick setup for testing using development data
+              </p>
+              <div class="space-y-2">
+                @for (preset of developmentPresets; track preset.label) {
+                  <button
+                    type="button"
+                    (click)="applyDevelopmentPreset(preset)"
+                    class="w-full text-left group rounded-lg border border-blue-300 bg-white px-4 py-3 transition-all duration-200 hover:bg-blue-100 hover:border-blue-400 hover:shadow-md active:scale-[0.99]"
+                  >
+                    <p class="font-semibold text-blue-800 text-sm group-hover:text-blue-900">
+                      {{ preset.label }}
+                    </p>
+                    <p class="text-xs text-blue-600/80 mt-1">
+                      {{ preset.description }}
+                    </p>
+                  </button>
+                }
               </div>
-              @if (slot.status === 'AVAILABLE') {
-                <button
-                  (click)="createBooking(slot)"
-                  [disabled]="bookingSlotStart() !== null || cancelingId() !== null"
-                  [attr.aria-label]="
-                    'Book slot ' + formatTime(slot.startTime) + ' to ' + formatTime(slot.endTime)
-                  "
-                  class="rounded bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700 disabled:opacity-50"
-                >
-                  @if (bookingSlotStart() === slotStart(slot.startTime)) {
-                    Booking...
-                  } @else {
-                    Book
-                  }
-                </button>
-              }
             </div>
-          }
-        </div>
-      }
-    </section>
 
-    <!-- Bookings -->
-    <section class="rounded-lg border border-slate-200 bg-white p-6">
-      <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Bookings</h2>
-      @if (loadingBookings()) {
-        <p class="text-sm text-slate-500">Loading bookings...</p>
-      } @else if (bookingsError()) {
-        <p class="text-sm text-red-600">{{ bookingsError() }}</p>
-      } @else if (!hasQueried()) {
-        <p class="text-sm text-slate-400">Query availability to see bookings for this date.</p>
-      } @else if (bookings().length === 0) {
-        <p class="text-sm text-slate-400">No bookings for this date.</p>
-      } @else {
-        <div class="space-y-2">
-          @for (booking of bookings(); track booking.id) {
-            <div class="flex items-center justify-between rounded border border-slate-200 p-3">
-              <div class="text-sm">
-                <div class="flex items-center gap-2">
-                  <span class="font-medium text-slate-800">{{ booking.residentName }}</span>
-                  <span [class]="bookingStatusBadgeClass(booking.status)">
-                    {{ bookingStatusLabel(booking.status) }}
-                  </span>
-                </div>
-                <p class="mt-0.5 font-mono text-xs text-slate-500">
-                  {{ formatTime(booking.startTime) }}–{{ formatTime(booking.endTime) }}
+            <!-- Inputs -->
+            <div class="space-y-4">
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600"
+                  for="laundryRoomId"
+                >
+                  Laundry Room ID
+                </label>
+                <input
+                  id="laundryRoomId"
+                  type="text"
+                  [(ngModel)]="laundryRoomId"
+                  class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3.5 py-2.5 font-mono text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all duration-200"
+                  placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                />
+                <p class="mt-1.5 text-xs text-slate-400 leading-relaxed">
+                  Development seed laundry room ID.
                 </p>
               </div>
-              @if (booking.status === 'ACTIVE' && isFuture(booking.startTime)) {
-                <button
-                  (click)="cancelBooking(booking.id)"
-                  [disabled]="cancelingId() !== null || bookingSlotStart() !== null"
-                  [attr.aria-label]="'Cancel booking at ' + formatTime(booking.startTime)"
-                  class="rounded border border-red-400 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700 hover:bg-red-100 disabled:opacity-50"
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600"
+                  for="residentId"
                 >
-                  @if (cancelingId() === booking.id) {
-                    Canceling...
-                  } @else {
-                    Cancel booking
-                  }
-                </button>
-              }
+                  Resident ID
+                </label>
+                <input
+                  id="residentId"
+                  type="text"
+                  [(ngModel)]="residentId"
+                  class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3.5 py-2.5 font-mono text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all duration-200"
+                  placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                />
+                <p class="mt-1.5 text-xs text-slate-400 leading-relaxed">
+                  Development seed resident ID for bookings.
+                </p>
+              </div>
+              <div>
+                <label
+                  class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600"
+                  for="date"
+                >
+                  Date
+                </label>
+                <input
+                  id="date"
+                  type="date"
+                  [(ngModel)]="date"
+                  class="w-full rounded-lg border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all duration-200"
+                />
+                <p class="mt-1.5 text-xs text-slate-400 leading-relaxed">
+                  Must be within the next 14 days.
+                </p>
+              </div>
             </div>
-          }
+
+            <!-- Check Availability Button -->
+            <button
+              (click)="load()"
+              [disabled]="loadingAvailability() || loadingBookings()"
+              class="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-blue-500/25 hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none active:scale-[0.99]"
+            >
+              @if (loadingAvailability() || loadingBookings()) {
+                <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    fill="none"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Loading...
+              } @else {
+                <svg
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                Check Availability
+              }
+            </button>
+          </div>
         </div>
-      }
-    </section>
+      </section>
+
+      <!-- Availability & Bookings -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Availability -->
+        <section class="rounded-2xl bg-white border border-slate-200 shadow-lg overflow-hidden">
+          <div class="px-5 sm:px-6 py-5 border-b border-slate-100">
+            <h2 class="text-base font-semibold text-slate-800 flex items-center gap-2">
+              <span class="w-1.5 h-6 bg-green-500 rounded-full"></span>
+              Time Slots
+            </h2>
+          </div>
+          <div class="p-5 sm:p-6">
+            @if (loadingAvailability()) {
+              <div class="flex items-center justify-center py-10 text-slate-500">
+                <svg class="w-6 h-6 mr-2 animate-spin" viewBox="0 0 24 24">
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    fill="none"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Loading availability...
+              </div>
+            } @else if (availabilityError()) {
+              <div class="text-center py-10">
+                <p class="text-sm text-red-600 font-medium">{{ availabilityError() }}</p>
+              </div>
+            } @else if (!hasQueried()) {
+              <div class="text-center py-10">
+                <div
+                  class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-slate-400"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <p class="text-slate-500">
+                  Enter your details and click Check Availability to see slots.
+                </p>
+              </div>
+            } @else if (slots().length === 0) {
+              <div class="text-center py-10">
+                <p class="text-slate-400">No slots found for this date.</p>
+              </div>
+            } @else {
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                @for (slot of slots(); track slot.startTime) {
+                  <div
+                    class="rounded-xl border p-4 transition-all duration-200"
+                    [class.slot-available]="slot.status === 'AVAILABLE'"
+                    [class.slot-booked]="slot.status === 'BOOKED'"
+                    [class.slot-blocked]="slot.status === 'BLOCKED'"
+                  >
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                      <div class="flex items-center gap-2">
+                        <div class="font-mono text-lg font-bold">
+                          {{ formatTime(slot.startTime) }}
+                        </div>
+                        <div class="text-slate-400">–</div>
+                        <div class="font-mono text-lg font-bold">
+                          {{ formatTime(slot.endTime) }}
+                        </div>
+                      </div>
+                      <span [class]="statusBadgeClass(slot.status)">
+                        {{ statusLabel(slot.status) }}
+                      </span>
+                    </div>
+                    @if (slot.status === 'BLOCKED' && slot.reason) {
+                      <p class="text-xs text-slate-500 mb-3">
+                        {{ slot.reason }}
+                      </p>
+                    }
+                    @if (slot.status === 'AVAILABLE') {
+                      <button
+                        (click)="createBooking(slot)"
+                        [disabled]="bookingSlotStart() !== null || cancelingId() !== null"
+                        [attr.aria-label]="
+                          'Book slot ' +
+                          formatTime(slot.startTime) +
+                          ' to ' +
+                          formatTime(slot.endTime)
+                        "
+                        class="w-full flex items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none active:scale-[0.99]"
+                      >
+                        @if (bookingSlotStart() === slotStart(slot.startTime)) {
+                          <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                            <circle
+                              class="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              stroke-width="4"
+                              fill="none"
+                            ></circle>
+                            <path
+                              class="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Booking...
+                        } @else {
+                          <svg
+                            class="w-4 h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <path d="M12 5v14M5 12h14"></path>
+                          </svg>
+                          Book Slot
+                        }
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- Bookings -->
+        <section class="rounded-2xl bg-white border border-slate-200 shadow-lg overflow-hidden">
+          <div class="px-5 sm:px-6 py-5 border-b border-slate-100">
+            <h2 class="text-base font-semibold text-slate-800 flex items-center gap-2">
+              <span class="w-1.5 h-6 bg-indigo-500 rounded-full"></span>
+              Bookings
+            </h2>
+          </div>
+          <div class="p-5 sm:p-6">
+            @if (loadingBookings()) {
+              <div class="flex items-center justify-center py-10 text-slate-500">
+                <svg class="w-6 h-6 mr-2 animate-spin" viewBox="0 0 24 24">
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    fill="none"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Loading bookings...
+              </div>
+            } @else if (bookingsError()) {
+              <div class="text-center py-10">
+                <p class="text-sm text-red-600 font-medium">{{ bookingsError() }}</p>
+              </div>
+            } @else if (!hasQueried()) {
+              <div class="text-center py-10">
+                <p class="text-slate-400">Check availability to view bookings for this date.</p>
+              </div>
+            } @else if (bookings().length === 0) {
+              <div class="text-center py-10">
+                <p class="text-slate-400">No bookings for this date.</p>
+              </div>
+            } @else {
+              <div class="space-y-3">
+                @for (booking of bookings(); track booking.id) {
+                  <div
+                    class="rounded-xl border border-slate-200 bg-slate-50/50 p-4 flex items-start justify-between gap-4"
+                  >
+                    <div class="flex-1">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-semibold text-slate-900 text-base">
+                          {{ booking.residentName }}
+                        </span>
+                        <span [class]="bookingStatusBadgeClass(booking.status)">
+                          {{ bookingStatusLabel(booking.status) }}
+                        </span>
+                      </div>
+                      <div class="mt-2 flex items-center gap-2 text-xs text-slate-500 font-mono">
+                        <svg
+                          class="w-3.5 h-3.5 text-slate-400"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        {{ formatTime(booking.startTime) }}–{{ formatTime(booking.endTime) }}
+                      </div>
+                    </div>
+                    @if (booking.status === 'ACTIVE' && isFuture(booking.startTime)) {
+                      <button
+                        (click)="cancelBooking(booking.id)"
+                        [disabled]="cancelingId() !== null || bookingSlotStart() !== null"
+                        [attr.aria-label]="'Cancel booking at ' + formatTime(booking.startTime)"
+                        class="flex-shrink-0 flex items-center gap-1.5 rounded-lg border border-red-300 bg-red-50 px-3.5 py-2 text-xs font-semibold text-red-700 hover:bg-red-100 hover:border-red-400 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.99]"
+                      >
+                        @if (cancelingId() === booking.id) {
+                          <svg class="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24">
+                            <circle
+                              class="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              stroke-width="4"
+                              fill="none"
+                            ></circle>
+                            <path
+                              class="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Canceling...
+                        } @else {
+                          <svg
+                            class="w-3.5 h-3.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                          >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                          Cancel
+                        }
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 </main>
