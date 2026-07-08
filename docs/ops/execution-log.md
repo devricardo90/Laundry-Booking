@@ -1,5 +1,77 @@
 # Execution Log
 
+## 2026-07-08 - LBC-008A READY Opening
+
+Task:
+LBC-008A - Polish responsive demo UI.
+
+Type:
+UI / Angular Frontend.
+
+Decision:
+- Ricardo directed to open LBC-008A as READY after backlog planning.
+- LBC-001 through LBC-007C are Remote DONE, latest commit `b713885`.
+- LBC-008A is the only READY task.
+- LBC-008B, LBC-008C, and LBC-009A remain Future/Suggested.
+
+Authorized scope:
+- `apps/web/src/app/app.html`
+- `apps/web/src/app/app.ts` only for presentation labels/state helpers
+- `apps/web/src/styles.css` if present and already used
+- Update operational documentation (STATUS.md, backlog.md, docs/ops/status.md, docs/ops/backlog.md, docs/ops/execution-log.md, docs/ops/session-handoff.md)
+
+Blocked scope:
+- No API changes, no Prisma changes, no seed/migration changes
+- No package/lock changes, no dependencies added
+- No deploy, no auth changes, no backend features
+- No commit or push without Ricardo authorization
+
+Actions completed:
+- Updated `STATUS.md` to mark LBC-008A as READY.
+- Updated `backlog.md` to move LBC-008A to READY section.
+- Updated `docs/ops/status.md` to reflect LBC-008A READY.
+- Updated `docs/ops/backlog.md` to move LBC-008A to READY section.
+- Updated `docs/ops/session-handoff.md` to reflect LBC-008A as active READY task.
+- Updated this execution log.
+
+## 2026-07-08 - Post-LBC-007C Execution Backlog Planning
+
+Task:
+Post-LBC-007C Execution Backlog Planning.
+
+Type:
+DOCS / Planning.
+
+Decision:
+- Ricardo directed to create post-LBC-007C execution backlog without implementing code yet.
+- LBC-001 through LBC-007C are Remote DONE, latest commit `b713885`.
+- Planned sequential tasks, no multiple READY tasks allowed.
+
+Planned post-LBC-007C sequence:
+1. LBC-008A - Polish responsive demo UI (UI only, no backend changes)
+2. LBC-008B - Harden booking flow UX (UI only, no backend changes)
+3. LBC-008C - README and portfolio demo evidence (docs only)
+4. LBC-009A - Manual deploy readiness discussion (docs only)
+
+Product direction:
+- Make the app functional, visually solid, responsive on mobile.
+- Document with a good README.
+- Later manual deploy for testing (no deploy yet).
+- No Prisma/database changes yet.
+
+Actions completed:
+- Updated `STATUS.md`.
+- Updated `backlog.md`.
+- Updated `docs/ops/status.md`.
+- Updated `docs/ops/backlog.md`.
+- Updated `docs/ops/session-handoff.md`.
+- Updated this execution log.
+
+Blocked scope:
+- No app code changes, no API changes, no Prisma changes.
+- No package/lock changes, no dependencies added.
+- No deploy, no commit, no push.
+
 ## 2026-07-08 - LBC-007C Smoke Test Execution
 
 Task:

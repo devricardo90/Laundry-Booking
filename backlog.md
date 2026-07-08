@@ -261,11 +261,11 @@ Acceptance:
 - No backend, Prisma, seed, dependency, migration, deploy, Docker, auth, or product-scope expansion introduced.
 - Remote DONE confirmed at commit `9009aa5`.
 
-## LOCAL DONE
+## REMOTE DONE
 
 ### LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
 
-Status: Local Done
+Status: Remote Done
 
 Type: DOCS / EVIDENCE
 
@@ -280,7 +280,7 @@ Task nature:
 Smoke test executed:
 - Used Development Presets.
 - Checked availability for date `2026-07-09`.
-- Created booking for slot 00:00–02:00.
+- Created booking for slot `00:00–02:00`.
 - Listed booking (confirmed Active status).
 - Canceled booking (confirmed Canceled status).
 - Verified slot became Available again after cancellation.
@@ -302,3 +302,99 @@ Blocked scope respected:
 - No new READY task opened.
 - No commit.
 - No push.
+
+Remote DONE confirmed at commit `b713885`.
+
+## READY
+
+### LBC-008A - Polish responsive demo UI
+
+Status: READY
+
+Type: UI / Angular Frontend
+
+Goal:
+Improve the Angular UI for desktop and mobile demo usage. Focus on visual hierarchy, spacing, mobile layout, clearer sections, better buttons, better state presentation, and recruiter/demo readability.
+
+Allowed scope:
+- `apps/web/src/app/app.html`
+- `apps/web/src/app/app.ts` only if needed for presentation labels/state helpers
+- `apps/web/src/styles.css` if present and already used
+
+Forbidden scope:
+- API changes
+- Prisma changes
+- Seed/migration changes
+- Package/lock changes
+- Dependencies
+- Deploy
+- Auth
+- Backend features
+
+### LBC-008B - Harden booking flow UX
+
+Status: Future / Suggested
+
+Type: UI / Angular Frontend
+
+Goal:
+Reduce booking friction and make the flow clearer. Focus on selected slot clarity, disabled states, loading states, validation messages, success/error handling, and cancel confirmation if already possible without new backend scope.
+
+Allowed scope:
+- `apps/web/src/app/app.html`
+- `apps/web/src/app/app.ts`
+
+Forbidden scope:
+- API changes unless a later Discussion Gate proves a backend bug
+- Prisma
+- Seed/migrations
+- Dependencies
+- Deploy
+
+### LBC-008C - README and portfolio demo evidence
+
+Status: Future / Suggested
+
+Type: DOCS / Portfolio
+
+Goal:
+Create a professional README/demo presentation for portfolio and recruiter review.
+
+Included:
+- Project overview
+- Tech stack
+- Features
+- Local setup
+- Smoke evidence
+- Screenshots section/placeholders
+- Demo flow
+- Current limitations
+- Future roadmap
+
+Allowed scope:
+- README.md
+- `docs/product/*`
+- `docs/ops/*`
+
+Forbidden scope:
+- App code
+- API code
+- Prisma
+- Deploy
+
+### LBC-009A - Manual deploy readiness discussion
+
+Status: Future / Suggested
+
+Type: DOCS / Discussion
+
+Goal:
+Prepare deployment strategy only after local app is stable. Must decide:
+- Frontend hosting
+- API hosting
+- Postgres hosting
+- Environment variables
+- Manual test checklist
+- Security limitations
+
+No deploy execution yet unless explicitly authorized later.

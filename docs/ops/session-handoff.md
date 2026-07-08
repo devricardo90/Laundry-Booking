@@ -3,18 +3,26 @@
 Project: LBC - Laundry Booking Condo
 
 Active task:
-LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence.
+LBC-008A - Polish responsive demo UI.
 
 Current state:
-- LBC-001 through LBC-007B are Remote DONE.
-- Latest remote commit: `fa803b3` (LBC-007C READY opening).
+- LBC-001 through LBC-007C are Remote DONE.
+- Latest remote commit: `b713885` (LBC-007C demo smoke evidence).
 - SPR-01 - Product Demo Readiness is the official current sprint.
 - LBC-007B is Remote DONE at commit `9009aa5`.
-- LBC-007C is Local Done (smoke test completed).
-- LBC-007C is documentation/evidence only.
+- LBC-007C is Remote DONE at commit `b713885`.
+- Post-LBC-007C backlog planned.
+- LBC-008A is the only READY task.
+- LBC-008B, LBC-008C, and LBC-009A are Future/Suggested.
 
 Current sprint objective:
 Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
+
+Product direction:
+- Make the app functional, visually solid, responsive on mobile.
+- Document with a good README.
+- Later manual deploy for testing (no deploy yet).
+- No Prisma/database changes yet.
 
 Key product decisions:
 - The primary user is the condominium resident.
@@ -56,24 +64,18 @@ Seed data (dev only):
 - Development Resident: `22222222-2222-4222-8222-222222222222`
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
+Planned post-LBC-007C sequence:
+1. LBC-008A - Polish responsive demo UI (UI only, no backend changes)
+2. LBC-008B - Harden booking flow UX (UI only, no backend changes)
+3. LBC-008C - README and portfolio demo evidence (docs only)
+4. LBC-009A - Manual deploy readiness discussion (docs only)
+
 Next protocol step:
-- Review LBC-007C smoke test evidence.
+- Review post-LBC-007C backlog plan.
 - Do not commit without Ricardo authorization.
 - Do not push.
-- Do not change app, API, Prisma, dependency, migration, seed, Docker, deploy, UI, backend, or auth files.
+- Do not change app, API, Prisma, dependency, migration, seed, Docker, deploy, UI, backend, or auth files (only docs planning for now).
 
 Scope note:
-- LBC-007C authorized files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- LBC-007C blocked files: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, new READY task, commit without authorization, push.
-
-LBC-007C smoke test completed:
-- Started local PostgreSQL container `lbc-postgres-smoke`.
-- Started API and web servers.
-- Verified API health and proxy health.
-- Used Development Presets (pre-filled form).
-- Checked availability for date `2026-07-09`.
-- Created booking for slot 00:00–02:00.
-- Listed booking (confirmed Active status).
-- Canceled booking (confirmed Canceled status).
-- Verified slot became Available again after cancellation.
-- No errors occurred during smoke test.
+- Authorized files for this planning task: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, `docs/ops/session-handoff.md`, and `docs/product/roadmap.md`.
+- Blocked files: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, opening multiple READY tasks, commit without authorization, push.
