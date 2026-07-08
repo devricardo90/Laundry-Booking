@@ -261,11 +261,11 @@ Acceptance:
 - No backend, Prisma, seed, dependency, migration, deploy, Docker, auth, or product-scope expansion introduced.
 - Remote DONE confirmed at commit `9009aa5`.
 
-## READY
+## LOCAL DONE
 
 ### LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
 
-Status: READY
+Status: Local Done
 
 Type: DOCS / EVIDENCE
 
@@ -274,30 +274,31 @@ Record local demo smoke evidence for the preset-assisted booking flow after LBC-
 
 Task nature:
 - Documentation/evidence only.
-- May start local PostgreSQL, API, and web if needed for smoke validation.
-- Must not change application code, backend code, persistence code, dependencies, migrations, seed data, Docker, deploy configuration, or auth.
+- Started local PostgreSQL, API, and web for smoke validation.
+- Did not change application code, backend code, persistence code, dependencies, migrations, seed data, Docker, deploy configuration, or auth.
 
-Smoke target:
-- Use Development Presets.
-- Check availability.
-- Create booking.
-- List booking.
-- Cancel booking.
-- Confirm success, error, and empty states where possible.
+Smoke test executed:
+- Used Development Presets.
+- Checked availability for date `2026-07-09`.
+- Created booking for slot 00:00–02:00.
+- Listed booking (confirmed Active status).
+- Canceled booking (confirmed Canceled status).
+- Verified slot became Available again after cancellation.
 
-Blocked scope:
-- `apps/web/*`.
-- `apps/api/*`.
-- `prisma/*`.
-- `package.json`.
-- Lockfiles.
-- Migrations.
-- Seed changes.
-- Docker.
-- Dependencies.
-- Deploy.
-- UI changes.
-- Backend changes.
-- Auth.
-- New READY task besides LBC-007C.
-- Commit and push.
+Blocked scope respected:
+- `apps/web/*` not changed.
+- `apps/api/*` not changed.
+- `prisma/*` not changed.
+- `package.json` not changed.
+- Lockfiles not changed.
+- Migrations not changed.
+- Seed not changed.
+- Docker not changed.
+- Dependencies not changed.
+- Deploy not changed.
+- No UI changes.
+- No backend changes.
+- No auth changes.
+- No new READY task opened.
+- No commit.
+- No push.

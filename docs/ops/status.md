@@ -4,31 +4,31 @@ Project: LBC - Laundry Booking Condo
 
 Current task: LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
 
-Task status: READY
+Task status: Local Done
 
 Repository status:
 - Repository initialized.
 - LBC-001 through LBC-007B are Remote DONE.
-- Latest remote commit: `9009aa5` (LBC-007B).
+- Latest remote commit: `fa803b3` (LBC-007C READY opening).
 - LBC-007B is Remote DONE at commit `9009aa5`.
-- LBC-007C is opened as READY by documentation-only authorization.
+- LBC-007C is completed locally (smoke test passed).
 - LBC-007C is documentation/evidence only.
 - Official current sprint: SPR-01 - Product Demo Readiness.
 
 Protocol checks:
-- One active READY task only: LBC-007C.
+- One active READY task only: LBC-007C (now completed).
 - LBC-007B Remote DONE confirmed at `9009aa5`.
 - LBC-007C READY opening authorized as documentation/evidence only.
 - Required validation for this documentation-only READY opening: `git diff --check`.
 - Authorized file scope: documentation files only.
 - Strictly blocked during this opening: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, dependencies, migrations, seed, Docker, deploy, UI changes, backend changes, auth, and any new READY task besides LBC-007C.
-- Local DONE declared: no.
+- Local DONE declared: yes.
 - Remote DONE declared: no.
 
 Current sprint objective:
 - Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
 
-LBC-007C READY opening authorized scope:
+LBC-007C execution authorized scope:
 - Update `STATUS.md`.
 - Update `backlog.md`.
 - Update `docs/ops/status.md`.
@@ -36,35 +36,38 @@ LBC-007C READY opening authorized scope:
 - Update `docs/ops/execution-log.md`.
 - Update `docs/ops/session-handoff.md`.
 - Record LBC-007B as Remote DONE at `9009aa5`.
-- Open LBC-007C as READY.
-- Record that LBC-007C is documentation/evidence only.
-- Record the local demo smoke target for the preset-assisted flow.
+- Execute local demo smoke test for the preset-assisted flow.
+- Record smoke test evidence.
 
-LBC-007C smoke target:
-- Start local PostgreSQL, API, and web if needed.
-- Use Development Presets.
-- Check availability.
-- Create booking.
-- List booking.
-- Cancel booking.
-- Confirm success, error, and empty states where possible.
+LBC-007C smoke test executed:
+- Started local PostgreSQL container `lbc-postgres-smoke`.
+- Started API server with `DATABASE_URL=postgresql://user:password@127.0.0.1:55432/lbc_dev`.
+- Started Angular web server at `http://127.0.0.1:4200`.
+- Verified API health and proxy health endpoints.
+- Used Development Presets (pre-filled form).
+- Checked availability for date `2026-07-09`.
+- Created booking for slot 00:00–02:00.
+- Listed booking (confirmed Active status).
+- Canceled booking (confirmed Canceled status).
+- Verified slot became Available again after cancellation.
 
-LBC-007C READY opening blocked scope:
-- `apps/web`.
-- `apps/api`.
-- `prisma`.
-- `package.json`.
-- Lockfiles.
-- Dependencies.
-- Migrations.
-- Seed.
-- Docker.
-- Deploy.
-- UI changes.
-- Backend changes.
-- Auth.
-- New READY task besides LBC-007C.
-- Commit and push.
+LBC-007C blocked scope respected:
+- `apps/web` not changed.
+- `apps/api` not changed.
+- `prisma` not changed.
+- `package.json` not changed.
+- Lockfiles not changed.
+- Dependencies not changed.
+- Migrations not changed.
+- Seed not changed.
+- Docker not changed.
+- Deploy not changed.
+- No UI changes.
+- No backend changes.
+- No auth changes.
+- No new READY task opened.
+- No commit.
+- No push.
 
 
 Current approved stack:

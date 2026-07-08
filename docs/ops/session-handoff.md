@@ -7,10 +7,10 @@ LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence.
 
 Current state:
 - LBC-001 through LBC-007B are Remote DONE.
-- Latest remote commit: `9009aa5` (LBC-007B).
+- Latest remote commit: `fa803b3` (LBC-007C READY opening).
 - SPR-01 - Product Demo Readiness is the official current sprint.
 - LBC-007B is Remote DONE at commit `9009aa5`.
-- LBC-007C is READY by documentation-only opening.
+- LBC-007C is Local Done (smoke test completed).
 - LBC-007C is documentation/evidence only.
 
 Current sprint objective:
@@ -57,21 +57,23 @@ Seed data (dev only):
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
 Next protocol step:
-- Review LBC-007C READY opening documentation evidence.
-- After review, run local demo smoke validation for the preset-assisted flow.
+- Review LBC-007C smoke test evidence.
 - Do not commit without Ricardo authorization.
 - Do not push.
-- Do not change app, API, Prisma, dependency, migration, seed, Docker, deploy, UI, backend, or auth files during LBC-007C.
+- Do not change app, API, Prisma, dependency, migration, seed, Docker, deploy, UI, backend, or auth files.
 
 Scope note:
-- LBC-007C READY opening authorized files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
-- Current READY opening blocks `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, new READY task besides LBC-007C, commit without authorization, and push.
+- LBC-007C authorized files: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, and `docs/ops/session-handoff.md`.
+- LBC-007C blocked files: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, new READY task, commit without authorization, push.
 
-LBC-007C smoke target:
-- Start local PostgreSQL, API, and web if needed.
-- Use Development Presets.
-- Check availability.
-- Create booking.
-- List booking.
-- Cancel booking.
-- Confirm success, error, and empty states where possible.
+LBC-007C smoke test completed:
+- Started local PostgreSQL container `lbc-postgres-smoke`.
+- Started API and web servers.
+- Verified API health and proxy health.
+- Used Development Presets (pre-filled form).
+- Checked availability for date `2026-07-09`.
+- Created booking for slot 00:00–02:00.
+- Listed booking (confirmed Active status).
+- Canceled booking (confirmed Canceled status).
+- Verified slot became Available again after cancellation.
+- No errors occurred during smoke test.

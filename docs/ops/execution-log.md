@@ -1,5 +1,59 @@
 # Execution Log
 
+## 2026-07-08 - LBC-007C Smoke Test Execution
+
+Task:
+LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence.
+
+Type:
+DOCS / EVIDENCE.
+
+Decision:
+- Ricardo authorized executing LBC-007C smoke test.
+- Repository was clean at commit `fa803b378c3ecb4399e36f98f9305190d8e3f69c`.
+- HEAD matched origin/main.
+- LBC-007B was confirmed Remote DONE at `9009aa5`.
+- LBC-007C was the single active READY task.
+- No code changes were allowed during smoke test.
+
+Environment setup:
+- Started local PostgreSQL container `lbc-postgres-smoke` (stopped container was restarted).
+- API server started with `DATABASE_URL=postgresql://user:password@127.0.0.1:55432/lbc_dev`.
+- Angular web server started at `http://127.0.0.1:4200`.
+
+Health checks:
+- API health endpoint `GET http://127.0.0.1:3000/health` returned `{"status":"ok","service":"lbc-api"}`.
+- Proxy health endpoint `GET http://127.0.0.1:4200/api/health` returned `{"status":"ok","service":"lbc-api"}`.
+
+Smoke flow executed:
+1. Opened Angular web app at `http://127.0.0.1:4200`.
+2. Confirmed Development Presets button was visible and pre-filled the form with:
+   - Laundry Room ID: `11111111-1111-4111-8111-111111111111`
+   - Resident ID: `22222222-2222-4222-8222-222222222222`
+3. Changed date to `2026-07-09` (tomorrow, within booking window).
+4. Clicked "Check Availability" - confirmed availability slots were loaded (all available since no bookings existed for that date).
+5. Clicked "Book slot 00:00 to 02:00" - confirmed booking was created successfully.
+6. Verified bookings list showed the new booking as Active (00:00–02:00).
+7. Clicked "Cancel booking at 00:00" - confirmed booking was canceled successfully.
+8. Verified bookings list showed the booking as Canceled, and availability slot was back to Available.
+
+Evidence collected:
+- Screenshots:
+  - `page-2026-07-08T15-40-05-334Z.png` - initial app load
+  - `page-2026-07-08T15-43-21-694Z.png` - booking active
+  - `page-2026-07-08T15-43-46-392Z.png` - booking canceled
+- Git status confirmed no forbidden files modified.
+- No errors occurred during smoke test.
+
+Validation completed:
+- `git status --short --untracked-files=all` showed no changes to forbidden files.
+- `git diff --check` completed without whitespace errors.
+
+Blocked scope respected:
+- No changes to `apps/web/*`, `apps/api/*`, `prisma/*`, `package.json`, lockfiles, Docker files, seed, migrations, dependencies, deploy, or auth.
+- No new READY task opened.
+- No commit or push.
+
 ## 2026-06-12 - LBC-007C READY Opening
 
 Task:

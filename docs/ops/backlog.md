@@ -244,11 +244,11 @@ Operational notes:
 - This task did not alter API, Prisma, seed, dependencies, migrations, or runtime configuration.
 - Remote DONE confirmed at commit `9009aa5`.
 
-## READY
+## LOCAL DONE
 
 ### LBC-007C - Validate Demo Presets and Record Demo Smoke Evidence
 
-Status: READY
+Status: Local Done
 
 Type: DOCS / EVIDENCE
 
@@ -257,9 +257,10 @@ Record local demo smoke evidence for the preset-assisted flow after LBC-007B.
 
 Operational notes:
 - LBC-007C is documentation/evidence only.
-- May start local PostgreSQL, API, and web if needed.
-- Must use Development Presets during smoke validation.
-- Smoke target is check availability -> create booking -> list booking -> cancel booking.
-- Confirm success, error, and empty states where possible.
-- Must not change `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI, backend, auth, or open any new READY task besides LBC-007C.
+- Started local PostgreSQL container `lbc-postgres-smoke`.
+- Started API and web servers.
+- Used Development Presets during smoke validation.
+- Smoke test executed: check availability -> create booking -> list booking -> cancel booking.
+- Confirmed success states (booking created, booking canceled, slot available again).
+- Did not change `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI, backend, auth, or open any new READY task besides LBC-007C.
 - Commit and push are blocked.
