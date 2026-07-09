@@ -15,6 +15,7 @@ const DEVELOPMENT_PRESETS = [
 ] as const;
 
 type DevelopmentPreset = (typeof DEVELOPMENT_PRESETS)[number];
+type BookingFlowStep = 'setup' | 'availability' | 'selection' | 'booking' | 'list' | 'cancellation';
 
 interface Slot {
   startTime: string;
@@ -68,6 +69,8 @@ export class App {
   loadingBookings = signal(false);
   bookingSlotStart = signal<string | null>(null);
   cancelingId = signal<string | null>(null);
+  selectedSlotStart = signal<string | null>(null);
+  pendingCancelId = signal<string | null>(null);
 
   availabilityError = signal<string | null>(null);
   bookingsError = signal<string | null>(null);
@@ -97,6 +100,58 @@ export class App {
 
   isFuture(isoUtc: string): boolean {
     return new Date(isoUtc) > new Date();
+  }
+
+  hasActiveRequest(): boolean {
+    return (
+      this.loadingAvailability() ||
+      this.loadingBookings() ||
+      this.bookingSlotStart() !== null ||
+      this.cancelingId() !== null
+    );
+  }
+
+  setupValidationMessage(): string | null {
+    if (!this.laundryRoomId.trim()) return 'Enter a laundry room ID before checking availability.';
+    if (!this.date) return 'Choose a date before checking availability.';
+    return null;
+  }
+
+  bookingValidationMessage(): string | null {
+    if (!this.residentId.trim()) return 'Enter a resident ID before creating a booking.';
+    return this.setupValidationMessage();
+  }
+
+  selectedSlot(): Slot | null {
+    const selected = this.selectedSlotStart();
+    if (!selected) return null;
+    return this.slots().find((slot) => this.slotStart(slot.startTime) === selected) ?? null;
+  }
+
+  isSlotSelected(slot: Slot): boolean {
+    return this.selectedSlotStart() === this.slotStart(slot.startTime);
+  }
+
+  selectSlot(slot: Slot): void {
+    if (slot.status !== 'AVAILABLE' || this.hasActiveRequest() || this.pendingCancelId() !== null)
+      return;
+    this.selectedSlotStart.set(this.slotStart(slot.startTime));
+    this.actionError.set(null);
+    this.actionSuccess.set(null);
+  }
+
+  clearSelectedSlot(): void {
+    if (this.hasActiveRequest()) return;
+    this.selectedSlotStart.set(null);
+  }
+
+  flowStep(): BookingFlowStep {
+    if (this.cancelingId() !== null || this.pendingCancelId() !== null) return 'cancellation';
+    if (this.bookingSlotStart() !== null || this.selectedSlotStart() !== null) return 'booking';
+    if (this.loadingAvailability() || this.loadingBookings()) return 'availability';
+    if (!this.hasQueried()) return 'setup';
+    if (this.slots().some((slot) => slot.status === 'AVAILABLE')) return 'selection';
+    return 'list';
   }
 
   statusLabel(status: Slot['status']): string {
@@ -130,6 +185,7 @@ export class App {
   }
 
   applyDevelopmentPreset(preset: DevelopmentPreset): void {
+    this.clearQueryState();
     this.residentId = preset.residentId;
     this.laundryRoomId = preset.laundryRoomId;
     this.actionError.set(null);
@@ -137,11 +193,25 @@ export class App {
   }
 
   async load(): Promise<void> {
-    if (!this.laundryRoomId.trim() || !this.date) return;
+    const validation = this.setupValidationMessage();
+    if (validation) {
+      this.actionSuccess.set(null);
+      this.actionError.set(validation);
+      return;
+    }
     this.hasQueried.set(true);
+    this.selectedSlotStart.set(null);
+    this.pendingCancelId.set(null);
     this.actionError.set(null);
     this.actionSuccess.set(null);
     await Promise.all([this.loadAvailability(), this.loadBookings()]);
+  }
+
+  onSetupChanged(): void {
+    if (this.hasActiveRequest()) return;
+    this.clearQueryState();
+    this.actionError.set(null);
+    this.actionSuccess.set(null);
   }
 
   private async loadAvailability(): Promise<void> {
@@ -180,8 +250,15 @@ export class App {
   }
 
   async createBooking(slot: Slot): Promise<void> {
+    const validation = this.bookingValidationMessage();
+    if (validation) {
+      this.actionSuccess.set(null);
+      this.actionError.set(validation);
+      return;
+    }
     const start = this.slotStart(slot.startTime);
     this.bookingSlotStart.set(start);
+    this.pendingCancelId.set(null);
     this.actionError.set(null);
     this.actionSuccess.set(null);
     try {
@@ -194,8 +271,9 @@ export class App {
         }),
       );
       this.actionSuccess.set(
-        `Booking created: ${this.formatTime(slot.startTime)}–${this.formatTime(slot.endTime)}.`,
+        `Booking created for ${this.formatTime(slot.startTime)}-${this.formatTime(slot.endTime)}.`,
       );
+      this.selectedSlotStart.set(null);
       await Promise.all([this.loadAvailability(), this.loadBookings()]);
     } catch (err) {
       this.actionError.set(this.extractError(err));
@@ -204,19 +282,44 @@ export class App {
     }
   }
 
+  requestCancelBooking(bookingId: string): void {
+    if (this.hasActiveRequest()) return;
+    this.selectedSlotStart.set(null);
+    this.pendingCancelId.set(bookingId);
+    this.actionError.set(null);
+    this.actionSuccess.set(null);
+  }
+
+  keepBooking(): void {
+    if (this.cancelingId() !== null) return;
+    this.pendingCancelId.set(null);
+  }
+
   async cancelBooking(bookingId: string): Promise<void> {
     this.cancelingId.set(bookingId);
+    this.pendingCancelId.set(null);
+    this.selectedSlotStart.set(null);
     this.actionError.set(null);
     this.actionSuccess.set(null);
     try {
       await firstValueFrom(this.http.post(`${API}/bookings/${bookingId}/cancel`, {}));
-      this.actionSuccess.set('Booking canceled.');
+      this.actionSuccess.set('Booking canceled. The time slot has been refreshed.');
       await Promise.all([this.loadAvailability(), this.loadBookings()]);
     } catch (err) {
       this.actionError.set(this.extractError(err));
     } finally {
       this.cancelingId.set(null);
     }
+  }
+
+  private clearQueryState(): void {
+    this.hasQueried.set(false);
+    this.slots.set([]);
+    this.bookings.set([]);
+    this.selectedSlotStart.set(null);
+    this.pendingCancelId.set(null);
+    this.availabilityError.set(null);
+    this.bookingsError.set(null);
   }
 
   private extractError(err: unknown): string {
