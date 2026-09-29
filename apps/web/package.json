@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --host 127.0.0.1 --port 4200",
+    "dev:3010": "ng serve --host 127.0.0.1 --port 4200 --proxy-config proxy.3010.conf.json",
     "start": "ng serve --host 127.0.0.1 --port 4200",
     "lint": "prettier --check \"src/**/*.{ts,html,css}\"",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",

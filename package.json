@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "pnpm --parallel --filter web --filter api dev",
     "dev:web": "pnpm --filter web dev",
+    "dev:web:3010": "pnpm --filter web dev:3010",
     "dev:api": "pnpm --filter api dev",
     "lint": "pnpm --recursive lint",
     "typecheck": "pnpm --recursive typecheck",

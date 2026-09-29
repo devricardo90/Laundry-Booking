@@ -51,14 +51,47 @@ The root `package.json` defines these local run commands:
 ```powershell
 pnpm dev
 pnpm dev:web
+pnpm dev:web:3010
 pnpm dev:api
 ```
 
 The documented local runtime ports are:
 
 - Web: `http://127.0.0.1:4200`
-- API: `http://127.0.0.1:3000`
-- API healthcheck: `http://127.0.0.1:3000/health`
+- API default: `http://127.0.0.1:3000` when `PORT` is unset
+- Default proxied healthcheck through the web app: `http://127.0.0.1:4200/api/health`
+- Alternative API for local UI/API validation: `http://127.0.0.1:3010`
+- Alternative API healthcheck: `http://127.0.0.1:3010/health`
+- Alternative proxied healthcheck through the web app: `http://127.0.0.1:4200/api/health`
+
+The default `pnpm dev` flow starts the API on port `3000` and uses
+`apps/web/proxy.conf.json`, which also targets `http://127.0.0.1:3000`.
+
+If port `3000` is occupied locally, start the API on port `3010` and start the
+web app with the alternative proxy config in separate terminals:
+
+```powershell
+$env:PORT='3010'
+pnpm dev:api
+```
+
+```powershell
+pnpm dev:web:3010
+```
+
+Keep `DATABASE_URL` set for the API as described in `.env.example`; the proxy
+healthcheck does not require a live database connection, but the API requires the
+variable at startup.
+
+In the alternative flow, the proxied healthcheck at
+`http://127.0.0.1:4200/api/health` should return:
+
+```json
+{
+  "status": "ok",
+  "service": "lbc-api"
+}
+```
 
 Environment examples are provided in `.env.example`.
 
