@@ -6,7 +6,7 @@ Audit date: 2026-09-30 UTC. VERIFIED FACTS are from this checkout; UNKNOWN means
 
 - Repository: `git@github.com:devricardo90/Laundry-Booking.git`
 - Branch: `main`
-- Audited commit: `57363dc441e1f231c0086fd8bba281d93f9bf028` (the pre-documentation audit baseline and `origin/main` at audit time; the documentation commit is `9125614bd57746773b660de1ac21ef7c2a654459`)
+- Audited commit: `57363dc441e1f231c0086fd8bba281d93f9bf028` (the pre-documentation audit baseline and `origin/main` at audit time). This document was committed afterward; the commit containing it is intentionally not recorded here because editing the document changes that commit's SHA.
 - Working tree was clean before this documentation change.
 
 ## 2. Product purpose
