@@ -3,12 +3,12 @@
 Project: LBC - Laundry Booking Condo
 
 Current next unit:
-LBC-008C - README and portfolio demo evidence (Future / Suggested; not READY).
+LBC-009 validation/readiness (BLOCKED; original acceptance criteria missing).
 
-Current state (2026-09-29):
+Current state (2026-09-30):
 - LBC-008A is Remote DONE at `4c6829d`; LBC-008B is Remote DONE at `3ce264c`.
-- LBC-008C is Future / Suggested. README `ee2015c` is incomplete against its recorded acceptance list.
-- Owner-referenced LBC-009 validation/readiness is BLOCKED pending LBC-008C; its original acceptance checklist is not in the repository.
+- LBC-008C is Remote DONE; README and portfolio evidence criteria passed review on 2026-09-30.
+- Owner-referenced LBC-009 validation/readiness is BLOCKED because its original acceptance checklist is not in the repository.
 - LBC-009A manual deployment discussion remains a separate Future / Suggested item.
 - LBC-010 is Remote DONE at `2d20d97`.
 - SPR-01 remains current; do not open a new sprint.
@@ -64,14 +64,13 @@ Seed data (dev only):
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
 Next planned sequence:
-1. Complete the existing LBC-008C acceptance criteria after it is promoted to READY.
-2. Resume LBC-009 validation/readiness after LBC-008C and after its original acceptance checklist is recovered.
-3. Keep LBC-009A as a separate Future / Suggested manual deployment discussion.
+1. Keep LBC-009 BLOCKED until its original acceptance checklist is recovered and reviewed through an Owner Discussion Gate; do not execute it yet.
+2. Keep LBC-009A as a separate Future / Suggested manual deployment discussion.
 
 Next protocol step:
 - Owner has authorized the LBC-010 commit/push, completed at `2d20d97`.
-- Do not start LBC-008C until it is promoted to READY.
-- Do not execute LBC-009 in this recovery; resolve its documented dependency and recover its acceptance checklist first.
+- LBC-008C was closed as documentation-only; no code changed.
+- Do not execute LBC-009; its original acceptance checklist is missing.
 - Do not open a new sprint.
 
 Historical scope note (LBC-008A READY opening, 2026-07-08):

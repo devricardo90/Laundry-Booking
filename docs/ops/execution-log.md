@@ -1,5 +1,30 @@
 # Execution Log
 
+## 2026-09-30 - LBC-008C Review and Completion
+
+Task:
+LBC-008C - README and portfolio demo evidence.
+
+Result:
+- Manual review passed the existing acceptance items: overview, stack, implemented features, local setup, smoke evidence, screenshot section/placeholders, ordered demo flow, current limitations, and future roadmap.
+- README claims were checked against the current app, package manifests, product docs, seed, and recorded LBC-007C/LBC-010 validation evidence.
+- No screenshot image assets were present in the repository; clearly labeled placeholders were used.
+- Only `README.md` and operational/product governance documents changed. No code, runtime configuration, database, migration, dependency, or architecture changes were made.
+- No build or tests were run because the change is documentation-only.
+- LBC-008C is Remote DONE after its documentation commit is pushed.
+- LBC-009 remains BLOCKED pending historical acceptance-criteria investigation; it was not executed.
+
+## 2026-09-30 - LBC-008C READY Opening
+
+Task:
+LBC-008C - README and portfolio demo evidence.
+
+Decision:
+- Owner authorized the existing LBC-008C after the governance reconciliation was pushed at `82b51e9`.
+- The existing Included list in `docs/ops/backlog.md` is the acceptance basis: overview, stack, features, local setup, smoke evidence, screenshot section/placeholders, demo flow, limitations, and future roadmap.
+- Allowed scope remains `README.md` and product/operations documentation; application code, API, Prisma, and deploy remain out of scope.
+- LBC-009 remains blocked because its original acceptance checklist is missing.
+
 ## 2026-09-29 - LBC-010 Remote Completion and Governance Reconciliation
 
 Task:
@@ -14,10 +39,10 @@ Result:
 
 Governance reconciliation:
 - LBC-008A Remote DONE at `4c6829d`; LBC-008B Remote DONE at `3ce264c`.
-- LBC-008C remains Future / Suggested. README `ee2015c` has the overview, stack, local run instructions, and limitations, but lacks an explicit feature summary, README smoke evidence, screenshots section/placeholders, ordered demo flow, and future roadmap section.
-- Owner-referenced LBC-009 validation/readiness is BLOCKED pending LBC-008C. The original LBC-009 acceptance checklist was not found in the repository, so no criteria were invented. This is distinct from LBC-009A manual deploy readiness, which remains Future / Suggested.
+- At the time of this reconciliation, LBC-008C was Future / Suggested; it was later promoted to READY on 2026-09-30 under the Owner's authorization.
+- Owner-referenced LBC-009 validation/readiness is BLOCKED because the original LBC-009 acceptance checklist was not found in the repository, so no criteria were invented. This is distinct from LBC-009A manual deploy readiness, which remains Future / Suggested.
 - `docs/ops/backlog.md` is designated the canonical operational backlog; root `backlog.md` is its synchronized entry-point mirror. Status, handoff, roadmap, and current objective now carry the same task state.
-- Next existing unit: LBC-008C, pending promotion to READY. No new sprint was opened and no next task was implemented.
+- LBC-008C became the current READY unit; no new sprint was opened.
 
 ## 2026-07-08 - LBC-008A READY Opening
 

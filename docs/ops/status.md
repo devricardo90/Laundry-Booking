@@ -2,18 +2,18 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current next unit: LBC-008C - README and portfolio demo evidence
+Next unit: LBC-009 - validation/readiness (BLOCKED; original acceptance criteria missing)
 
-Task status: FUTURE / SUGGESTED; not promoted to READY
+Task status: SPR-01 active; no unblocked implementation unit is READY
 
-## Current Recovery State - 2026-09-29
+## Current Recovery State - 2026-09-30
 
-- Latest commit: `2d20d97`; `HEAD` and `origin/main` were aligned after LBC-010.
+- Latest completed task commit: `2d20d97` (LBC-010); governance reconciliation is at `82b51e9`.
 - SPR-01 - Product Demo Readiness remains the current sprint.
 - LBC-008A: Remote DONE at `4c6829d`.
 - LBC-008B: Remote DONE at `3ce264c`.
-- LBC-008C: Future / Suggested; README at `ee2015c` does not meet all recorded criteria.
-- LBC-009 validation/readiness (Owner-referenced): BLOCKED pending LBC-008C; its original acceptance checklist is absent from the repository.
+- LBC-008C: Remote DONE; documentation/evidence criteria passed review.
+- LBC-009 validation/readiness (Owner-referenced): BLOCKED because its original acceptance checklist is absent from the repository.
 - LBC-009A manual deployment discussion remains Future / Suggested.
 - LBC-010: Remote DONE at `2d20d97`.
 - Operational backlog authority: `docs/ops/backlog.md`; root `backlog.md` is its synchronized entry-point mirror.
@@ -28,9 +28,8 @@ Product direction:
 - No Prisma/database changes yet.
 
 Next planned sequence:
-1. LBC-008C - README and portfolio demo evidence (existing task; currently Future / Suggested)
-2. Resume Owner-referenced LBC-009 validation/readiness only after its dependency and acceptance checklist are resolved.
-3. LBC-009A remains a separate Future / Suggested manual deployment discussion.
+1. Keep Owner-referenced LBC-009 BLOCKED until its original acceptance checklist is recovered and reviewed through an Owner Discussion Gate.
+2. LBC-009A remains a separate Future / Suggested manual deployment discussion.
 
 
 Current approved stack:

@@ -2,18 +2,18 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current next unit: LBC-008C - README and portfolio demo evidence
+Next unit: LBC-009 - local validation/readiness (BLOCKED; acceptance criteria missing)
 
-Status: FUTURE / SUGGESTED; not promoted to READY
+Status: SPR-01 active; no unblocked implementation unit is READY.
 
-## Current Recovery State - 2026-09-29
+## Current Recovery State - 2026-09-30
 
-- Latest commit: `2d20d97`; `HEAD` and `origin/main` are aligned; working tree was clean before this documentation reconciliation.
+- LBC-010 implementation commit: `2d20d97`; governance reconciliation commit: `82b51e9`.
 - SPR-01 - Product Demo Readiness remains the current sprint.
 - LBC-008A: Remote DONE at `4c6829d`.
 - LBC-008B: Remote DONE at `3ce264c`.
-- LBC-008C: Future / Suggested; README at `ee2015c` does not meet all recorded criteria.
-- LBC-009 validation/readiness (Owner-referenced): BLOCKED pending LBC-008C; its original acceptance checklist is absent from the repository.
+- LBC-008C: Remote DONE; README and portfolio evidence acceptance criteria are complete.
+- LBC-009 validation/readiness (Owner-referenced): BLOCKED because its original acceptance checklist is absent from the repository; do not invent criteria.
 - LBC-009A manual deployment discussion remains Future / Suggested.
 - LBC-010: Remote DONE at `2d20d97`.
 - Operational backlog authority: `docs/ops/backlog.md`; root `backlog.md` is its synchronized entry-point mirror.
@@ -24,9 +24,8 @@ Historical scope guard (LBC-008A READY opening, 2026-07-08):
 - No code implementation yet, only documentation planning.
 
 Next planned sequence:
-1. LBC-008C - README and portfolio demo evidence (existing task; currently Future / Suggested)
-2. Resume Owner-referenced LBC-009 validation/readiness only after its dependency and acceptance checklist are resolved.
-3. LBC-009A remains a separate Future / Suggested manual deployment discussion.
+1. LBC-009 remains BLOCKED until its original acceptance checklist is recovered and reviewed through an Owner Discussion Gate.
+2. LBC-009A remains a separate Future / Suggested manual deployment discussion.
 
 Product direction:
 - Make the app functional, visually solid, responsive on mobile.

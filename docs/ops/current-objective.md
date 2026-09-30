@@ -9,10 +9,10 @@ SPR-01 - Product Demo Readiness
 
 - LBC-008A: Remote DONE at `4c6829d`.
 - LBC-008B: Remote DONE at `3ce264c`.
-- LBC-008C: Future / Suggested; incomplete per its recorded acceptance list. The initial README is at `ee2015c`.
-- LBC-009 validation/readiness: BLOCKED pending LBC-008C; its original acceptance checklist is not recorded in the repository.
+- LBC-008C: Remote DONE; README and portfolio evidence criteria passed review on 2026-09-30.
+- LBC-009 validation/readiness: BLOCKED because its original acceptance checklist is not recorded in the repository.
 - LBC-010: Remote DONE at `2d20d97`; the alternate API/proxy runtime and Angular test update passed review and runtime smoke.
-- Next existing unit: LBC-008C. It is not READY; no implementation starts until it is promoted.
+- Next unit: LBC-009 validation/readiness is BLOCKED because its original acceptance checklist is missing. No implementation task is READY pending an Owner Discussion Gate to recover those criteria.
 
 SPR-01 remains active. No new sprint is opened.
 
@@ -98,12 +98,9 @@ Implement demo presets in the Angular UI according to the documented strategy.
 Important:
 This task is not READY and must not be opened until Ricardo explicitly authorizes it.
 
-## Future Tasks Not READY Yet
+## Other Candidate Tasks Not READY Yet
 
-The following tasks are not READY:
-- LBC-007B - Implement Angular UI Development Presets.
+The following candidates are not READY:
 - Demo script documentation.
-- Portfolio README update.
-- UI polish pass.
 - Resident booking flow stabilization tasks.
 - Any auth, admin, notification, payment, deploy, Docker, or CI/CD task.

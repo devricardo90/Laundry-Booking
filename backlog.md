@@ -2,14 +2,14 @@
 
 Operational source of truth: `docs/ops/backlog.md` is canonical. This root file is a synchronized entry-point mirror because the README links to it.
 
-## Current Recovery State - 2026-09-29
+## Current Recovery State - 2026-09-30
 
 - LBC-008A: Remote DONE at `4c6829d`.
 - LBC-008B: Remote DONE at `3ce264c`.
-- LBC-008C: Future / Suggested, incomplete. `ee2015c` is an initial README, not completion of the full task criteria.
-- LBC-009 validation/readiness (as referenced by the Owner): BLOCKED pending LBC-008C. Its original acceptance checklist is not recorded here or elsewhere in the repository. This is not the separate LBC-009A manual deployment discussion.
+- LBC-008C: Remote DONE; README and portfolio evidence acceptance criteria are complete.
+- LBC-009 validation/readiness (as referenced by the Owner): BLOCKED because its original acceptance checklist is not recorded here or elsewhere in the repository. This is not the separate LBC-009A manual deployment discussion.
 - LBC-010: Remote DONE at `2d20d97`.
-- Next existing unit: LBC-008C, pending promotion to READY; SPR-01 remains current.
+- Next unit: LBC-009 validation/readiness is BLOCKED pending recovery of its original acceptance criteria; SPR-01 remains current.
 
 ## REMOTE DONE
 
@@ -368,12 +368,9 @@ Forbidden scope:
 
 ### LBC-008C - README and portfolio demo evidence
 
-Status: Future / Suggested
+Status: Remote DONE
 
-Completion review of README at `ee2015c`:
-- Present: project overview, tech stack, local run instructions, and current limitations.
-- Missing: an explicit feature summary, smoke evidence in the README, a screenshots section/placeholders, an ordered demo flow, and a future roadmap section.
-- Therefore LBC-008C is not complete and remains Future / Suggested.
+Completion review (2026-09-30): `README.md` now includes the project overview, stack, implemented features, local setup, recorded smoke evidence, screenshot placeholders, ordered demo flow, current limitations, and future roadmap. Claims are linked to repository evidence; no screenshot assets were present to include.
 
 Type: DOCS / Portfolio
 
@@ -390,6 +387,8 @@ Included:
 - Demo flow
 - Current limitations
 - Future roadmap
+
+Acceptance: all Included sections are present, factual, and concise in `README.md`; screenshot placeholders are clearly marked when no image files are available.
 
 Allowed scope:
 - README.md
