@@ -1,5 +1,24 @@
 # Execution Log
 
+## 2026-09-29 - LBC-010 Remote Completion and Governance Reconciliation
+
+Task:
+LBC-010 - Alternate local runtime on API port 3010.
+
+Result:
+- Reviewed the exact six authorized staged files; no scope violation, dependency addition, or accidental change was found.
+- Preserved the standard API/proxy flow on port 3000 and validated the alternate runtime: direct API `3010/health` PASS; proxied `4200/api/health` PASS.
+- Lint, typecheck, web test (1 file / 2 tests), build, and `git diff --cached --check` passed.
+- Both runtime processes were stopped normally; ports 3000, 3010, and 4200 were free afterward.
+- Commit `2d20d97` (`fix(dev): add alternate 3010 local runtime`) was pushed to `origin/main`; `HEAD` equals `origin/main` and the tree was clean.
+
+Governance reconciliation:
+- LBC-008A Remote DONE at `4c6829d`; LBC-008B Remote DONE at `3ce264c`.
+- LBC-008C remains Future / Suggested. README `ee2015c` has the overview, stack, local run instructions, and limitations, but lacks an explicit feature summary, README smoke evidence, screenshots section/placeholders, ordered demo flow, and future roadmap section.
+- Owner-referenced LBC-009 validation/readiness is BLOCKED pending LBC-008C. The original LBC-009 acceptance checklist was not found in the repository, so no criteria were invented. This is distinct from LBC-009A manual deploy readiness, which remains Future / Suggested.
+- `docs/ops/backlog.md` is designated the canonical operational backlog; root `backlog.md` is its synchronized entry-point mirror. Status, handoff, roadmap, and current objective now carry the same task state.
+- Next existing unit: LBC-008C, pending promotion to READY. No new sprint was opened and no next task was implemented.
+
 ## 2026-07-08 - LBC-008A READY Opening
 
 Task:

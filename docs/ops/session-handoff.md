@@ -2,18 +2,17 @@
 
 Project: LBC - Laundry Booking Condo
 
-Active task:
-LBC-008A - Polish responsive demo UI.
+Current next unit:
+LBC-008C - README and portfolio demo evidence (Future / Suggested; not READY).
 
-Current state:
-- LBC-001 through LBC-007C are Remote DONE.
-- Latest remote commit: `b713885` (LBC-007C demo smoke evidence).
-- SPR-01 - Product Demo Readiness is the official current sprint.
-- LBC-007B is Remote DONE at commit `9009aa5`.
-- LBC-007C is Remote DONE at commit `b713885`.
-- Post-LBC-007C backlog planned.
-- LBC-008A is the only READY task.
-- LBC-008B, LBC-008C, and LBC-009A are Future/Suggested.
+Current state (2026-09-29):
+- LBC-008A is Remote DONE at `4c6829d`; LBC-008B is Remote DONE at `3ce264c`.
+- LBC-008C is Future / Suggested. README `ee2015c` is incomplete against its recorded acceptance list.
+- Owner-referenced LBC-009 validation/readiness is BLOCKED pending LBC-008C; its original acceptance checklist is not in the repository.
+- LBC-009A manual deployment discussion remains a separate Future / Suggested item.
+- LBC-010 is Remote DONE at `2d20d97`.
+- SPR-01 remains current; do not open a new sprint.
+- `docs/ops/backlog.md` is the canonical operational backlog; root `backlog.md` mirrors it.
 
 Current sprint objective:
 Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
@@ -64,18 +63,17 @@ Seed data (dev only):
 - Development Resident: `22222222-2222-4222-8222-222222222222`
 - Development Admin: `33333333-3333-4333-8333-333333333333`
 
-Planned post-LBC-007C sequence:
-1. LBC-008A - Polish responsive demo UI (UI only, no backend changes)
-2. LBC-008B - Harden booking flow UX (UI only, no backend changes)
-3. LBC-008C - README and portfolio demo evidence (docs only)
-4. LBC-009A - Manual deploy readiness discussion (docs only)
+Next planned sequence:
+1. Complete the existing LBC-008C acceptance criteria after it is promoted to READY.
+2. Resume LBC-009 validation/readiness after LBC-008C and after its original acceptance checklist is recovered.
+3. Keep LBC-009A as a separate Future / Suggested manual deployment discussion.
 
 Next protocol step:
-- Review post-LBC-007C backlog plan.
-- Do not commit without Ricardo authorization.
-- Do not push.
-- Do not change app, API, Prisma, dependency, migration, seed, Docker, deploy, UI, backend, or auth files (only docs planning for now).
+- Owner has authorized the LBC-010 commit/push, completed at `2d20d97`.
+- Do not start LBC-008C until it is promoted to READY.
+- Do not execute LBC-009 in this recovery; resolve its documented dependency and recover its acceptance checklist first.
+- Do not open a new sprint.
 
-Scope note:
+Historical scope note (LBC-008A READY opening, 2026-07-08):
 - Authorized files for this planning task: `STATUS.md`, `backlog.md`, `docs/ops/status.md`, `docs/ops/backlog.md`, `docs/ops/execution-log.md`, `docs/ops/session-handoff.md`, and `docs/product/roadmap.md`.
 - Blocked files: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, migrations, seed, Docker, dependencies, deploy, UI changes, backend changes, auth, opening multiple READY tasks, commit without authorization, push.

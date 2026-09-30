@@ -2,26 +2,21 @@
 
 Project: LBC - Laundry Booking Condo
 
-Current task: LBC-008A - Polish responsive demo UI
+Current next unit: LBC-008C - README and portfolio demo evidence
 
-Task status: READY
+Task status: FUTURE / SUGGESTED; not promoted to READY
 
-Repository status:
-- Repository initialized.
-- LBC-001 through LBC-007C are Remote DONE.
-- Latest remote commit: `b713885` (LBC-007C demo smoke evidence).
-- LBC-007B is Remote DONE at commit `9009aa5`.
-- LBC-007C is Remote DONE at commit `b713885`.
-- Post-LBC-007C backlog planned.
-- Official current sprint: SPR-01 - Product Demo Readiness.
+## Current Recovery State - 2026-09-29
 
-Protocol checks:
-- LBC-008A is the only READY task.
-- LBC-007C Remote DONE confirmed at `b713885`.
-- LBC-008B, LBC-008C, and LBC-009A are Future/Suggested.
-- Authorized file scope for this planning task: documentation files only.
-- Strictly blocked: `apps/web`, `apps/api`, `prisma`, `package.json`, lockfiles, dependencies, migrations, seed, Docker, deploy, UI changes, backend changes, auth, and opening multiple READY tasks at once.
-- No code implementation yet, only documentation planning.
+- Latest commit: `2d20d97`; `HEAD` and `origin/main` were aligned after LBC-010.
+- SPR-01 - Product Demo Readiness remains the current sprint.
+- LBC-008A: Remote DONE at `4c6829d`.
+- LBC-008B: Remote DONE at `3ce264c`.
+- LBC-008C: Future / Suggested; README at `ee2015c` does not meet all recorded criteria.
+- LBC-009 validation/readiness (Owner-referenced): BLOCKED pending LBC-008C; its original acceptance checklist is absent from the repository.
+- LBC-009A manual deployment discussion remains Future / Suggested.
+- LBC-010: Remote DONE at `2d20d97`.
+- Operational backlog authority: `docs/ops/backlog.md`; root `backlog.md` is its synchronized entry-point mirror.
 
 Current sprint objective:
 - Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
@@ -32,11 +27,10 @@ Product direction:
 - Later manual deploy for testing (no deploy yet).
 - No Prisma/database changes yet.
 
-Planned post-LBC-007C sequence:
-1. LBC-008A - Polish responsive demo UI (UI only, no backend changes)
-2. LBC-008B - Harden booking flow UX (UI only, no backend changes)
-3. LBC-008C - README and portfolio demo evidence (docs only)
-4. LBC-009A - Manual deploy readiness discussion (docs only)
+Next planned sequence:
+1. LBC-008C - README and portfolio demo evidence (existing task; currently Future / Suggested)
+2. Resume Owner-referenced LBC-009 validation/readiness only after its dependency and acceptance checklist are resolved.
+3. LBC-009A remains a separate Future / Suggested manual deployment discussion.
 
 
 Current approved stack:

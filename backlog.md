@@ -1,5 +1,16 @@
 # LBC Backlog
 
+Operational source of truth: `docs/ops/backlog.md` is canonical. This root file is a synchronized entry-point mirror because the README links to it.
+
+## Current Recovery State - 2026-09-29
+
+- LBC-008A: Remote DONE at `4c6829d`.
+- LBC-008B: Remote DONE at `3ce264c`.
+- LBC-008C: Future / Suggested, incomplete. `ee2015c` is an initial README, not completion of the full task criteria.
+- LBC-009 validation/readiness (as referenced by the Owner): BLOCKED pending LBC-008C. Its original acceptance checklist is not recorded here or elsewhere in the repository. This is not the separate LBC-009A manual deployment discussion.
+- LBC-010: Remote DONE at `2d20d97`.
+- Next existing unit: LBC-008C, pending promotion to READY; SPR-01 remains current.
+
 ## REMOTE DONE
 
 ### LBC-005A - Minimal Angular Booking Flow
@@ -309,7 +320,9 @@ Remote DONE confirmed at commit `b713885`.
 
 ### LBC-008A - Polish responsive demo UI
 
-Status: READY
+Status: Remote DONE
+
+Implementation commit: `4c6829d` (`feat(web): polish responsive demo UI`).
 
 Type: UI / Angular Frontend
 
@@ -333,7 +346,9 @@ Forbidden scope:
 
 ### LBC-008B - Harden booking flow UX
 
-Status: Future / Suggested
+Status: Remote DONE
+
+Implementation commit: `3ce264c` (`feat(web): harden booking flow UX`).
 
 Type: UI / Angular Frontend
 
@@ -354,6 +369,11 @@ Forbidden scope:
 ### LBC-008C - README and portfolio demo evidence
 
 Status: Future / Suggested
+
+Completion review of README at `ee2015c`:
+- Present: project overview, tech stack, local run instructions, and current limitations.
+- Missing: an explicit feature summary, smoke evidence in the README, a screenshots section/placeholders, an ordered demo flow, and a future roadmap section.
+- Therefore LBC-008C is not complete and remains Future / Suggested.
 
 Type: DOCS / Portfolio
 
@@ -398,3 +418,15 @@ Prepare deployment strategy only after local app is stable. Must decide:
 - Security limitations
 
 No deploy execution yet unless explicitly authorized later.
+
+LBC-009A remains Future / Suggested and is distinct from the Owner-referenced LBC-009 local validation/readiness work.
+
+## REMOTE DONE - Recovery
+
+### LBC-010 - Alternate local runtime on API port 3010
+
+Status: Remote DONE
+
+Commit: `2d20d97` (`fix(dev): add alternate 3010 local runtime`).
+
+Evidence: exactly the six authorized files changed; standard port-3000 scripts/proxy preserved; alternative API and web proxy healthchecks returned the expected response; lint, typecheck, web tests, build, and cached diff check passed.

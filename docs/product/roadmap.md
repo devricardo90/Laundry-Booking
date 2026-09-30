@@ -38,6 +38,16 @@ Make Laundry Booking Condo demonstrable to an external person with clear flow, r
 Current sprint:
 SPR-01 - Product Demo Readiness.
 
+## Current Execution State - 2026-09-29
+
+- SPR-01 remains the current sprint; no later sprint is opened.
+- LBC-008A is Remote DONE at `4c6829d` (responsive UI polish).
+- LBC-008B is Remote DONE at `3ce264c` (booking-flow UX hardening).
+- LBC-008C remains Future / Suggested and incomplete. Commit `ee2015c` supplies an initial README, but does not satisfy all documented portfolio/demo evidence items.
+- Owner-referenced LBC-009 validation/readiness is BLOCKED until LBC-008C is completed; its original acceptance checklist is not present in the repository.
+- LBC-010 local runtime recovery is Remote DONE at `2d20d97`.
+- Next existing unit: LBC-008C, subject to promotion to READY. Do not open a new sprint.
+
 Expected outcomes:
 - Demo flow is anchored to clear product objective documentation.
 - Demo data strategy is defined and implementation-ready.

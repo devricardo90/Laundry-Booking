@@ -5,6 +5,17 @@ Project: LBC - Laundry Booking Condo
 Current sprint:
 SPR-01 - Product Demo Readiness
 
+## Current Execution State - 2026-09-29
+
+- LBC-008A: Remote DONE at `4c6829d`.
+- LBC-008B: Remote DONE at `3ce264c`.
+- LBC-008C: Future / Suggested; incomplete per its recorded acceptance list. The initial README is at `ee2015c`.
+- LBC-009 validation/readiness: BLOCKED pending LBC-008C; its original acceptance checklist is not recorded in the repository.
+- LBC-010: Remote DONE at `2d20d97`; the alternate API/proxy runtime and Angular test update passed review and runtime smoke.
+- Next existing unit: LBC-008C. It is not READY; no implementation starts until it is promoted.
+
+SPR-01 remains active. No new sprint is opened.
+
 ## Objective
 
 Make Laundry Booking Condo demonstrable to an external person with clear flow, realistic demo states, and reduced friction, without opening full redesign, real auth, deploy, payments, or admin complexity.
