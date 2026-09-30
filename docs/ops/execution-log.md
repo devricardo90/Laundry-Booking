@@ -12,7 +12,19 @@ Result:
 - Only `README.md` and operational/product governance documents changed. No code, runtime configuration, database, migration, dependency, or architecture changes were made.
 - No build or tests were run because the change is documentation-only.
 - LBC-008C is Remote DONE after its documentation commit is pushed.
-- LBC-009 remains BLOCKED pending historical acceptance-criteria investigation; it was not executed.
+- Historical investigation found no LBC-009 acceptance checklist; classification remains BLOCKED — ACCEPTANCE CRITERIA MISSING. LBC-009 was not executed.
+
+## 2026-09-30 - LBC-009 Historical Acceptance-Criteria Investigation
+
+Search performed:
+- Searched all refs and prior versions of backlog, status, roadmap, current objective, session handoff, and execution log.
+- Reviewed `git log --all` for the operational files and searched history with `git log -S"LBC-009"` and `git log -G"LBC-009"`.
+- Historical occurrences refer to the separate LBC-009A manual deployment discussion; no acceptance checklist for the Owner-referenced LBC-009 local validation/readiness task was found.
+
+Conclusion:
+- LBC-009 = BLOCKED — ACCEPTANCE CRITERIA MISSING.
+- Proposed next step: an Owner Discussion Gate to recover the original criteria or explicitly decide how to define them. Do not promote or execute LBC-009 until that decision is made.
+- No task, sprint, or acceptance criteria were invented; LBC-009 was not executed.
 
 ## 2026-09-30 - LBC-008C READY Opening
 
