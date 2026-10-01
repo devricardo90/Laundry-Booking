@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { after, before, test } from 'node:test';
+import { after, before, mock, test } from 'node:test';
 import { buildApp } from './server.js';
 import { prisma } from './prisma.js';
 
@@ -84,6 +84,47 @@ test('returns seeded availability with booked and blocked slots', async () => {
     ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
   );
   assert.equal(localTime.format(new Date(body.slots[11].endTime)), '00:00');
+});
+
+test('emits Europe/Stockholm UTC boundaries across the autumn DST transition', async () => {
+  mock.timers.enable({ apis: ['Date'], now: new Date('2026-10-20T12:00:00.000Z') });
+
+  try {
+    const response = await app.inject({
+      method: 'GET',
+      url: `/laundry-rooms/${laundryRoomId}/availability?date=2026-10-25`,
+    });
+    assert.equal(response.statusCode, 200);
+
+    const body = response.json();
+    assert.deepEqual(
+      body.slots.slice(0, 3).map((slot: { startTime: string; endTime: string }) => [slot.startTime, slot.endTime]),
+      [
+        ['2026-10-24T22:00:00.000Z', '2026-10-25T01:00:00.000Z'],
+        ['2026-10-25T01:00:00.000Z', '2026-10-25T03:00:00.000Z'],
+        ['2026-10-25T03:00:00.000Z', '2026-10-25T05:00:00.000Z'],
+      ],
+    );
+
+    const localTime = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Stockholm',
+      dateStyle: 'short',
+      timeStyle: 'short',
+    });
+    assert.deepEqual(
+      body.slots.slice(0, 3).map((slot: { startTime: string; endTime: string }) => [
+        localTime.format(new Date(slot.startTime)),
+        localTime.format(new Date(slot.endTime)),
+      ]),
+      [
+        ['25/10/2026, 00:00', '25/10/2026, 02:00'],
+        ['25/10/2026, 02:00', '25/10/2026, 04:00'],
+        ['25/10/2026, 04:00', '25/10/2026, 06:00'],
+      ],
+    );
+  } finally {
+    mock.timers.reset();
+  }
 });
 
 test('blocked status takes precedence when a booking overlaps the same slot', async () => {
