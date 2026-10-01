@@ -7,6 +7,7 @@ on:
 
 env:
   CI_DB_PASSWORD: ci_local_2026
+  DATABASE_URL: postgresql://lbc_ci:${{ env.CI_DB_PASSWORD }}@127.0.0.1:5432/lbc_ci
 
 permissions:
   contents: read
@@ -28,8 +29,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-    env:
-      DATABASE_URL: postgresql://lbc_ci:${{ env.CI_DB_PASSWORD }}@127.0.0.1:5432/lbc_ci
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
