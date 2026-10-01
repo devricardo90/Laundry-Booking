@@ -4,13 +4,21 @@
   "private": true,
   "packageManager": "pnpm@10.33.0",
   "scripts": {
+    "postinstall": "prisma generate --config prisma.config.ts",
     "dev": "pnpm --parallel --filter web --filter api dev",
     "dev:web": "pnpm --filter web dev",
     "dev:web:3010": "pnpm --filter web dev:3010",
     "dev:api": "pnpm --filter api dev",
     "lint": "pnpm --recursive lint",
     "typecheck": "pnpm --recursive typecheck",
-    "build": "pnpm --recursive build"
+    "test": "pnpm test:api && pnpm test:web",
+    "test:api": "pnpm --filter api test",
+    "test:web": "pnpm --filter web exec ng test --watch=false",
+    "build": "pnpm --recursive build",
+    "prisma:validate": "pnpm exec prisma validate --config prisma.config.ts",
+    "db:migrate": "pnpm exec prisma migrate deploy --config prisma.config.ts",
+    "db:seed": "pnpm exec prisma db seed --config prisma.config.ts",
+    "db:check": "pnpm db:migrate && pnpm db:seed && pnpm test:api"
   },
   "engines": {
     "node": "^20.19.0 || ^22.12.0 || ^24.0.0",

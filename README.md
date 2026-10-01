@@ -118,9 +118,16 @@ The 2026-07-08 execution log records screenshot capture during the smoke run, bu
 ## Useful commands
 
 ```powershell
+pnpm install --frozen-lockfile
 pnpm lint
 pnpm typecheck
+pnpm test
 pnpm build
+pnpm prisma:validate
+pnpm db:check
+git diff --check
 ```
+
+The reproducible quality-gate workflow and database safety notes are documented in [docs/ops/quality-gates.md](docs/ops/quality-gates.md). Database-backed commands require `DATABASE_URL` and a disposable PostgreSQL database.
 
 Operational status and the canonical backlog are maintained in `docs/ops`; the root `backlog.md` is a synchronized entry-point mirror.
