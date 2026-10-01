@@ -7,7 +7,7 @@ on:
 
 env:
   CI_DB_PASSWORD: ci_local_2026
-  DATABASE_URL: postgresql://lbc_ci:${{ env.CI_DB_PASSWORD }}@127.0.0.1:5432/lbc_ci
+  DATABASE_URL: postgresql://lbc_ci:ci_local_2026@127.0.0.1:5432/lbc_ci
 
 permissions:
   contents: read
