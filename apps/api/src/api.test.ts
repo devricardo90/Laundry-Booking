@@ -4,6 +4,7 @@ import { buildApp } from './server.js';
 import { prisma } from './prisma.js';
 
 const laundryRoomId = '11111111-1111-4111-8111-111111111111';
+const seededResidentId = '22222222-2222-4222-8222-222222222222';
 const tomorrow = new Date();
 tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
 const date = new Intl.DateTimeFormat('en-CA', {
@@ -49,10 +50,63 @@ test('returns seeded availability with booked and blocked slots', async () => {
   assert.equal(response.statusCode, 200);
   const body = response.json();
   assert.equal(body.timezone, 'Europe/Stockholm');
+  assert.equal(body.slotDurationMinutes, 120);
   assert.equal(body.slots.length, 12);
+  assert.deepEqual(
+    body.slots.map((slot: { status: string; reason: string | null }) => [slot.status, slot.reason]),
+    [
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['BOOKED', 'BOOKED'],
+      ['BLOCKED', 'MAINTENANCE'],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+      ['AVAILABLE', null],
+    ],
+  );
   assert.equal(body.slots[4].status, 'BOOKED');
   assert.equal(body.slots[5].status, 'BLOCKED');
   assert.equal(body.slots[5].reason, 'MAINTENANCE');
+
+  const localTime = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Stockholm',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  });
+  assert.deepEqual(
+    body.slots.map((slot: { startTime: string }) => localTime.format(new Date(slot.startTime))),
+    ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+  );
+  assert.equal(localTime.format(new Date(body.slots[11].endTime)), '00:00');
+});
+
+test('blocked status takes precedence when a booking overlaps the same slot', async () => {
+  const availability = await app.inject({ method: 'GET', url: `/laundry-rooms/${laundryRoomId}/availability?date=${date}` });
+  const blockedSlot = availability.json().slots[5] as { startTime: string; endTime: string };
+  const booking = await prisma.booking.create({
+    data: {
+      residentId: seededResidentId,
+      laundryRoomId,
+      startTime: new Date(blockedSlot.startTime),
+      endTime: new Date(blockedSlot.endTime),
+      status: 'ACTIVE',
+    },
+  });
+
+  try {
+    const response = await app.inject({ method: 'GET', url: `/laundry-rooms/${laundryRoomId}/availability?date=${date}` });
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.json().slots[5].status, 'BLOCKED');
+    assert.equal(response.json().slots[5].reason, 'MAINTENANCE');
+  } finally {
+    await prisma.booking.delete({ where: { id: booking.id } });
+  }
 });
 
 test('rejects malformed availability identifiers and date filters', async () => {
