@@ -15,6 +15,17 @@ const date = new Intl.DateTimeFormat('en-CA', {
   month: '2-digit',
   day: '2-digit',
 }).format(tomorrow);
+const stockholmDate = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Stockholm',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+const stockholmHour = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Stockholm',
+  hour: '2-digit',
+  hourCycle: 'h23',
+});
 
 const app = buildApp();
 let residentId: string;
@@ -22,6 +33,19 @@ let conflictResidentId: string;
 let createdBookingId: string;
 
 const removeTestData = async () => {
+  const activeRoomBookings = await prisma.booking.findMany({
+    where: { laundryRoomId, status: 'ACTIVE' },
+    select: { id: true, startTime: true },
+  });
+  const staleTestSlotIds = activeRoomBookings
+    .filter(({ startTime }) => {
+      const localDate = stockholmDate.format(startTime);
+      const localHour = stockholmHour.format(startTime);
+      return localDate === date && (localHour === '16' || localHour === '18');
+    })
+    .map(({ id }) => id);
+
+  await prisma.booking.deleteMany({ where: { id: { in: staleTestSlotIds } } });
   await prisma.booking.deleteMany({ where: { residentId: { in: [testResidentId, conflictTestResidentId] } } });
   await prisma.resident.deleteMany({ where: { id: { in: [testResidentId, conflictTestResidentId] } } });
 };
