@@ -4,6 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.33.0",
   "scripts": {
+    "postinstall": "prisma generate --config prisma.config.ts",
     "dev": "pnpm --parallel --filter web --filter api dev",
     "dev:web": "pnpm --filter web dev",
     "dev:web:3010": "pnpm --filter web dev:3010",
