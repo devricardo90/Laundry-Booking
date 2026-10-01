@@ -280,3 +280,34 @@ test('creates a booking, rejects an overlapping booking, lists it, and cancels i
   assert.equal(canceledAgain.statusCode, 409);
   assert.equal(canceledAgain.json().message, 'Booking cannot be canceled unless it is ACTIVE');
 });
+
+test('serializes concurrent requests for the same laundry-room slot', async () => {
+  const payload = { laundryRoomId, date, slotStart: '18:00' };
+  const [first, second] = await Promise.all([
+    app.inject({ method: 'POST', url: '/bookings', payload: { ...payload, residentId } }),
+    app.inject({ method: 'POST', url: '/bookings', payload: { ...payload, residentId: conflictResidentId } }),
+  ]);
+
+  assert.deepEqual(
+    [first.statusCode, second.statusCode].sort((left, right) => left - right),
+    [201, 409],
+  );
+  const successfulResponse = first.statusCode === 201 ? first : second;
+  const conflictResponse = first.statusCode === 409 ? first : second;
+  assert.equal(conflictResponse.json().message, 'Requested slot is no longer available');
+
+  const successfulBookingId = successfulResponse.json().id as string;
+  try {
+    const activeBookings = await prisma.booking.findMany({
+      where: {
+        id: successfulBookingId,
+        laundryRoomId,
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    });
+    assert.deepEqual(activeBookings.map(({ id }) => id), [successfulBookingId]);
+  } finally {
+    await prisma.booking.delete({ where: { id: successfulBookingId } });
+  }
+});
