@@ -5,6 +5,8 @@ import { prisma } from './prisma.js';
 
 const laundryRoomId = '11111111-1111-4111-8111-111111111111';
 const seededResidentId = '22222222-2222-4222-8222-222222222222';
+const testResidentId = '77777777-7777-4777-8777-777777777777';
+const conflictTestResidentId = '88888888-8888-4888-8888-888888888888';
 const tomorrow = new Date();
 tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
 const date = new Intl.DateTimeFormat('en-CA', {
@@ -19,6 +21,11 @@ let residentId: string;
 let conflictResidentId: string;
 let createdBookingId: string;
 
+const removeTestData = async () => {
+  await prisma.booking.deleteMany({ where: { residentId: { in: [testResidentId, conflictTestResidentId] } } });
+  await prisma.resident.deleteMany({ where: { id: { in: [testResidentId, conflictTestResidentId] } } });
+};
+
 const assertBadRequest = (response: Awaited<ReturnType<typeof app.inject>>, message: string) => {
   assert.equal(response.statusCode, 400);
   assert.deepEqual(response.json(), { error: 'Bad Request', message });
@@ -31,17 +38,17 @@ const assertNotFound = (response: Awaited<ReturnType<typeof app.inject>>, messag
 
 before(async () => {
   await app.ready();
+  await removeTestData();
   const [resident, conflictResident] = await Promise.all([
-    prisma.resident.create({ data: { name: 'API Regression Resident', email: `api-regression-${Date.now()}@example.local` } }),
-    prisma.resident.create({ data: { name: 'API Conflict Resident', email: `api-conflict-${Date.now()}@example.local` } }),
+    prisma.resident.create({ data: { id: testResidentId, name: 'API Regression Resident', email: 'api-regression@example.local' } }),
+    prisma.resident.create({ data: { id: conflictTestResidentId, name: 'API Conflict Resident', email: 'api-conflict@example.local' } }),
   ]);
   residentId = resident.id;
   conflictResidentId = conflictResident.id;
 });
 
 after(async () => {
-  await prisma.booking.deleteMany({ where: { residentId: { in: [residentId, conflictResidentId] } } });
-  await prisma.resident.deleteMany({ where: { id: { in: [residentId, conflictResidentId] } } });
+  await removeTestData();
   await app.close();
 });
 
