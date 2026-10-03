@@ -1,12 +1,13 @@
 # Laundry Booking Condo — Project Source of Truth
 
-Audit date: 2026-09-30 UTC. VERIFIED FACTS are from this checkout; UNKNOWN means not present.
+Audit date: 2026-10-03 UTC. VERIFIED FACTS are from this checkout; UNKNOWN means not present.
 
 ## 1. Repository identity
 
 - Repository: `git@github.com:devricardo90/Laundry-Booking.git`
-- Branch: `main`
-- Audited commit: `57363dc441e1f231c0086fd8bba281d93f9bf028` (the pre-documentation audit baseline and `origin/main` at audit time). This document was committed afterward; the commit containing it is intentionally not recorded here because editing the document changes that commit's SHA.
+- Branch: `hermes/lbc-011-reconcile-execution-status` (task branch from clean `main` at `ba2dc9feafe55ca53d3b0cff13029f39647737f0`, equal to `origin/main` at task start).
+- Audited commit: `ba2dc9feafe55ca53d3b0cff13029f39647737f0`.
+- The earlier audit baseline `57363dc441e1f231c0086fd8bba281d93f9bf028` and its findings remain historical evidence; this snapshot records the newer checkout separately.
 - Working tree was clean before this documentation change.
 
 ## 2. Product purpose
@@ -65,14 +66,14 @@ Ran with pnpm 10.33.0 on Node v26.5.1.
 
 | Gate | Exact command | Result |
 |---|---|---|
-| Lint | `pnpm lint` | FAILED exit 2: web Prettier passed; API missing PrismaClient/Prisma exports and implicit-any errors. |
-| Typecheck | `pnpm typecheck` | FAILED exit 2, same API errors; web passed. |
-| Web tests | `pnpm --filter web test --watch=false` | PASSED: 1 file, 2 tests. |
-| Build | `pnpm build` | FAILED exit 2 because API failed; web build completed. |
-| Prisma validation | `pnpm exec prisma validate --config prisma.config.ts` | FAILED exit 1: DATABASE_URL missing; no DB changed. |
-| Diff check | `git diff --check` | PASSED exit 0, run after writing and before the documentation commit. |
+| Lint | `pnpm lint` | PASSED exit 0: API TypeScript and web Prettier passed. |
+| Typecheck | `pnpm typecheck` | PASSED exit 0: API and web passed. |
+| Tests | `pnpm test -- --run` | FAILED exit 1: 7 passed, 2 API availability tests failed because the running local database did not contain the expected seeded booking/blocked-slot records. |
+| Build | `pnpm build` | NOT RUN: the chained verification command stopped after the test failure. |
+| Prisma validation | `pnpm exec prisma validate --config prisma.config.ts` | NOT RUN in this reconciliation; requires `DATABASE_URL`. |
+| Diff check | `git diff --check` | PASSED exit 0 for the current documentation diff. |
 
-The attempted `pnpm --filter web test -- --watch=false --browsers=ChromeHeadless` failed Angular schema parsing due duplicated `--`; the direct test command passed. No API repair was attempted.
+The earlier audit's failed API lint/typecheck/build results remain historical and are superseded by the current lint/typecheck results above. The current API test failures were not repaired because this task is documentation-only; no application or database changes were made.
 
 ## 11. CI/CD and deployment
 
@@ -80,11 +81,11 @@ No GitHub Actions, Docker, hosting, IaC, deployment manifest, domain, TLS, produ
 
 ## 12. Known issues and technical debt
 
-API lint/typecheck/build fail; Node baseline is outside declared range; Prisma validation requires DATABASE_URL; no auth; no API/E2E suite; no CI/Docker/deployment; business rules are mainly application-level; demo UUIDs ship in UI; status docs include historical claims; Zod is documented but absent.
+API lint/typecheck pass in this checkout; build status is UNKNOWN because `pnpm build` was not run in this reconciliation (the earlier audit recorded a failed build); the API test suite has two seed-dependent failures; Node baseline is outside declared range; Prisma validation requires DATABASE_URL; no auth; no API/E2E suite; no CI/Docker/deployment; business rules are mainly application-level; demo UUIDs ship in UI; status docs include historical claims; Zod is documented but absent.
 
 ## 13. Autonomous-development blockers
 
-API gates are not green; no CI exists; no auth boundary exists; correctness checks require controlled PostgreSQL; original LBC-009 readiness criteria are missing/blocking (`README.md:109-115`, `docs/ops/status.md:5-19`); no deployment/rollback/observability procedure exists.
+API lint/typecheck are green, but build status is unknown and the current test run is not green because two availability tests depend on seeded PostgreSQL state; no CI exists; no auth boundary exists; correctness checks require controlled PostgreSQL; original LBC-009 readiness criteria are missing/blocking (`README.md:109-115`, `docs/ops/status.md:5-19`); no deployment/rollback/observability procedure exists.
 
 ## 14. Recommended execution order
 
@@ -110,6 +111,6 @@ Acceptance criteria, scope, owner decisions, baseline commit, services/variables
 
 ## 17. Audit appendix
 
-Commands: git status --short --branch; git rev-parse HEAD; git branch --show-current; git log -8 --oneline --decorate; git remote -v; git ls-files; date -u; pnpm lint; pnpm typecheck; both web test invocations; pnpm build; pnpm exec prisma validate --config prisma.config.ts; git diff --check.
+Current reconciliation commands: git status --short --branch; git rev-parse HEAD; git branch --show-current; git log -8 --oneline --decorate; git remote -v; git ls-files; date -u; pnpm lint; pnpm typecheck; pnpm test -- --run; git diff --check; git diff --name-only. Historical audit commands also included both web test invocations, pnpm build, and pnpm exec prisma validate --config prisma.config.ts.
 
-Successful: identity/remote read; web Prettier; web typecheck; corrected web test (1 file/2 tests); web build; `git diff --check` (exit 0). Failed: root lint/typecheck/build from API errors; duplicated-argument test invocation; Prisma validate from missing DATABASE_URL. Not executed: migration/seed/API smoke/full browser flow because no database was assumed/created; deployment/CI/Docker checks because absent. No source/dependency repair was attempted.
+Current reconciliation: identity/remote read; `pnpm lint`; `pnpm typecheck`; `git diff --check` (exit 0); and authorized-file diff-name validation succeeded. `pnpm test -- --run` failed with 7 passed and 2 seed-dependent availability failures; `pnpm build` and Prisma validation were not run. Historical audit evidence remains: web Prettier/typecheck and corrected web test/build succeeded, while the prior root lint/typecheck/build failed from API errors, the duplicated-argument test invocation failed, and Prisma validation failed from missing DATABASE_URL. Migration/seed/API smoke/full browser flow were not run in either record; deployment/CI/Docker checks are absent. No source/dependency repair was attempted.

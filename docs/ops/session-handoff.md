@@ -5,7 +5,7 @@ Project: LBC - Laundry Booking Condo
 Current next unit:
 LBC-009 validation/readiness (BLOCKED; original acceptance criteria missing).
 
-Current state (2026-09-30):
+Current state (2026-10-03):
 - LBC-008A is Remote DONE at `4c6829d`; LBC-008B is Remote DONE at `3ce264c`.
 - LBC-008C is Remote DONE; README and portfolio evidence criteria passed review on 2026-09-30.
 - Owner-referenced LBC-009 validation/readiness is BLOCKED because its original acceptance checklist is not in the repository.
