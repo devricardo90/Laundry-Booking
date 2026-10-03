@@ -2,7 +2,7 @@
 
 Operational source of truth: this file is the canonical task backlog. Root `backlog.md` is maintained as a synchronized entry-point mirror because the README links to it.
 
-## Current Recovery State - 2026-09-30
+## Current Recovery State - 2026-10-03
 
 - LBC-008A: Remote DONE at `4c6829d`.
 - LBC-008B: Remote DONE at `3ce264c`.

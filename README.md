@@ -110,7 +110,7 @@ The 2026-07-08 execution log records screenshot capture during the smoke run, bu
 
 ## Roadmap
 
-- SPR-01 demo and portfolio evidence work is recorded as complete; the remaining local readiness item is blocked pending its original acceptance criteria.
+- SPR-01 demo and portfolio evidence scope is recorded as complete; the remaining local readiness item is blocked pending its original acceptance criteria.
 - Resume local readiness validation only after the original LBC-009 acceptance criteria are recovered and reviewed.
 - Continue the documented resident booking-flow stabilization work in Phase 2 of [the product roadmap](docs/product/roadmap.md).
 - Authentication, payments, production deployment, and expanded administrator workflows are outside the current sprint and are not delivered features.
